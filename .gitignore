@@ -2,6 +2,8 @@
 *.csproj.user
 *.nupkg
 .vs/
+build/
+packages/
 src/**/ER.resx
 src/**/Errors.cs
 src/**/Exceptions.cs
@@ -11,6 +13,15 @@ sample/**/bin/
 sample/**/obj/
 tests/**/bin/
 tests/**/obj/
-packages/
+
+# Ignore generated
 src/Zinc.WebServices/ServiceModel/WcfBehaviours.cs
 src/Zinc.WebServices/Configuration.cs
+
+# Ignore method API
+sample/Zn.Sample/OneService/MethodOne.cs
+sample/Zn.Sample/OneService/MethodThree.cs
+sample/Zn.Sample/Services.cs
+sample/Zn.Sample/TwoService/MethodTwo.cs
+
+# Other

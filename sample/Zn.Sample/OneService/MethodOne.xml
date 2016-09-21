@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<?codebehind transformation="../../../src/Zinc.Transforms/ToWsServices.xslt"?>
+<method xmlns="urn:zinc" xmlns:rest="urn:zinc/rest" xmlns:m="urn:zinc/mock">
+    <summary>First method of service one.</summary>
+
+    <request>
+        <int name="Value" />
+    </request>
+
+    <response>
+        <int name="Value" />
+    </response>
+</method>

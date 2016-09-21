@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<?codebehind transformation="../../src/Zinc.Transforms/ToWsServices.xslt"?>
+<services xmlns="urn:zinc">
+    <namespace>http://zinc.com/sample</namespace>
+
+    <service name="One">
+        <method name="MethodOne" />
+        <method name="MethodThree" />
+    </service>
+
+    <service name="Two">
+        <method name="MethodTwo" />
+    </service>
+
+</services>

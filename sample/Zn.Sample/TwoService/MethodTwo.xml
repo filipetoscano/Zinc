@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<?codebehind transformation="../../../src/Zinc.Transforms/ToWsServices.xslt"?>
+<method xmlns="urn:zinc" xmlns:rest="urn:zinc/rest" xmlns:m="urn:zinc/mock">
+    <notImplemented />
+    
+    <summary>First method of service two.</summary>
+
+    <request rest:method="get">
+    </request>
+
+    <response>
+        <string name="RandomString" />
+        <string name="DataString" m:data="matrix/name" />
+        <int name="RandomInteger" />
+        <date name="RandomDate" />
+        <dateTime name="RandomDateTime" />
+    </response>
+</method>

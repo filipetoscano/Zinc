@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<?codebehind transformation="../../../src/Zinc.Transforms/ToWsServices.xslt"?>
+<method xmlns="urn:zinc" xmlns:rest="urn:zinc/rest" xmlns:m="urn:zinc/mock">
+    <notImplemented />
+    
+    <summary>Third method of service one.</summary>
+
+    <request>
+        <string name="Value" />
+
+        <structure name="SimpleClass" type="SimpleClass">
+            <string name="Value" />
+        </structure>
+
+        <structure-ref name="OptClass" type="SimpleClass" optional="true" />
+
+        <structure name="NestedClass" type="NestedClass">
+            <string name="Value" />
+            <structure-ref name="Nested" type="NestedClass" optional="true" />
+        </structure>
+
+        <structure name="NestedArray" type="NestedArray" array="true">
+            <string name="Value" />
+            <structure-ref name="Nested" type="NestedClass" array="true" optional="true" />
+        </structure>
+    </request>
+
+    <response>
+    </response>
+</method>
