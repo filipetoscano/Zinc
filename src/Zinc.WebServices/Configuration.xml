@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<configuration xmlns="urn:yttrium/vs/config">
+
+    <section name="zinc.webServices" type="ZincConfiguration">
+        <element name="rest" type="ZincRestConfiguration">
+            <bool name="enabled" optional="true" default="true" />
+
+            <!-- named name="handlers" -->
+
+            <repeater name="extensions">
+                <item name="add" type="ZincRestExtension">
+                    <string name="name" key="true" />
+                    <string name="type" />
+                    <keyValue />
+                </item>
+            </repeater>
+
+            <element name="logging" type="ZincRestLoggingConfiguration" optional="true">
+                <bool name="enabled" default="false" />
+
+                <repeater name="X">
+                    <item name="for" type="Z">
+                        <string name="url" key="true" />
+
+                        <!--
+                        <element name="request" type="X" optional="true">
+                            <bool name="enabled" optional="true" default="true" />
+
+                            <repeater name="">
+                                <item name="add" type="XX">
+                                    <string name="secret" />
+                                </item>
+                            </repeater>
+                        </element>
+
+                        <element name="response" type="Y" optional="true">
+                            <repeater name="">
+                                <item name="add" type="YY">
+                                    <string name="secret" />
+                                </item>
+                            </repeater>
+                        </element>
+                        -->
+                    </item>
+                </repeater>
+            </element>
+        </element>
+
+
+        <element name="serviceModel" type="ZincServiceModelConfiguration" optional="true">
+            <element name="logging" type="ZincLoggingConfiguration" optional="true">
+                <bool name="enabled" optional="true" default="false" />
+
+                <repeater name="X">
+                    <item name="for" type="ZZ">
+                        <string name="soapAction" key="true" />
+
+                        <!--
+                        <element name="request" type="X" optional="true">
+                            <repeater name="">
+                                <item name="add" type="XX">
+                                    <string name="secret" />
+                                </item>
+                            </repeater>
+                        </element>
+
+                        <element name="response" type="Y" optional="true">
+                            <repeater name="">
+                                <item name="add" type="YY">
+                                    <string name="secret" />
+                                </item>
+                            </repeater>
+                        </element>
+                        -->
+                    </item>
+                </repeater>
+            </element>
+        </element>
+    </section>
+
+</configuration>

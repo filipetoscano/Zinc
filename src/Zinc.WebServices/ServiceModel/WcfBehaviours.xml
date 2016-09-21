@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<?codebehind transformation="ToWcfArtifacts.xslt"?>
+<behaviours xmlns="urn:zinc/service-model" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+    <!-- Mandatory -->
+    <add name="Execution" />
+
+    <!-- Logging -->
+    <add name="Debug" />
+    <add name="SqlServerLogging" />
+    <add name="ElasticLogging" />
+</behaviours>

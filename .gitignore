@@ -1,0 +1,16 @@
+*.suo
+*.csproj.user
+*.nupkg
+.vs/
+src/**/ER.resx
+src/**/Errors.cs
+src/**/Exceptions.cs
+src/**/bin/
+src/**/obj/
+sample/**/bin/
+sample/**/obj/
+tests/**/bin/
+tests/**/obj/
+packages/
+src/Zinc.WebServices/ServiceModel/WcfBehaviours.cs
+src/Zinc.WebServices/Configuration.cs

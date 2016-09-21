@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<errors xmlns="urn:platinum/actor">
+    <actor base="{Application}" />
+
+
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    ~
+    ~ Rest/
+    ~
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <error id="MethodInvoker_RequestValidate" actor="~.Zinc" code="4000">
+        <description>Unhandled exception validating instance of '{0}'.</description>
+    </error>
+
+    <error id="MethodInvoker_RequestInvalid" actor="~.Client" code="4001">
+        <description>Request '{0}' is invalid.</description>
+    </error>
+
+    <error id="MethodInvoker_ResponseValidate" actor="~.Zinc" code="4002">
+        <description>Unhandled exception validating instance of '{0}'.</description>
+    </error>
+
+    <error id="MethodInvoker_ResponseInvalid" actor="~.Zinc" code="4003">
+        <description>Response '{0}' is invalid.</description>
+    </error>
+
+
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    ~
+    ~ Rest/
+    ~
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <error id="Rest_SqlServer_ConnectionMissing" actor="~.Rest.Configuration" code="2000">
+        <description>Connection string '{0}' is missing from configuration.</description>
+    </error>
+
+    <error id="Rest_SqlServer_Open" actor="~.Rest.Data" code="2001">
+        <description>Failed to open connection to database '{0}'.</description>
+    </error>
+
+    <error id="Rest_SqlServer_ExecuteNonQuery" actor="~.Rest.Data" code="2002">
+        <description>Failed to execute journal statement on database '{0}'.</description>
+    </error>
+
+    <error id="Rest_Configuration_MissingHandler" actor="~.Rest.Configuration" code="2002">
+        <description>Handlers references '{0}', but has not been added as extension.</description>
+    </error>
+
+
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    ~
+    ~ ServiceModel/
+    ~
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <error id="ServiceModel_SqlServer_ConnectionMissing" actor="~.Soap.Configuration" code="3000">
+        <description>Connection string '{0}' is missing from configuration.</description>
+    </error>
+
+    <error id="ServiceModel_SqlServer_Open" actor="~.Soap.Data" code="3001">
+        <description>Failed to open connection to database '{0}'.</description>
+    </error>
+
+    <error id="ServiceModel_SqlServer_ExecuteNonQuery" actor="~.Soap.Data" code="3002">
+        <description>Failed to execute journal statement on database '{0}'.</description>
+    </error>
+
+</errors>

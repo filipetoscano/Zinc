@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    elementFormDefault="qualified" attributeFormDefault="unqualified"
+    targetNamespace="urn:zinc/service-model"
+    xmlns:wcf="urn:zinc/service-model">
+
+    <xsd:element name="behaviours">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element maxOccurs="unbounded" name="add">
+                    <xsd:complexType>
+                        <xsd:attribute name="name" type="xsd:string" use="required" />
+                    </xsd:complexType>
+                </xsd:element>
+            </xsd:sequence>
+        </xsd:complexType>
+
+        <xsd:unique name="uqName">
+            <xsd:selector xpath=" wcf:add " />
+            <xsd:field xpath=" @name " />
+        </xsd:unique>
+    </xsd:element>
+
+</xsd:schema>

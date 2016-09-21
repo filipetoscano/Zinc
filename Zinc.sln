@@ -1,0 +1,57 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Zinc", "Zinc", "{BAB42627-05C8-42ED-8293-33EBA52C0F5C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zinc.WebServices", "src\Zinc.WebServices\Zinc.WebServices.csproj", "{4C5DD63C-138C-44AF-98B5-BE22AEFB0150}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zinc.WebServices.Client", "src\Zinc.WebServices.Client\Zinc.WebServices.Client.csproj", "{C228479C-0A08-4A65-9352-3403F3E81C88}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zinc.WebServices.SvcUtil", "src\Zinc.WebServices.SvcUtil\Zinc.WebServices.SvcUtil.csproj", "{E9656DD1-60E4-432F-9DF4-A187EC9C4455}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ZZ Sample", "ZZ Sample", "{E7D0D594-4D33-4F71-AD97-21223E1DB256}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Transforms", "Transforms", "{88BD9822-B211-42F6-B426-BFA1A7EB4C7C}"
+	ProjectSection(SolutionItems) = preProject
+		src\Zinc.Transforms\ToWsServices-Documentation.xslt = src\Zinc.Transforms\ToWsServices-Documentation.xslt
+		src\Zinc.Transforms\ToWsServices.xslt = src\Zinc.Transforms\ToWsServices.xslt
+		src\Zinc.Transforms\WsServices.xsd = src\Zinc.Transforms\WsServices.xsd
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zn.Sample", "sample\Zn.Sample\Zn.Sample.csproj", "{8A613594-84D9-4B0C-8064-67C41CA08760}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4C5DD63C-138C-44AF-98B5-BE22AEFB0150}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C5DD63C-138C-44AF-98B5-BE22AEFB0150}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C5DD63C-138C-44AF-98B5-BE22AEFB0150}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C5DD63C-138C-44AF-98B5-BE22AEFB0150}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C228479C-0A08-4A65-9352-3403F3E81C88}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C228479C-0A08-4A65-9352-3403F3E81C88}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C228479C-0A08-4A65-9352-3403F3E81C88}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C228479C-0A08-4A65-9352-3403F3E81C88}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E9656DD1-60E4-432F-9DF4-A187EC9C4455}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E9656DD1-60E4-432F-9DF4-A187EC9C4455}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E9656DD1-60E4-432F-9DF4-A187EC9C4455}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E9656DD1-60E4-432F-9DF4-A187EC9C4455}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A613594-84D9-4B0C-8064-67C41CA08760}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A613594-84D9-4B0C-8064-67C41CA08760}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A613594-84D9-4B0C-8064-67C41CA08760}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A613594-84D9-4B0C-8064-67C41CA08760}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{4C5DD63C-138C-44AF-98B5-BE22AEFB0150} = {BAB42627-05C8-42ED-8293-33EBA52C0F5C}
+		{C228479C-0A08-4A65-9352-3403F3E81C88} = {BAB42627-05C8-42ED-8293-33EBA52C0F5C}
+		{E9656DD1-60E4-432F-9DF4-A187EC9C4455} = {BAB42627-05C8-42ED-8293-33EBA52C0F5C}
+		{8A613594-84D9-4B0C-8064-67C41CA08760} = {E7D0D594-4D33-4F71-AD97-21223E1DB256}
+	EndGlobalSection
+EndGlobal

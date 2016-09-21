@@ -1,0 +1,355 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    elementFormDefault="qualified"
+    targetNamespace="urn:zinc"
+    xmlns:zn="urn:zinc">
+
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    ~
+    ~ services
+    ~ The index of the application, which enumerates all of the 
+    ~ services (and it's corresponding methods) which are implemented.
+    ~
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <xsd:element name="services">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="namespace" type="xsd:anyURI" />
+
+                <xsd:element name="service" type="zn:serviceType" minOccurs="0" maxOccurs="unbounded">
+                    <xsd:unique name="uqMethodName">
+                        <xsd:selector xpath=" zn:method " />
+                        <xsd:field xpath=" @name " />
+                    </xsd:unique>
+                </xsd:element>
+            </xsd:sequence>
+        </xsd:complexType>
+
+        <xsd:unique name="uqServiceName">
+            <xsd:selector xpath=" zn:service " />
+            <xsd:field xpath=" @name " />
+        </xsd:unique>
+    </xsd:element>
+
+    <xsd:complexType name="serviceType">
+        <xsd:sequence>
+            <xsd:element name="method" minOccurs="1" maxOccurs="unbounded">
+                <xsd:complexType>
+                    <xsd:attribute name="name" type="zn:token" use="required" />
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:sequence>
+
+        <xsd:attribute name="name" type="zn:token" use="required" />
+    </xsd:complexType>
+
+
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    ~
+    ~ types
+    ~ Shared types in the application.
+    ~
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <xsd:element name="types">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:choice minOccurs="0" maxOccurs="unbounded">
+                    <xsd:element name="structure">
+                        <xsd:complexType>
+                            <xsd:complexContent>
+                                <xsd:extension base="zn:structureType">
+                                    <xsd:attribute name="type" type="zn:token" use="required" />
+                                </xsd:extension>
+                            </xsd:complexContent>
+                        </xsd:complexType>
+
+                        <xsd:unique name="structureProperty2">
+                            <xsd:selector xpath=" zn:* " />
+                            <xsd:field xpath=" @name " />
+                        </xsd:unique>
+                    </xsd:element>
+
+                    <xsd:element name="enumeration" type="zn:enumerationType">
+                        <xsd:unique name="enumValue2">
+                            <xsd:selector xpath=" zn:enum " />
+                            <xsd:field xpath=" @value " />
+                        </xsd:unique>
+                    </xsd:element>
+                </xsd:choice>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    ~
+    ~ method
+    ~
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <xsd:element name="method">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="notImplemented" minOccurs="0" />
+                <xsd:element name="summary" type="xsd:string" minOccurs="0" />
+                <xsd:element name="remarks" type="xsd:string" minOccurs="0" />
+
+                <xsd:element name="using" minOccurs="0" maxOccurs="unbounded">
+                    <xsd:complexType>
+                        <xsd:attribute name="namespace" type="zn:csNamespace" />
+                    </xsd:complexType>
+                </xsd:element>
+
+                <xsd:element name="request">
+                    <xsd:complexType>
+                        <xsd:complexContent>
+                            <xsd:extension base="zn:structureType">
+                                <xsd:anyAttribute namespace="urn:zinc/rest" processContents="skip" />
+                            </xsd:extension>
+                        </xsd:complexContent>
+                    </xsd:complexType>
+
+                    <xsd:unique name="reqProperty">
+                        <xsd:selector xpath=" zn:* " />
+                        <xsd:field xpath=" @name " />
+                    </xsd:unique>
+                </xsd:element>
+
+                <xsd:element name="response">
+                    <xsd:complexType>
+                        <xsd:complexContent>
+                            <xsd:extension base="zn:structureType">
+                                <xsd:anyAttribute namespace="urn:zinc/rest" processContents="skip" />
+                            </xsd:extension>
+                        </xsd:complexContent>
+                    </xsd:complexType>
+
+                    <xsd:unique name="respProperty">
+                        <xsd:selector xpath=" zn:* " />
+                        <xsd:field xpath=" @name " />
+                    </xsd:unique>
+                </xsd:element>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:complexType name="structureType">
+        <xsd:sequence>
+            <xsd:element name="summary" type="xsd:string" minOccurs="0" />
+            <xsd:element name="remarks" type="xsd:string" minOccurs="0" />
+
+            <xsd:choice minOccurs="0" maxOccurs="unbounded">
+                <xsd:element name="string" type="zn:simpleProperty">
+                    <xsd:annotation>
+                        <xsd:documentation>Character sequence. Mapped to 'string'.</xsd:documentation>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element name="bool" type="zn:simpleProperty">
+                    <xsd:annotation>
+                        <xsd:documentation>Boolean value. Mapped to 'bool'.</xsd:documentation>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element name="short" type="zn:simpleProperty">
+                    <xsd:annotation>
+                        <xsd:documentation>16-bit integer. Mapped to 'short'.</xsd:documentation>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element name="int" type="zn:simpleProperty">
+                    <xsd:annotation>
+                        <xsd:documentation>32-bit integer. Mapped to 'int'.</xsd:documentation>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element name="long" type="zn:simpleProperty">
+                    <xsd:annotation>
+                        <xsd:documentation>64-bit integer. Mapped to 'long'.</xsd:documentation>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element name="float" type="zn:simpleProperty">
+                    <xsd:annotation>
+                        <xsd:documentation>Single precision floating point number. Mapped to 'float'.</xsd:documentation>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element name="double" type="zn:simpleProperty">
+                    <xsd:annotation>
+                        <xsd:documentation>Double precision floating point number. Mapped to 'double'.</xsd:documentation>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element name="decimal" type="zn:simpleProperty">
+                    <xsd:annotation>
+                        <xsd:documentation>Fixed precision number. Mapped to 'decimal'.</xsd:documentation>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element name="date" type="zn:simpleProperty">
+                    <xsd:annotation>
+                        <xsd:documentation>Date value. Mapped to 'DateTime'.</xsd:documentation>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element name="dateTime" type="zn:simpleProperty">
+                    <xsd:annotation>
+                        <xsd:documentation>Date and time value. Mapped to 'DateTime'.</xsd:documentation>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element name="guid" type="zn:simpleProperty">
+                    <xsd:annotation>
+                        <xsd:documentation>Unique identifier. Mapped to 'Guid'.</xsd:documentation>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element name="time" type="zn:simpleProperty">
+                    <xsd:annotation>
+                        <xsd:documentation>Time value. Mapped to 'DateTime'.</xsd:documentation>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element name="binary" type="zn:binaryProperty">
+                    <xsd:annotation>
+                        <xsd:documentation>Binary content. Mapped to 'byte[]'.</xsd:documentation>
+                    </xsd:annotation>
+                </xsd:element>
+
+                <xsd:element name="enumeration" type="zn:enumerationProperty">
+                    <xsd:unique name="enumValue">
+                        <xsd:selector xpath=" zn:enum " />
+                        <xsd:field xpath=" @value " />
+                    </xsd:unique>
+                </xsd:element>
+                <xsd:element name="enumeration-ref" type="zn:typedProperty" />
+
+                <xsd:element name="structure">
+                    <xsd:complexType>
+                        <xsd:complexContent>
+                            <xsd:extension base="zn:structureType">
+                                <xsd:attribute name="name" type="zn:token" use="required">
+                                    <xsd:annotation>
+                                        <xsd:documentation>Name of property.</xsd:documentation>
+                                    </xsd:annotation>
+                                </xsd:attribute>
+                                <xsd:attribute name="type" type="zn:token" use="required" />
+                                <xsd:attribute name="optional" type="xsd:boolean" default="false" />
+                                <xsd:attribute name="array" type="xsd:boolean" default="false" />
+                            </xsd:extension>
+                        </xsd:complexContent>
+                    </xsd:complexType>
+
+                    <xsd:unique name="structureProperty">
+                        <xsd:selector xpath=" * " />
+                        <xsd:field xpath=" @name " />
+                    </xsd:unique>
+                </xsd:element>
+                <xsd:element name="structure-ref" type="zn:typedProperty" />
+            </xsd:choice>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="simpleProperty">
+        <xsd:sequence>
+            <xsd:element name="summary" type="xsd:string" minOccurs="0" />
+            <xsd:element name="remarks" type="xsd:string" minOccurs="0" />
+        </xsd:sequence>
+
+        <xsd:attribute name="name" type="zn:token" use="required">
+            <xsd:annotation>
+                <xsd:documentation>Name of property.</xsd:documentation>
+            </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="optional" type="xsd:boolean" default="false">
+            <xsd:annotation>
+                <xsd:documentation>Indicates whether the field is optional. Default is false.</xsd:documentation>
+            </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="array" type="xsd:boolean" default="false">
+            <xsd:annotation>
+                <xsd:documentation>Indicates whether the field repeats. Default is false.</xsd:documentation>
+            </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="rule" type="xsd:string" use="optional">
+            <xsd:annotation>
+                <xsd:documentation>
+                    Markup indicating the nature of the value. Can be used to perform automatic mocking, as
+                    well as runtime validations.
+                </xsd:documentation>
+            </xsd:annotation>
+        </xsd:attribute>
+    </xsd:complexType>
+
+    <xsd:complexType name="typedProperty">
+        <xsd:complexContent>
+            <xsd:extension base="zn:simpleProperty">
+                <xsd:attribute name="type" type="zn:token" use="required">
+                    <xsd:annotation>
+                        <xsd:documentation>Name of referenced type.</xsd:documentation>
+                    </xsd:annotation>
+                </xsd:attribute>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="binaryProperty">
+        <xsd:sequence>
+            <xsd:element name="summary" type="xsd:string" minOccurs="0" />
+            <xsd:element name="remarks" type="xsd:string" minOccurs="0" />
+        </xsd:sequence>
+
+        <xsd:attribute name="name" type="zn:token" use="required">
+            <xsd:annotation>
+                <xsd:documentation>Name of property.</xsd:documentation>
+            </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="optional" type="xsd:boolean" default="false">
+            <xsd:annotation>
+                <xsd:documentation>Indicates whether the field is optional. Default is false.</xsd:documentation>
+            </xsd:annotation>
+        </xsd:attribute>
+    </xsd:complexType>
+
+
+    <!-- Enumeration type / property -->
+    <xsd:complexType name="enumerationProperty">
+        <xsd:complexContent>
+            <xsd:extension base="zn:enumerationType">
+                <xsd:attribute name="name" type="zn:token" use="required">
+                    <xsd:annotation>
+                        <xsd:documentation>Name of property.</xsd:documentation>
+                    </xsd:annotation>
+                </xsd:attribute>
+                <xsd:attribute name="optional" type="xsd:boolean" default="false">
+                    <xsd:annotation>
+                        <xsd:documentation>Indicates whether the field is optional. Default is false.</xsd:documentation>
+                    </xsd:annotation>
+                </xsd:attribute>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="enumerationType">
+        <xsd:sequence>
+            <xsd:element name="summary" type="xsd:string" minOccurs="0" />
+            <xsd:element name="remarks" type="xsd:string" minOccurs="0" />
+            <xsd:element name="enum" maxOccurs="unbounded">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="summary" type="xsd:string" minOccurs="0" />
+                        <xsd:element name="remarks" type="xsd:string" minOccurs="0" />
+                    </xsd:sequence>
+
+                    <xsd:attribute name="value" type="zn:token" use="required" />
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:sequence>
+
+        <xsd:attribute name="type" type="zn:token" use="required" />
+    </xsd:complexType>
+
+
+    <!-- What is a valid .NET identifier? -->
+    <xsd:simpleType name="token">
+        <xsd:restriction base="xsd:string">
+            <xsd:pattern value="^[A-Z][a-zA-Z0-9_]*$" />
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <!-- What is a valid .NET namespace? -->
+    <xsd:simpleType name="csNamespace">
+        <xsd:restriction base="xsd:string">
+            <xsd:pattern value="^(@?[a-z_A-Z]\w*(?:\.@?[a-z_A-Z]\w*)*)*$" />
+        </xsd:restriction>
+    </xsd:simpleType>
+
+</xsd:schema>
