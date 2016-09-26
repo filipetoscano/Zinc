@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    elementFormDefault="qualified"
+    targetNamespace="urn:zinc/rest"
+    xmlns:zn="urn:zinc/rest">
+
+    <xsd:attribute name="method" default="post" type="zn:methodType" />
+
+    <xsd:simpleType name="methodType">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="get">
+                <xsd:annotation>
+                    <xsd:documentation>Marks this method as *also* supporting the GET method.</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+
+            <xsd:enumeration value="post">
+                <xsd:annotation>
+                    <xsd:documentation>Default. Marks this method as only having a POST method.</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+</xsd:schema>

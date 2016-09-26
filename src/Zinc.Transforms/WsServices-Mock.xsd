@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    elementFormDefault="qualified"
+    targetNamespace="urn:zinc/mock"
+    xmlns:zn="urn:zinc/mock">
+
+    <xsd:attribute name="data" type="xsd:string" />
+
+    <xsd:simpleType name="dataName">
+        <xsd:restriction base="xsd:string">
+            <xsd:pattern value="[A-Za-z].*" />
+        </xsd:restriction>
+    </xsd:simpleType>
+
+</xsd:schema>

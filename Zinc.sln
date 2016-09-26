@@ -17,6 +17,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Transforms", "Transforms", 
 	ProjectSection(SolutionItems) = preProject
 		src\Zinc.Transforms\ToWsServices-Documentation.xslt = src\Zinc.Transforms\ToWsServices-Documentation.xslt
 		src\Zinc.Transforms\ToWsServices.xslt = src\Zinc.Transforms\ToWsServices.xslt
+		src\Zinc.Transforms\WsServices-Mock.xsd = src\Zinc.Transforms\WsServices-Mock.xsd
+		src\Zinc.Transforms\WsServices-Rest.xsd = src\Zinc.Transforms\WsServices-Rest.xsd
+		src\Zinc.Transforms\WsServices-Validation.xsd = src\Zinc.Transforms\WsServices-Validation.xsd
 		src\Zinc.Transforms\WsServices.xsd = src\Zinc.Transforms\WsServices.xsd
 	EndProjectSection
 EndProject

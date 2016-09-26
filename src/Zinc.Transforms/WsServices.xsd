@@ -2,7 +2,14 @@
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
     elementFormDefault="qualified"
     targetNamespace="urn:zinc"
-    xmlns:zn="urn:zinc">
+    xmlns:zn="urn:zinc"
+    xmlns:mock="urn:zinc/mock"
+    xmlns:rest="urn:zinc/rest"
+    xmlns:v="urn:zinc/validation">
+
+    <xsd:import namespace="urn:zinc/mock" schemaLocation="WsServices-Mock.xsd" />
+    <xsd:import namespace="urn:zinc/rest" schemaLocation="WsServices-Rest.xsd" />
+    <xsd:import namespace="urn:zinc/validation" schemaLocation="WsServices-Validation.xsd" />
 
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     ~
@@ -103,7 +110,7 @@
                     <xsd:complexType>
                         <xsd:complexContent>
                             <xsd:extension base="zn:structureType">
-                                <xsd:anyAttribute namespace="urn:zinc/rest" processContents="skip" />
+                                <xsd:attribute ref="rest:method" use="optional" />
                             </xsd:extension>
                         </xsd:complexContent>
                     </xsd:complexType>
@@ -132,13 +139,21 @@
         </xsd:complexType>
     </xsd:element>
 
+
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    ~
+    ~ structureType
+    ~ This corresponds to a C# class, and each of the children will
+    ~ get mapped to properties.
+    ~
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <xsd:complexType name="structureType">
         <xsd:sequence>
             <xsd:element name="summary" type="xsd:string" minOccurs="0" />
             <xsd:element name="remarks" type="xsd:string" minOccurs="0" />
 
             <xsd:choice minOccurs="0" maxOccurs="unbounded">
-                <xsd:element name="string" type="zn:simpleProperty">
+                <xsd:element name="string" type="zn:stringProperty">
                     <xsd:annotation>
                         <xsd:documentation>Character sequence. Mapped to 'string'.</xsd:documentation>
                     </xsd:annotation>
@@ -238,6 +253,13 @@
         </xsd:sequence>
     </xsd:complexType>
 
+
+
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    ~
+    ~ properties
+    ~
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <xsd:complexType name="simpleProperty">
         <xsd:sequence>
             <xsd:element name="summary" type="xsd:string" minOccurs="0" />
@@ -259,7 +281,7 @@
                 <xsd:documentation>Indicates whether the field repeats. Default is false.</xsd:documentation>
             </xsd:annotation>
         </xsd:attribute>
-        <xsd:attribute name="rule" type="xsd:string" use="optional">
+        <xsd:attribute name="data" type="xsd:string" use="optional">
             <xsd:annotation>
                 <xsd:documentation>
                     Markup indicating the nature of the value. Can be used to perform automatic mocking, as
@@ -267,6 +289,9 @@
                 </xsd:documentation>
             </xsd:annotation>
         </xsd:attribute>
+
+        <xsd:attribute ref="mock:data" use="optional" />
+        <xsd:attribute ref="v:data" use="optional" />
     </xsd:complexType>
 
     <xsd:complexType name="typedProperty">
@@ -281,6 +306,8 @@
         </xsd:complexContent>
     </xsd:complexType>
 
+
+    <!-- Binary property -->
     <xsd:complexType name="binaryProperty">
         <xsd:sequence>
             <xsd:element name="summary" type="xsd:string" minOccurs="0" />
@@ -338,15 +365,38 @@
     </xsd:complexType>
 
 
-    <!-- What is a valid .NET identifier? -->
+    <!-- String property -->
+    <xsd:complexType name="stringProperty">
+        <xsd:complexContent>
+            <xsd:extension base="zn:simpleProperty">
+                <xsd:sequence>
+                    <xsd:element ref="v:length" minOccurs="0" />
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    ~
+    ~ Enums / Patterns
+    ~
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <xsd:simpleType name="token">
+        <xsd:annotation>
+            <xsd:documentation>Defines a valid .NET type identifier.</xsd:documentation>
+        </xsd:annotation>
+
         <xsd:restriction base="xsd:string">
             <xsd:pattern value="^[A-Z][a-zA-Z0-9_]*$" />
         </xsd:restriction>
     </xsd:simpleType>
 
-    <!-- What is a valid .NET namespace? -->
     <xsd:simpleType name="csNamespace">
+        <xsd:annotation>
+            <xsd:documentation>Defines a valid .NET namespace.</xsd:documentation>
+        </xsd:annotation>
+
         <xsd:restriction base="xsd:string">
             <xsd:pattern value="^(@?[a-z_A-Z]\w*(?:\.@?[a-z_A-Z]\w*)*)*$" />
         </xsd:restriction>
