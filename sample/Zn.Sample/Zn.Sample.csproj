@@ -183,6 +183,10 @@
       <Project>{4c5dd63c-138c-44af-98b5-be22aefb0150}</Project>
       <Name>Zinc.WebServices</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\src\Zinc.Web\Zinc.Web.csproj">
+      <Project>{7f5707ad-9ea7-4f8c-b215-b4fda1c70694}</Project>
+      <Name>Zinc.Web</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <PropertyGroup>

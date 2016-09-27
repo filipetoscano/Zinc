@@ -27,11 +27,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zn.Sample", "sample\Zn.Samp
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "global", "global", "{C8137D8B-AED6-4AD2-8970-B03086212FAC}"
 	ProjectSection(SolutionItems) = preProject
+		automation.proj = automation.proj
 		README.md = README.md
 		src\Zinc.Transforms\Zinc.Transforms.nuspec = src\Zinc.Transforms\Zinc.Transforms.nuspec
 		src\Zinc.WebServices.Client\Zinc.WebServices.Client.nuspec = src\Zinc.WebServices.Client\Zinc.WebServices.Client.nuspec
 		src\Zinc.WebServices\Zinc.WebServices.nuspec = src\Zinc.WebServices\Zinc.WebServices.nuspec
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zinc.Web", "src\Zinc.Web\Zinc.Web.csproj", "{7F5707AD-9EA7-4F8C-B215-B4FDA1C70694}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -55,6 +58,10 @@ Global
 		{8A613594-84D9-4B0C-8064-67C41CA08760}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8A613594-84D9-4B0C-8064-67C41CA08760}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8A613594-84D9-4B0C-8064-67C41CA08760}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F5707AD-9EA7-4F8C-B215-B4FDA1C70694}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F5707AD-9EA7-4F8C-B215-B4FDA1C70694}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F5707AD-9EA7-4F8C-B215-B4FDA1C70694}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F5707AD-9EA7-4F8C-B215-B4FDA1C70694}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -64,5 +71,6 @@ Global
 		{C228479C-0A08-4A65-9352-3403F3E81C88} = {BAB42627-05C8-42ED-8293-33EBA52C0F5C}
 		{E9656DD1-60E4-432F-9DF4-A187EC9C4455} = {BAB42627-05C8-42ED-8293-33EBA52C0F5C}
 		{8A613594-84D9-4B0C-8064-67C41CA08760} = {E7D0D594-4D33-4F71-AD97-21223E1DB256}
+		{7F5707AD-9EA7-4F8C-B215-B4FDA1C70694} = {BAB42627-05C8-42ED-8293-33EBA52C0F5C}
 	EndGlobalSection
 EndGlobal

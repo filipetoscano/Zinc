@@ -40,6 +40,10 @@
             <nugetArgs> -OutputDirectory ..\..\build -IncludeReferencedProjects -Prop Configuration=Release </nugetArgs>
         </PropertyGroup>
 
+        <XmlPoke XmlInputPath="src\Zinc.Transforms\Zinc.Transforms.nuspec"
+                 Query="/package/metadata/version"
+                 Value="$(version)" />
+
         <WriteLinesToFile Overwrite="true" File="src\GlobalVersion.cs" Lines="$(versionInfo)" />
         <MakeDir Directories="build" />
         <Exec Command=" nuget restore " />
@@ -50,6 +54,7 @@
         <MSBuild Projects="Zinc.sln" Properties="Configuration=Release" />
         <Exec Command=" nuget pack Zinc.WebServices.csproj $(nugetArgs) " WorkingDirectory="src\Zinc.WebServices" />
         <Exec Command=" nuget pack Zinc.WebServices.Client.csproj $(nugetArgs) " WorkingDirectory="src\Zinc.WebServices.Client" />
+        <Exec Command=" nuget pack Zinc.Transforms.nuspec -OutputDirectory ..\..\build " WorkingDirectory="src\Zinc.Transforms" />
     </Target>
 
 
@@ -63,6 +68,7 @@
         <Error Condition=" $(nugetPushKey) == '' " Text="Must specify 'nugetPushKey' when pushing to nuget source." />
         <Exec Command=" nuget push Zinc.WebServices.$(Version).nupkg -s $(nugetSource) $(nugetPushKey) " WorkingDirectory="build" />
         <Exec Command=" nuget push Zinc.WebServices.Client.$(Version).nupkg -s $(nugetSource) $(nugetPushKey) " WorkingDirectory="build" />
+        <Exec Command=" nuget push Zinc.Transforms.$(Version).nupkg -s $(nugetSource) $(nugetPushKey) " WorkingDirectory="build" />
     </Target>
 
 </Project>
