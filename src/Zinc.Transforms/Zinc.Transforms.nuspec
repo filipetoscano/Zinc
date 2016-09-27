@@ -17,8 +17,8 @@
     </metadata>
 
     <files>
-        <file src="ToWsServices.xslt" />
-        <file src="ToWsServices-Documentation.xslt" />
+        <file src="ToZnServices.xslt" />
+        <file src="ToZnServices-Documentation.xslt" />
         <file src="ZnServices.xsd" />
         <file src="ZnServices-Mock.xsd" />
         <file src="ZnServices-Rest.xsd" />

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<?codebehind transformation="../../src/Zinc.Transforms/ToWsServices.xslt"?>
+<?codebehind transformation="../../src/Zinc.Transforms/ToZnServices.xslt"?>
 <services xmlns="urn:zinc">
     <namespace>http://zinc.com/sample</namespace>
 
