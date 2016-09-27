@@ -7,9 +7,9 @@
     xmlns:rest="urn:zinc/rest"
     xmlns:v="urn:zinc/validation">
 
-    <xsd:import namespace="urn:zinc/mock" schemaLocation="WsServices-Mock.xsd" />
-    <xsd:import namespace="urn:zinc/rest" schemaLocation="WsServices-Rest.xsd" />
-    <xsd:import namespace="urn:zinc/validation" schemaLocation="WsServices-Validation.xsd" />
+    <xsd:import namespace="urn:zinc/mock" schemaLocation="ZnServices-Mock.xsd" />
+    <xsd:import namespace="urn:zinc/rest" schemaLocation="ZnServices-Rest.xsd" />
+    <xsd:import namespace="urn:zinc/validation" schemaLocation="ZnServices-Validation.xsd" />
 
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     ~

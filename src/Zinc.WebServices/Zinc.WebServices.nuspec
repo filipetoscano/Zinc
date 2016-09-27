@@ -6,9 +6,9 @@
         <title>$title$</title>
         <authors>Filipe Toscano</authors>
         <owners>Filipe Toscano</owners>
-        <licenseUrl>https://raw.githubusercontent.com/filipetoscano/Copper/master/License.txt</licenseUrl>
-        <projectUrl>https://github.com/filipetoscano/Copper</projectUrl>
-        <iconUrl>https://avatars1.githubusercontent.com/u/290602?v=3&amp;s=140</iconUrl>
+        <licenseUrl>https://raw.githubusercontent.com/filipetoscano/Zinc/master/License.txt</licenseUrl>
+        <projectUrl>https://github.com/filipetoscano/Zinc</projectUrl>
+        <iconUrl>https://raw.githubusercontent.com/filipetoscano/Zinc/master/src/zinc.ico</iconUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>$description$</description>
         <releaseNotes>Initial release.</releaseNotes>
