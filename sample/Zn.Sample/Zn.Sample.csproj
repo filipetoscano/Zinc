@@ -172,6 +172,7 @@
     <Compile Include="TwoServices.svc.cs">
       <DependentUpon>TwoServices.svc</DependentUpon>
     </Compile>
+    <Compile Include="TwoService\MethodTwoImpl.cs" />
     <Compile Include="TwoService\MethodTwo.cs">
       <DependentUpon>MethodTwo.xml</DependentUpon>
       <AutoGen>True</AutoGen>

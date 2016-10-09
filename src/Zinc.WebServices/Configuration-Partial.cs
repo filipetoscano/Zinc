@@ -33,17 +33,4 @@ namespace Zinc.WebServices
             }
         }
     }
-
-
-    public class JournallingMessageConfig
-    {
-        public bool Journal;
-        public List<DocumentExpression> Secrets;
-    }
-
-
-    public class DocumentExpression
-    {
-        public string Expression;
-    }
 }

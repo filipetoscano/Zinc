@@ -51,11 +51,14 @@
       <DependentUpon>Exceptions.xml</DependentUpon>
     </Compile>
     <Compile Include="ExecutionContext.cs" />
+    <Compile Include="Journaling\SqlServerJournal.cs" />
     <Compile Include="Json\DateConverter.cs" />
     <Compile Include="Json\NullableDateConverter.cs" />
     <Compile Include="Json\NullableTimeConverter.cs" />
     <Compile Include="Json\TimeConverter.cs" />
+    <Compile Include="Journaling\IExecutionJournal.cs" />
     <Compile Include="MethodInvoker.cs" />
+    <Compile Include="MethodLoggingType.cs" />
     <Compile Include="Rest\DebugLoggingHandler.cs" />
     <Compile Include="Rest\ElasticLoggingHandler.cs" />
     <Compile Include="Rest\ExecutionHandler.cs" />

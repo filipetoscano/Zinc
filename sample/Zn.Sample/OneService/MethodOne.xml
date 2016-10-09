@@ -1,6 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <?codebehind transformation="../../../src/Zinc.Transforms/ToZnServices.xslt"?>
-<method xmlns="urn:zinc" xmlns:rest="urn:zinc/rest" xmlns:m="urn:zinc/mock">
+<method xmlns="urn:zinc" xmlns:rest="urn:zinc/rest" xmlns:m="urn:zinc/mock" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="urn:zinc ../../../src/Zinc.Transforms/ZnServices.xsd">
+
     <summary>First method of service one.</summary>
 
     <request>

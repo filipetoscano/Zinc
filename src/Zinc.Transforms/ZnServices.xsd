@@ -297,7 +297,7 @@
     <xsd:complexType name="typedProperty">
         <xsd:complexContent>
             <xsd:extension base="zn:simpleProperty">
-                <xsd:attribute name="type" type="zn:token" use="required">
+                <xsd:attribute name="type" type="zn:fullType" use="required">
                     <xsd:annotation>
                         <xsd:documentation>Name of referenced type.</xsd:documentation>
                     </xsd:annotation>
@@ -391,6 +391,18 @@
             <xsd:pattern value="^[A-Z][a-zA-Z0-9_]*$" />
         </xsd:restriction>
     </xsd:simpleType>
+
+    
+    <xsd:simpleType name="fullType">
+        <xsd:annotation>
+            <xsd:documentation>Defines a valid full .NET type identifier (namespace and name).</xsd:documentation>
+        </xsd:annotation>
+
+        <xsd:restriction base="xsd:string">
+            <xsd:pattern value="^([a-zA-Z][a-zA-Z0-9_]*\.)*[A-Z][a-zA-Z0-9_]*$" />
+        </xsd:restriction>
+    </xsd:simpleType>
+
 
     <xsd:simpleType name="csNamespace">
         <xsd:annotation>

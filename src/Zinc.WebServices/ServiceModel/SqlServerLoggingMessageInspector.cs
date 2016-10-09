@@ -5,7 +5,6 @@ using System.Data.SqlClient;
 using System.ServiceModel;
 using System.ServiceModel.Channels;
 using System.ServiceModel.Dispatcher;
-using System.Xml;
 using System.Xml.XPath;
 
 namespace Zinc.WebServices.ServiceModel
@@ -50,13 +49,13 @@ namespace Zinc.WebServices.ServiceModel
 
 
             /*
-             *
+             * TODO: pull from config
              */
-            //JournallingConfig config = JournallingConfig.For( ctx );
+            var config = new MethodRawLoggingConfiguration() { Enabled = true, Request = true, Response = true };
 
-            if ( true ) //config.Enabled == true )
+            if ( config.Enabled == true )
             {
-                string message = ToMessage( null/*config.Request*/, buffer );
+                string message = ToMessage( config.Response, buffer );
                 Journal( ctx, 0, message );
             }
 
@@ -89,13 +88,13 @@ namespace Zinc.WebServices.ServiceModel
 
 
             /*
-             *
+             * TODO: pull from config
              */
-            //JournallingConfig config = JournallingConfig.For( ctx );
+            var config = new MethodRawLoggingConfiguration() { Enabled = true, Request = true, Response = true };
 
-            if ( true ) // config.Enabled == true )
+            if ( config.Enabled == true )
             {
-                string message = ToMessage( null /* config.Response */, buffer );
+                string message = ToMessage( config.Response, buffer );
                 Journal( ctx, 1, message );
             }
         }
@@ -106,22 +105,19 @@ namespace Zinc.WebServices.ServiceModel
         /// the database. This will follow/respect the configuration settings and
         /// apply the necessary transformations.
         /// </summary>
-        /// <param name="config">Journaling configuration for the tuple action/direction.</param>
+        /// <param name="emit">Whether to obtain the message from the buffer or not.</param>
         /// <param name="buffer">Buffer containing message.</param>
         /// <returns>XML message to journal.</returns>
-        private static string ToMessage( JournallingMessageConfig config, MessageBuffer buffer )
+        private static string ToMessage( bool emit, MessageBuffer buffer )
         {
             #region Validations
-
-            if ( config == null )
-                throw new ArgumentNullException( nameof( config ) );
 
             if ( buffer == null )
                 throw new ArgumentNullException( nameof( buffer ) );
 
             #endregion
 
-            if ( config.Journal == false )
+            if ( emit == false )
                 return "<not-journaled />";
 
 
@@ -129,33 +125,7 @@ namespace Zinc.WebServices.ServiceModel
              * 
              */
             XPathNavigator nav = buffer.CreateNavigator();
-            string message;
-
-            if ( config.Secrets != null && config.Secrets.Count > 0 )
-            {
-                nav.MoveToRoot();
-
-                XmlDocument doc = new XmlDocument();
-                doc.Load( nav.ReadSubtree() );
-
-                foreach ( var secret in config.Secrets )
-                {
-                    foreach ( XmlNode n in doc.SelectNodes( secret.Expression ) )
-                    {
-                        if ( n.NodeType == XmlNodeType.Element )
-                            n.InnerText = "//SECRET//";
-
-                        if ( n.NodeType == XmlNodeType.Attribute )
-                            n.Value = "//SECRET//";
-                    }
-                }
-
-                message = doc.OuterXml;
-            }
-            else
-            {
-                message = nav.OuterXml;
-            }
+            string message = nav.OuterXml;
 
             return message;
         }
