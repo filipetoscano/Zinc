@@ -3,6 +3,7 @@ using Newtonsoft.Json.Converters;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Web.Http;
 using Zinc.WebServices.Rest;
 
@@ -74,13 +75,16 @@ namespace Zinc.WebServices
             settings.NullValueHandling = NullValueHandling.Include;
             settings.Converters.Add( new StringEnumConverter() { AllowIntegerValues = true } );
 
-            config.Formatters.Add( new JsonNetFormatter( settings ) );
+            var formatter = new JsonNetFormatter( settings );
+            formatter.SupportedMediaTypes.Add( new MediaTypeHeaderValue( "application/json" ) );
+
+            config.Formatters.Add( formatter );
 
 
             /*
              * Web API routes
              */
-            //config.MapHttpAttributeRoutes();
+            config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(
                 name: "ActionApi",
