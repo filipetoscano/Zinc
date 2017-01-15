@@ -3,6 +3,7 @@ using Platinum.Reflection;
 using Platinum.Validation;
 using System;
 using System.Reflection;
+using System.Threading.Tasks;
 using System.Xml.Serialization;
 using Zinc.WebServices.Journaling;
 
@@ -11,7 +12,7 @@ namespace Zinc.WebServices
     public class MethodInvoker<T, Rq, Rp> : IMethod<Rq, Rp>
         where T : IMethod<Rq, Rp>
     {
-        public Rp Run( ExecutionContext context, Rq request )
+        public async Task<Rp> RunAsync( ExecutionContext context, Rq request )
         {
             #region Validations
 
@@ -42,7 +43,7 @@ namespace Zinc.WebServices
              */
             if ( config.Type == MethodLoggingType.PrePost )
             {
-                journal.Pre( context, request );
+                await journal.PreAsync( context, request );
             }
 
 
@@ -61,9 +62,9 @@ namespace Zinc.WebServices
 
                 // TODO: journal
                 if ( config.Type == MethodLoggingType.PrePost )
-                    journal.Post( context, vex );
+                    await journal.PostAsync( context, vex );
                 else
-                    journal.Full( context, request, vex );
+                    await journal.FullAsync( context, request, vex );
 
                 throw vex;
             }
@@ -76,9 +77,9 @@ namespace Zinc.WebServices
 
                 // TODO: journal
                 if ( config.Type == MethodLoggingType.PrePost )
-                    journal.Post( context, vex );
+                    await journal.PostAsync( context, vex );
                 else
-                    journal.Full( context, request, vex );
+                    await journal.FullAsync( context, request, vex );
 
                 throw vex;
             }
@@ -97,15 +98,15 @@ namespace Zinc.WebServices
 
             try
             {
-                response = method.Run( context, request );
+                response = await method.RunAsync( context, request );
             }
             catch ( ActorException ex )
             {
                 // TODO: journal
                 if ( config.Type == MethodLoggingType.PrePost )
-                    journal.Post( context, ex );
+                    await journal.PostAsync( context, ex );
                 else
-                    journal.Full( context, request, ex );
+                    await journal.FullAsync( context, request, ex );
 
                 throw;
             }
@@ -113,9 +114,9 @@ namespace Zinc.WebServices
             {
                 // TODO: journal
                 if ( config.Type == MethodLoggingType.PrePost )
-                    journal.Post( context, ex );
+                    await journal.PostAsync( context, ex );
                 else
-                    journal.Full( context, request, ex );
+                    await journal.FullAsync( context, request, ex );
 
                 throw;
             }
@@ -141,9 +142,9 @@ namespace Zinc.WebServices
                 // TODO: journal
                 // TODO: perhaps we could log response AND vex
                 if ( config.Type == MethodLoggingType.PrePost )
-                    journal.Post( context, vex );
+                    await journal.PostAsync( context, vex );
                 else
-                    journal.Full( context, request, vex );
+                    await journal.FullAsync( context, request, vex );
 
                 throw vex;
             }
@@ -157,9 +158,9 @@ namespace Zinc.WebServices
                 // TODO: journal
                 // TODO: perhaps we could log response AND vex
                 if ( config.Type == MethodLoggingType.PrePost )
-                    journal.Post( context, vex );
+                    await journal.PostAsync( context, vex );
                 else
-                    journal.Full( context, request, vex );
+                    await journal.FullAsync( context, request, vex );
 
                 throw vex;
             }
@@ -169,9 +170,9 @@ namespace Zinc.WebServices
              * Post-log
              */
             if ( config.Type == MethodLoggingType.PrePost )
-                journal.Post( context, response );
+                await journal.PostAsync( context, response );
             else
-                journal.Full( context, request, response );
+                await journal.FullAsync( context, request, response );
 
             return response;
         }

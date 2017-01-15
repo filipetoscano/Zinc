@@ -1,12 +1,15 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace Zn.Sample.TwoService
 {
     public partial class MethodTwoImplementation
     {
         /// <summary />
-        public MethodTwoResponse InnerRun( MethodTwoRequest request )
+        public async Task<MethodTwoResponse> InnerRun( MethodTwoRequest request )
         {
+            await Task.Delay( 100 );
+
             return new MethodTwoResponse()
             {
                 RandomString = "not",

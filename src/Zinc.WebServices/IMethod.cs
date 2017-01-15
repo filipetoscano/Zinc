@@ -1,7 +1,9 @@
-﻿namespace Zinc.WebServices
+﻿using System.Threading.Tasks;
+
+namespace Zinc.WebServices
 {
     public interface IMethod<Rq,Rp>
     {
-        Rp Run( ExecutionContext context, Rq request );
+        Task<Rp> RunAsync( ExecutionContext context, Rq request );
     }
 }

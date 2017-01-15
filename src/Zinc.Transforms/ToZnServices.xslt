@@ -31,6 +31,7 @@ using Platinum.Mock;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 using System.ServiceModel;
@@ -138,11 +139,11 @@ using Zinc.WebServices;
         <xsl:text>        [HttpPost]</xsl:text>
         <xsl:value-of select=" $NewLine " />
 
-        <xsl:text>        public </xsl:text>
+        <xsl:text>        public async Task&lt;</xsl:text>
         <xsl:value-of select=" $ns " />
         <xsl:text>.</xsl:text>
         <xsl:value-of select=" @name " />
-        <xsl:text>Response </xsl:text>
+        <xsl:text>Response&gt; </xsl:text>
         <xsl:value-of select=" @name " />
         <xsl:text>( [FromBody] </xsl:text>
         <xsl:value-of select=" $ns " />
@@ -173,7 +174,7 @@ using Zinc.WebServices;
         <xsl:value-of select=" $NewLine " />
         <xsl:value-of select=" $NewLine " />
 
-        <xsl:text>            return impl.Run( context, request );</xsl:text>
+        <xsl:text>            return await impl.RunAsync( context, request );</xsl:text>
         <xsl:value-of select=" $NewLine " />
 
         <xsl:text>        }</xsl:text>
@@ -187,11 +188,11 @@ using Zinc.WebServices;
         <xsl:text>        [HttpGet]</xsl:text>
         <xsl:value-of select=" $NewLine " />
 
-        <xsl:text>        public </xsl:text>
+        <xsl:text>        public async Task&lt;</xsl:text>
         <xsl:value-of select=" $ns " />
         <xsl:text>.</xsl:text>
         <xsl:value-of select=" @name " />
-        <xsl:text>Response </xsl:text>
+        <xsl:text>Response&gt; </xsl:text>
         <xsl:value-of select=" @name " />
         <xsl:text>(</xsl:text>
 
@@ -254,7 +255,7 @@ using Zinc.WebServices;
         <xsl:value-of select=" $NewLine " />
         <xsl:value-of select=" $NewLine " />
 
-        <xsl:text>            return impl.Run( context, request );</xsl:text>
+        <xsl:text>            return await impl.RunAsync( context, request );</xsl:text>
         <xsl:value-of select=" $NewLine " />
 
         <xsl:text>        }</xsl:text>
@@ -429,7 +430,7 @@ using Zinc.WebServices;
         <xsl:text>
             try
             {
-                response.Response = impl.Run( context, request.Request );
+                response.Response = impl.RunAsync( context, request.Request ).GetAwaiter().GetResult();
             }
             catch ( ActorException ex )
             {
@@ -522,6 +523,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
+using System.Threading.Tasks;
 using System.Xml.Serialization;
 using Zinc.WebServices;
 using Newtonsoft.Json;
@@ -699,9 +701,13 @@ using Newtonsoft.Json;
 
         <xsl:text>        /// &lt;summary /&gt;</xsl:text>
         <xsl:value-of select=" $NewLine " />
-        <xsl:text>        public </xsl:text>
+        <xsl:text>        public</xsl:text>
+        <xsl:if test=" not( zn:notImplemented ) ">
+            <xsl:text> async</xsl:text>
+        </xsl:if>
+        <xsl:text> Task&lt;</xsl:text>
         <xsl:value-of select=" $FileName " />
-        <xsl:text>Response Run( ExecutionContext context, </xsl:text>
+        <xsl:text>Response&gt; RunAsync( ExecutionContext context, </xsl:text>
         <xsl:value-of select=" $FileName " />
         <xsl:text>Request request )</xsl:text>
         <xsl:value-of select=" $NewLine " />
@@ -712,13 +718,13 @@ using Newtonsoft.Json;
         <xsl:value-of select=" $NewLine " />
         <xsl:choose>
             <xsl:when test=" zn:notImplemented ">
-                <xsl:text>            return Mocker.Mock&lt;</xsl:text>
+                <xsl:text>            return Task.FromResult( Mocker.Mock&lt;</xsl:text>
                 <xsl:value-of select=" $FileName " />
-                <xsl:text>Response&gt;();</xsl:text>
+                <xsl:text>Response&gt;() );</xsl:text>
                 <xsl:value-of select=" $NewLine " />
             </xsl:when>
             <xsl:otherwise>
-                <xsl:text>            return InnerRun( request );</xsl:text>
+                <xsl:text>            return await InnerRun( request );</xsl:text>
                 <xsl:value-of select=" $NewLine " />
             </xsl:otherwise>
         </xsl:choose>

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace Zinc.WebServices.Journaling
 {
@@ -6,23 +7,26 @@ namespace Zinc.WebServices.Journaling
     public class SqlServerJournal : IExecutionJournal
     {
         /// <summary />
-        public void Pre( ExecutionContext context, object request )
+        public Task PreAsync( ExecutionContext context, object request )
         {
             // TODO:
+            return Task.CompletedTask;
         }
 
 
         /// <summary />
-        public void Post( ExecutionContext context, object response )
+        public Task PostAsync( ExecutionContext context, object response )
         {
             // TODO:
+            return Task.CompletedTask;
         }
 
 
         /// <summary />
-        public void Full( ExecutionContext context, object request, object response )
+        public Task FullAsync( ExecutionContext context, object request, object response )
         {
             // TODO:
+            return Task.CompletedTask;
         }
     }
 }

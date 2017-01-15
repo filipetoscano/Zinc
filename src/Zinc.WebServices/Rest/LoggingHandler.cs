@@ -21,6 +21,13 @@ namespace Zinc.WebServices.Rest
         protected override async Task<HttpResponseMessage> SendAsync( HttpRequestMessage request, CancellationToken cancellationToken )
         {
             /*
+             * This applies only to our /api, and to nothing else.
+             */
+            if ( request.RequestUri.AbsolutePath.Contains( "/api/" ) == false )
+                return await base.SendAsync( request, cancellationToken );
+
+
+            /*
              * We can .First() the headers, because the ExecutionHandler (which is
              * first in the pipeline) has guaranteed that they really exist.
              */

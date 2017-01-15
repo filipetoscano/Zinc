@@ -1,4 +1,6 @@
-﻿namespace Zinc.WebServices.Journaling
+﻿using System.Threading.Tasks;
+
+namespace Zinc.WebServices.Journaling
 {
     /// <summary>
     /// Describes an execution logger.
@@ -10,7 +12,7 @@
         /// </summary>
         /// <param name="context">Execution context.</param>
         /// <param name="request">Request.</param>
-        void Pre( ExecutionContext context, object request );
+        Task PreAsync( ExecutionContext context, object request );
 
 
         /// <summary>
@@ -18,7 +20,7 @@
         /// </summary>
         /// <param name="context">Execution context.</param>
         /// <param name="response">Response.</param>
-        void Post( ExecutionContext context, object response );
+        Task PostAsync( ExecutionContext context, object response );
 
 
         /// <summary>
@@ -27,6 +29,6 @@
         /// <param name="context">Execution context.</param>
         /// <param name="request">Request.</param>
         /// <param name="response">Response.</param>
-        void Full( ExecutionContext context, object request, object response );
+        Task FullAsync( ExecutionContext context, object request, object response );
     }
 }
