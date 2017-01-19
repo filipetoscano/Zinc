@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>Zinc.Transforms</id>
-    <version>1.0.0.0</version>
+    <version>1.1.0.0</version>
     <title>Zinc schema and transformations</title>
     <authors>Filipe Toscano</authors>
     <owners>Filipe Toscano</owners>
