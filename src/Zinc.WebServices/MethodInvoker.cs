@@ -28,7 +28,7 @@ namespace Zinc.WebServices
             /*
              * TODO: from config
              */
-            IExecutionJournal journal = new SqlServerJournal();
+            IExecutionJournal journal = new NullJournal();
             MethodLoggingConfiguration config = new MethodLoggingConfiguration() { Type = MethodLoggingType.PrePost, Request = true, Response = true };
 
 

@@ -611,6 +611,10 @@ using Newtonsoft.Json;
         <xsl:value-of select=" $service-ns " />
         <xsl:text>" )]</xsl:text>
         <xsl:value-of select=" $NewLine " />
+        <xsl:text>    [XmlRoot( Namespace = "</xsl:text>
+        <xsl:value-of select=" $service-ns " />
+        <xsl:text>" )]</xsl:text>
+        <xsl:value-of select=" $NewLine " />
         <xsl:text>    public class </xsl:text>
         <xsl:value-of select=" $FileName " />
         <xsl:text>Request</xsl:text>
@@ -675,6 +679,10 @@ using Newtonsoft.Json;
         <xsl:text>    /// &lt;/summary&gt;</xsl:text>
         <xsl:value-of select=" $NewLine " />
         <xsl:text>    [XmlType( Namespace = "</xsl:text>
+        <xsl:value-of select=" $service-ns " />
+        <xsl:text>" )]</xsl:text>
+        <xsl:value-of select=" $NewLine " />
+        <xsl:text>    [XmlRoot( Namespace = "</xsl:text>
         <xsl:value-of select=" $service-ns " />
         <xsl:text>" )]</xsl:text>
         <xsl:value-of select=" $NewLine " />
