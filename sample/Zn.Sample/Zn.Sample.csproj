@@ -61,20 +61,20 @@
       <HintPath>..\..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Platinum.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Platinum.Core.1.0.0.0\lib\net46\Platinum.Core.dll</HintPath>
+    <Reference Include="Platinum.Core, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Platinum.Core.1.0.1\lib\net46\Platinum.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Platinum.Data, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Platinum.Data.1.0.0.0\lib\net46\Platinum.Data.dll</HintPath>
+    <Reference Include="Platinum.Data, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Platinum.Data.1.0.1\lib\net46\Platinum.Data.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Platinum.Mock, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Platinum.Mock.1.0.0.0\lib\net46\Platinum.Mock.dll</HintPath>
+    <Reference Include="Platinum.Mock, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Platinum.Mock.1.0.1\lib\net46\Platinum.Mock.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Platinum.Validation, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Platinum.Validation.1.0.0.0\lib\net46\Platinum.Validation.dll</HintPath>
+    <Reference Include="Platinum.Validation, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Platinum.Validation.1.0.1\lib\net46\Platinum.Validation.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Swashbuckle.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cd1bb07a5ac7c7bc, processorArchitecture=MSIL">
@@ -193,13 +193,13 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\src\Zinc.WebServices.Description\Zinc.WebServices.Description.csproj">
+      <Project>{81fadda3-7f09-4f76-8c80-105c1618172c}</Project>
+      <Name>Zinc.WebServices.Description</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\src\Zinc.WebServices\Zinc.WebServices.csproj">
       <Project>{4c5dd63c-138c-44af-98b5-be22aefb0150}</Project>
       <Name>Zinc.WebServices</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Zinc.Web\Zinc.Web.csproj">
-      <Project>{7f5707ad-9ea7-4f8c-b215-b4fda1c70694}</Project>
-      <Name>Zinc.Web</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />
