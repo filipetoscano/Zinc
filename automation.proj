@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="help">
     <PropertyGroup>
-        <version>1.1.0.0</version>
+        <version>1.1.2.0</version>
 
         <nugetSource>http://localhost:5000/</nugetSource>
         <nugetPushKey></nugetPushKey>
@@ -35,23 +35,34 @@
     ~ 
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <Target Name="build">
+        <CallTarget Targets="compile" />
+        <CallTarget Targets="pack" />
+    </Target>
+
+
+    <Target Name="compile">
         <PropertyGroup>
             <versionInfo>[assembly: System.Reflection.AssemblyVersion( "$(version)" )]</versionInfo>
             <nugetArgs> -OutputDirectory ..\..\build -IncludeReferencedProjects -Prop Configuration=Release </nugetArgs>
         </PropertyGroup>
 
-        <XmlPoke XmlInputPath="src\Zinc.Transforms\Zinc.Transforms.nuspec"
-                 Query="/package/metadata/version"
-                 Value="$(version)" />
-
         <WriteLinesToFile Overwrite="true" File="src\GlobalVersion.cs" Lines="$(versionInfo)" />
         <MakeDir Directories="build" />
         <Exec Command=" nuget restore " />
-        
+
         <Exec Command=" yvscmd --project=src\Zinc.WebServices\Zinc.WebServices.csproj " />
         <Exec Command=" yvscmd --project=sample\Zn.Sample\Zn.Sample.csproj " />
 
         <MSBuild Projects="Zinc.sln" Properties="Configuration=Release" />
+
+        <Copy SourceFiles="src\Zinc.Transforms\Zinc.Transforms.nuspecx" DestinationFiles="src\Zinc.Transforms\Zinc.Transforms.nuspec" />
+        <XmlPoke XmlInputPath="src\Zinc.Transforms\Zinc.Transforms.nuspec"
+                 Query="/package/metadata/version"
+                 Value="$(version)" />
+    </Target>
+
+
+    <Target Name="pack">
         <Exec Command=" nuget pack Zinc.WebServices.csproj $(nugetArgs) " WorkingDirectory="src\Zinc.WebServices" />
         <Exec Command=" nuget pack Zinc.WebServices.Client.csproj $(nugetArgs) " WorkingDirectory="src\Zinc.WebServices.Client" />
         <Exec Command=" nuget pack Zinc.Transforms.nuspec -OutputDirectory ..\..\build " WorkingDirectory="src\Zinc.Transforms" />

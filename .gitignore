@@ -9,6 +9,7 @@ src/**/Errors.cs
 src/**/Exceptions.cs
 src/**/bin/
 src/**/obj/
+src/Zinc.Transforms/Zinc.Transforms.nuspec
 sample/**/bin/
 sample/**/obj/
 tests/**/bin/
@@ -25,3 +26,4 @@ sample/Zn.Sample/Services.cs
 sample/Zn.Sample/TwoService/MethodTwo.cs
 
 # Other
+
