@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package>
+    <metadata>
+        <id>Zinc.Transforms</id>
+        <version>1.0.0.0</version>
+        <title>Zinc schema and transformations</title>
+        <authors>Filipe Toscano</authors>
+        <owners>Filipe Toscano</owners>
+        <licenseUrl>https://raw.githubusercontent.com/filipetoscano/Zinc/master/License.txt</licenseUrl>
+        <projectUrl>https://github.com/filipetoscano/Zinc</projectUrl>
+        <iconUrl>https://raw.githubusercontent.com/filipetoscano/Zinc/master/src/zinc.ico</iconUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>Zinc schema and transformations</description>
+        <releaseNotes>Initial release.</releaseNotes>
+        <copyright></copyright>
+        <tags></tags>
+    </metadata>
+    <files>
+        <file src="ToZnServices.xslt" target="content\ToZnServices.xslt" />
+        <file src="ZnServices.xsd" target="content\ZnServices.xsd" />
+        <file src="ZnServices-Mock.xsd" target="content\ZnServices-Mock.xsd" />
+        <file src="ZnServices-Rest.xsd" target="content\ZnServices-Rest.xsd" />
+        <file src="ZnServices-Validation.xsd" target="content\ZnServices-Validation.xsd" />
+    </files>
+</package>
