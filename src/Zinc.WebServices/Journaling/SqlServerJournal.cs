@@ -2,7 +2,10 @@
 using Platinum.Data;
 using System;
 using System.Data.Common;
+using System.IO;
 using System.Threading.Tasks;
+using System.Xml;
+using System.Xml.Serialization;
 
 namespace Zinc.WebServices.Journaling
 {
@@ -10,7 +13,7 @@ namespace Zinc.WebServices.Journaling
     public class SqlServerJournal : IExecutionJournal
     {
         /// <summary />
-        public Task PreAsync( ExecutionContext context, object request )
+        public async Task PreAsync( ExecutionContext context, object request )
         {
             #region Validations
 
@@ -26,18 +29,30 @@ namespace Zinc.WebServices.Journaling
             /*
              * 
              */
+            string requestXml = ToXml( request );
+
+
+            /*
+             * 
+             */
             DbConnection conn = Db.Connection( "SqlServerLogging" );
 
+            await conn.ExecuteAsync( Q.SqlPre, new
+            {
+                Method = context.Method,
+                ActivityId = context.ActivityId,
+                ExecutionId = context.ExecutionId,
+                Request = requestXml,
+                MomentStart = context.MomentStart
+            } );
 
 
-
-            // TODO:
-            return Task.CompletedTask;
+            return;
         }
 
 
         /// <summary />
-        public Task PostAsync( ExecutionContext context, object response )
+        public async Task PostAsync( ExecutionContext context, object response )
         {
             #region Validations
 
@@ -50,13 +65,30 @@ namespace Zinc.WebServices.Journaling
             #endregion
 
 
-            // TODO:
-            return Task.CompletedTask;
+            /*
+             * 
+             */
+            string responseXml = ToXml( response );
+
+
+            /*
+             * 
+             */
+            DbConnection conn = Db.Connection( "SqlServerLogging" );
+
+            await conn.ExecuteAsync( Q.SqlPost, new
+            {
+                Method = context.Method,
+                ActivityId = context.ActivityId,
+                ExecutionId = context.ExecutionId,
+                Response = responseXml,
+                MomentEnd = context.MomentEnd
+            } );
         }
 
 
         /// <summary />
-        public Task FullAsync( ExecutionContext context, object request, object response )
+        public async Task FullAsync( ExecutionContext context, object request, object response )
         {
             #region Validations
 
@@ -72,8 +104,50 @@ namespace Zinc.WebServices.Journaling
             #endregion
 
 
-            // TODO:
-            return Task.CompletedTask;
+            /*
+             * 
+             */
+            string requestXml = ToXml( request );
+            string responseXml = ToXml( response );
+
+
+            /*
+             * 
+             */
+            DbConnection conn = Db.Connection( "SqlServerLogging" );
+
+            await conn.ExecuteAsync( Q.SqlFull, new
+            {
+                Method = context.Method,
+                ActivityId = context.ActivityId,
+                ExecutionId = context.ExecutionId,
+                Request = requestXml,
+                Response = responseXml,
+                MomentStart = context.MomentStart,
+                MomentEnd = context.MomentEnd
+            } );
+        }
+
+
+        private static string ToXml( object obj )
+        {
+            #region Validations
+
+            if ( obj == null )
+                throw new ArgumentNullException( nameof( obj ) );
+
+            #endregion
+
+            XmlSerializer ser = new XmlSerializer( obj.GetType() );
+
+            using ( var sw = new StringWriter() )
+            {
+                using ( var xw = XmlWriter.Create( sw ) )
+                {
+                    ser.Serialize( xw, obj );
+                    return sw.ToString();
+                }
+            }
         }
     }
 }

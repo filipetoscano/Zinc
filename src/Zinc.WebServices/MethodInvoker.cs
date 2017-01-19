@@ -24,6 +24,9 @@ namespace Zinc.WebServices
 
             #endregion
 
+            context.MomentStart = DateTime.UtcNow;
+            context.MomentEnd = DateTime.UtcNow;
+
 
             /*
              * TODO: from config
@@ -59,6 +62,7 @@ namespace Zinc.WebServices
             catch ( Exception ex )
             {
                 var vex = new WsException( ER.MethodInvoker_RequestValidate, ex, request.GetType().FullName );
+                context.MomentEnd = DateTime.UtcNow;
 
                 // TODO: journal
                 if ( config.Type == MethodLoggingType.PrePost )
@@ -74,6 +78,7 @@ namespace Zinc.WebServices
                 ActorAggregateException agex = new ActorAggregateException( vr.Errors );
 
                 var vex = new WsException( ER.MethodInvoker_RequestInvalid, agex, request.GetType().FullName );
+                context.MomentEnd = DateTime.UtcNow;
 
                 // TODO: journal
                 if ( config.Type == MethodLoggingType.PrePost )
@@ -102,6 +107,8 @@ namespace Zinc.WebServices
             }
             catch ( ActorException ex )
             {
+                context.MomentEnd = DateTime.UtcNow;
+                
                 // TODO: journal
                 if ( config.Type == MethodLoggingType.PrePost )
                     await journal.PostAsync( context, ex );
@@ -112,6 +119,8 @@ namespace Zinc.WebServices
             }
             catch ( Exception ex )
             {
+                context.MomentEnd = DateTime.UtcNow;
+                
                 // TODO: journal
                 if ( config.Type == MethodLoggingType.PrePost )
                     await journal.PostAsync( context, ex );
@@ -138,6 +147,7 @@ namespace Zinc.WebServices
             catch ( Exception ex )
             {
                 var vex = new WsException( ER.MethodInvoker_ResponseValidate, ex, request.GetType().FullName );
+                context.MomentEnd = DateTime.UtcNow;
 
                 // TODO: journal
                 // TODO: perhaps we could log response AND vex
@@ -154,6 +164,7 @@ namespace Zinc.WebServices
                 ActorAggregateException agex = new ActorAggregateException( vr.Errors );
 
                 var vex = new WsException( ER.MethodInvoker_ResponseInvalid, agex, request.GetType().FullName );
+                context.MomentEnd = DateTime.UtcNow;
 
                 // TODO: journal
                 // TODO: perhaps we could log response AND vex
@@ -169,6 +180,8 @@ namespace Zinc.WebServices
             /*
              * Post-log
              */
+            context.MomentEnd = DateTime.UtcNow;
+
             if ( config.Type == MethodLoggingType.PrePost )
                 await journal.PostAsync( context, response );
             else

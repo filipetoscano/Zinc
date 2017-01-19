@@ -51,6 +51,8 @@
       <DependentUpon>Exceptions.xml</DependentUpon>
     </Compile>
     <Compile Include="ExecutionContext.cs" />
+    <EmbeddedResource Include="Journaling\SqlPre.sql" />
+    <Compile Include="Journaling\Q.cs" />
     <Compile Include="Journaling\SqlServerJournal.cs" />
     <Compile Include="Json\DateConverter.cs" />
     <Compile Include="Json\NullableDateConverter.cs" />
@@ -163,7 +165,12 @@
       <LastGenOutput>Configuration.cs</LastGenOutput>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Journaling\SqlPost.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Journaling\SqlFull.sql" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

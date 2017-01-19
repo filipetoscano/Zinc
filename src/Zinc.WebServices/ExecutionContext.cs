@@ -7,6 +7,11 @@ namespace Zinc.WebServices
     public class ExecutionContext
     {
         /// <summary>
+        /// Unique name of method being invoked.
+        /// </summary>
+        public string Method { get; set; }
+
+        /// <summary>
         /// Unique identifier of the SOA activity, of which this message is a part
         /// of. This value can then be used to cross-reference all of the messages
         /// issued/dispatched as part of the activity.
@@ -19,6 +24,15 @@ namespace Zinc.WebServices
         /// </summary>
         public Guid ExecutionId { get; set; }
 
+        /// <summary>
+        /// Start of (inner) execution.
+        /// </summary>
+        public DateTime MomentStart { get; set; }
+
+        /// <summary>
+        /// End of (inner) execution.
+        /// </summary>
+        public DateTime MomentEnd { get; set; }
 
 
         public ExecutionContext()
