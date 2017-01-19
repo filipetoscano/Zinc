@@ -105,19 +105,18 @@ using Zinc.WebServices;
 
         <xsl:variable name="zn:method" select=" document( $fname )/zn:method " />
 
-        <xsl:text>        /// &lt;summary /&gt;</xsl:text>
-        <xsl:value-of select=" $NewLine " />
-
         <xsl:choose>
             <xsl:when test=" not( $zn:method/zn:request/@rest:method ) or $zn:method/zn:request/@rest:method = 'post' ">
                 <xsl:call-template name="rest-post">
                     <xsl:with-param name="ns" select=" $ns " />
+                    <xsl:with-param name="zn:method" select=" $zn:method " />
                 </xsl:call-template>
             </xsl:when>
 
             <xsl:when test=" $zn:method/zn:request/@rest:method = 'get' ">
                 <xsl:call-template name="rest-post">
                     <xsl:with-param name="ns" select=" $ns " />
+                    <xsl:with-param name="zn:method" select=" $zn:method " />
                 </xsl:call-template>
                 <xsl:value-of select=" $NewLine " />
 
@@ -135,7 +134,19 @@ using Zinc.WebServices;
 
     <xsl:template name="rest-post">
         <xsl:param name="ns" />
+        <xsl:param name="zn:method" />
 
+        <!-- Documentation -->
+        <xsl:text>        /// &lt;summary&gt;</xsl:text>
+        <xsl:value-of select=" eo:ToWrap( $zn:method/zn:summary/text(), '        /// ', 80 ) "/>
+        <xsl:value-of select=" $NewLine " />
+        <xsl:text>        /// &lt;/summary&gt;</xsl:text>
+        <xsl:value-of select=" $NewLine " />
+        <xsl:text>        /// &lt;param name="request"&gt;Request message.&lt;/param&gt;
+        /// &lt;returns&gt;Response message.&lt;/returns&gt;</xsl:text>
+        <xsl:value-of select=" $NewLine " />
+
+        <!-- Code -->
         <xsl:text>        [HttpPost]</xsl:text>
         <xsl:value-of select=" $NewLine " />
 
@@ -189,6 +200,26 @@ using Zinc.WebServices;
         <xsl:param name="ns" />
         <xsl:param name="zn:method" />
 
+        <!-- Documentation -->
+        <xsl:text>        /// &lt;summary&gt;</xsl:text>
+        <xsl:value-of select=" eo:ToWrap( $zn:method/zn:summary/text(), '        /// ', 80 ) "/>
+        <xsl:value-of select=" $NewLine " />
+        <xsl:text>        /// &lt;/summary&gt;</xsl:text>
+        <xsl:value-of select=" $NewLine " />
+
+        <xsl:for-each select=" $zn:method/zn:request/* ">
+            <xsl:text>        /// &lt;param name="</xsl:text>
+            <xsl:value-of select=" @name " />
+            <xsl:text>"&gt;</xsl:text>
+            <xsl:value-of select=" zn:summary/text() " />
+            <xsl:text>&lt;/param&gt;</xsl:text>
+            <xsl:value-of select=" $NewLine " />
+        </xsl:for-each>
+
+        <xsl:text>        /// &lt;returns&gt;Response message.&lt;/returns&gt;</xsl:text>
+        <xsl:value-of select=" $NewLine " />
+
+        <!-- Code -->
         <xsl:text>        [HttpGet]</xsl:text>
         <xsl:value-of select=" $NewLine " />
 
@@ -937,6 +968,7 @@ using Newtonsoft.Json;
 
     <xsl:template match=" zn:bool " mode="type">
         <xsl:text>bool</xsl:text>
+        <xsl:call-template name="type-native" />
     </xsl:template>
 
     <xsl:template match=" zn:binary " mode="type">
@@ -945,6 +977,7 @@ using Newtonsoft.Json;
 
     <xsl:template match=" zn:char " mode="type">
         <xsl:text>char</xsl:text>
+        <xsl:call-template name="type-native" />
     </xsl:template>
 
     <xsl:template match=" zn:string " mode="type">
