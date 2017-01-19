@@ -64,4 +64,8 @@
         <description>Failed to execute journal statement on database '{0}'.</description>
     </error>
 
+    <error id="ServiceModel_ExecutionContext_NotFound" actor="~.Soap.Configuration" code="3003">
+        <description>Internal WCF ExecutionContext was not found: is 'execution/' behavior configured in section 'system.serviceModel/behaviors/endpointBehaviors/behavior'?</description>
+    </error>
+
 </errors>

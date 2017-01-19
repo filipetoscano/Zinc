@@ -24,9 +24,6 @@ namespace Zinc.WebServices
 
             #endregion
 
-            context.MomentStart = DateTime.UtcNow;
-            context.MomentEnd = DateTime.UtcNow;
-
 
             /*
              * TODO: from config

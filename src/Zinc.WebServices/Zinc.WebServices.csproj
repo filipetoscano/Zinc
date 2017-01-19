@@ -53,6 +53,7 @@
     <Compile Include="ExecutionContext.cs" />
     <EmbeddedResource Include="Journaling\SqlPre.sql" />
     <Compile Include="Journaling\Q.cs" />
+    <Compile Include="Journaling\NullJournal.cs" />
     <Compile Include="Journaling\SqlServerJournal.cs" />
     <Compile Include="Json\DateConverter.cs" />
     <Compile Include="Json\NullableDateConverter.cs" />

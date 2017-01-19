@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using System.ServiceModel;
 using System.ServiceModel.Channels;
 using System.Xml;
 using System.Xml.Serialization;
@@ -58,6 +59,35 @@ namespace Zinc.WebServices.ServiceModel
             ctx.MomentStart = DateTime.ParseExact( content[ 3 ].InnerText, "o", CultureInfo.InvariantCulture );
 
             return ctx;
+        }
+
+
+        /// <summary>
+        /// Gets the WCF execution context from the current operation context.
+        /// </summary>
+        /// <returns>
+        /// Instance of <see cref="WcfExecutionContext" /> when present, otherwise
+        /// faults out accordingly.
+        /// </returns>
+        public static WcfExecutionContext Get()
+        {
+            var op = OperationContext.Current;
+
+            for (int i =0; i< op.IncomingMessageHeaders.Count; i++ )
+            {
+                MessageHeaderInfo mhi = op.IncomingMessageHeaders[ i ];
+
+                if ( mhi.Name == WcfExecutionContext.HeaderName
+                    && mhi.Namespace == Zn.Namespace )
+                {
+                    XmlReader xr = op.IncomingMessageHeaders.GetReaderAtHeader( i );
+
+                    XmlSerializer ser = new XmlSerializer( typeof( WcfExecutionContext ) );
+                    return (WcfExecutionContext) ser.Deserialize( xr );
+                }
+            }
+
+            throw new WsException( ER.ServiceModel_ExecutionContext_NotFound );
         }
 
 

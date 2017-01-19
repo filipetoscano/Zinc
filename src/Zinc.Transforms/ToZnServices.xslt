@@ -170,7 +170,11 @@ using Zinc.WebServices;
         <xsl:text>Response&gt;();</xsl:text>
         <xsl:value-of select=" $NewLine " />
 
-        <xsl:text>            var context = new ExecutionContext();</xsl:text>
+        <xsl:text>            var context = new ExecutionContext( this.Request ) { Method = "</xsl:text>
+        <xsl:value-of select=" ../@name " />
+        <xsl:text>/</xsl:text>
+        <xsl:value-of select=" @name " />
+        <xsl:text>" };</xsl:text>
         <xsl:value-of select=" $NewLine " />
         <xsl:value-of select=" $NewLine " />
 
@@ -251,7 +255,11 @@ using Zinc.WebServices;
         <xsl:text>Response&gt;();</xsl:text>
         <xsl:value-of select=" $NewLine " />
 
-        <xsl:text>            var context = new ExecutionContext();</xsl:text>
+        <xsl:text>            var context = new ExecutionContext( this.Request ) { Method = "</xsl:text>
+        <xsl:value-of select=" ../@name " />
+        <xsl:text>/</xsl:text>
+        <xsl:value-of select=" @name " />
+        <xsl:text>" };</xsl:text>
         <xsl:value-of select=" $NewLine " />
         <xsl:value-of select=" $NewLine " />
 
@@ -424,7 +432,11 @@ using Zinc.WebServices;
         <xsl:text>ResponseContract();</xsl:text>
         <xsl:value-of select=" $NewLine " />
 
-        <xsl:text>            var context = new ExecutionContext();</xsl:text>
+        <xsl:text>            var context = new ExecutionContext() { Method = "</xsl:text>
+        <xsl:value-of select=" ../@name " />
+        <xsl:text>/</xsl:text>
+        <xsl:value-of select=" @name " />
+        <xsl:text>" };</xsl:text>
         <xsl:value-of select=" $NewLine " />
 
         <xsl:text>

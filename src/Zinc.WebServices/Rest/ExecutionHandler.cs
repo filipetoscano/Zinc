@@ -68,6 +68,7 @@ namespace Zinc.WebServices.Rest
 
             request.Headers.Add( "X-ActivityId", ctx.ActivityId.ToString( "D" ) );
             request.Headers.Add( "X-ExecutionId", ctx.ExecutionId.ToString( "D" ) );
+            request.Headers.Add( "X-MomentStart", start.ToString( "O", CultureInfo.InvariantCulture ) );
 
 
             /*
