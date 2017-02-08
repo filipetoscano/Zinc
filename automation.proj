@@ -66,6 +66,8 @@
         <Exec Command=" nuget pack Zinc.Core.csproj $(nugetArgs) "                           WorkingDirectory="src\Zinc.Core" />
         <Exec Command=" nuget pack Zinc.WebServices.csproj $(nugetArgs) "                    WorkingDirectory="src\Zinc.WebServices" />
         <Exec Command=" nuget pack Zinc.WebServices.RestClient.csproj $(nugetArgs) "         WorkingDirectory="src\Zinc.WebServices.RestClient" />
+        <Exec Command=" nuget pack Zinc.WebServices.SoapClient.csproj $(nugetArgs) "         WorkingDirectory="src\Zinc.WebServices.SoapClient" />
+        <Exec Command=" nuget pack Zinc.WebServices.Swashbuckle.csproj $(nugetArgs) "        WorkingDirectory="src\Zinc.WebServices.Swashbuckle" />
         <Exec Command=" nuget pack Zinc.Transforms.nuspec -OutputDirectory ..\..\build "     WorkingDirectory="src\Zinc.Transforms" />
     </Target>
 

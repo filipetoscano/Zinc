@@ -201,6 +201,10 @@
       <Project>{81fadda3-7f09-4f76-8c80-105c1618172c}</Project>
       <Name>Zinc.WebServices.Description</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\src\Zinc.WebServices.Swashbuckle\Zinc.WebServices.Swashbuckle.csproj">
+      <Project>{a75ab2a1-3cb8-4b33-a807-351ebbd49f6f}</Project>
+      <Name>Zinc.WebServices.Swashbuckle</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\src\Zinc.WebServices\Zinc.WebServices.csproj">
       <Project>{4c5dd63c-138c-44af-98b5-be22aefb0150}</Project>
       <Name>Zinc.WebServices</Name>

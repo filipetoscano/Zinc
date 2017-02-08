@@ -1,7 +1,8 @@
+using Swashbuckle.Application;
 using System.Web.Http;
 using WebActivatorEx;
+using Zinc.WebServices;
 using Zn.Sample;
-using Swashbuckle.Application;
 
 [assembly: PreApplicationStartMethod( typeof( SwaggerConfig ), "Register" )]
 
@@ -17,8 +18,7 @@ namespace Zn.Sample
                 .EnableSwagger( c =>
                      {
                          c.SingleApiVersion( "v1", "Zn.Sample" );
-                         c.UseFullTypeNameInSchemaIds();
-                         c.DescribeAllEnumsAsStrings();
+                         c.ZincConfigure();
                      } )
                 .EnableSwaggerUi( c =>
                      {

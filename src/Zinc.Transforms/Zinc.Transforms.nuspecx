@@ -11,7 +11,6 @@
         <iconUrl>https://raw.githubusercontent.com/filipetoscano/Zinc/master/src/zinc.ico</iconUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>Zinc schema and transformations</description>
-        <releaseNotes>Initial release.</releaseNotes>
         <copyright></copyright>
         <tags></tags>
     </metadata>
