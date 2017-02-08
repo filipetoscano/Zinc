@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="help">
     <PropertyGroup>
-        <version>1.1.2.0</version>
+        <version>1.2.0.0</version>
 
         <nugetSource>http://localhost:5000/</nugetSource>
         <nugetPushKey></nugetPushKey>
@@ -63,9 +63,10 @@
 
 
     <Target Name="pack">
-        <Exec Command=" nuget pack Zinc.WebServices.csproj $(nugetArgs) " WorkingDirectory="src\Zinc.WebServices" />
-        <Exec Command=" nuget pack Zinc.WebServices.Client.csproj $(nugetArgs) " WorkingDirectory="src\Zinc.WebServices.Client" />
-        <Exec Command=" nuget pack Zinc.Transforms.nuspec -OutputDirectory ..\..\build " WorkingDirectory="src\Zinc.Transforms" />
+        <Exec Command=" nuget pack Zinc.Core.csproj $(nugetArgs) "                           WorkingDirectory="src\Zinc.Core" />
+        <Exec Command=" nuget pack Zinc.WebServices.csproj $(nugetArgs) "                    WorkingDirectory="src\Zinc.WebServices" />
+        <Exec Command=" nuget pack Zinc.WebServices.RestClient.csproj $(nugetArgs) "         WorkingDirectory="src\Zinc.WebServices.RestClient" />
+        <Exec Command=" nuget pack Zinc.Transforms.nuspec -OutputDirectory ..\..\build "     WorkingDirectory="src\Zinc.Transforms" />
     </Target>
 
 
@@ -77,9 +78,10 @@
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <Target Name="push">
         <Error Condition=" $(nugetPushKey) == '' " Text="Must specify 'nugetPushKey' when pushing to nuget source." />
-        <Exec Command=" nuget push Zinc.WebServices.$(Version).nupkg -s $(nugetSource) $(nugetPushKey) " WorkingDirectory="build" />
-        <Exec Command=" nuget push Zinc.WebServices.Client.$(Version).nupkg -s $(nugetSource) $(nugetPushKey) " WorkingDirectory="build" />
-        <Exec Command=" nuget push Zinc.Transforms.$(Version).nupkg -s $(nugetSource) $(nugetPushKey) " WorkingDirectory="build" />
+        <Exec Command=" nuget push Zinc.Core.$(Version).nupkg                   -s $(nugetSource) $(nugetPushKey) " WorkingDirectory="build" />
+        <Exec Command=" nuget push Zinc.WebServices.$(Version).nupkg            -s $(nugetSource) $(nugetPushKey) " WorkingDirectory="build" />
+        <Exec Command=" nuget push Zinc.WebServices.RestClient.$(Version).nupkg -s $(nugetSource) $(nugetPushKey) " WorkingDirectory="build" />
+        <Exec Command=" nuget push Zinc.Transforms.$(Version).nupkg             -s $(nugetSource) $(nugetPushKey) " WorkingDirectory="build" />
     </Target>
 
 </Project>

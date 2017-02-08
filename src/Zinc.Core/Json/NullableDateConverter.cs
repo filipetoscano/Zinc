@@ -2,7 +2,7 @@
 using System;
 using System.Globalization;
 
-namespace Zinc.WebServices.Json
+namespace Zinc.Json
 {
     /// <summary>
     /// Converts a nullable <see cref="DateTime" /> into a JSON value, with only the

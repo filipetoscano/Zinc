@@ -2,13 +2,13 @@
 using System;
 using System.Globalization;
 
-namespace Zinc.WebServices.Json
+namespace Zinc.Json
 {
     /// <summary>
     /// Converts a <see cref="DateTime" /> into a JSON value, with only the
-    /// date part, stripping away all of the time/timezone information.
+    /// time part, stripping away all of the date/timezone information.
     /// </summary>
-    public class DateConverter : JsonConverter
+    public class TimeConverter : JsonConverter
     {
         /// <summary>
         /// Determines whether this instance can convert the specified object type.
@@ -31,7 +31,7 @@ namespace Zinc.WebServices.Json
         /// <returns>The object value.</returns>
         public override object ReadJson( JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer )
         {
-            return DateTime.ParseExact( (string) reader.Value, "yyyy-MM-dd", CultureInfo.InvariantCulture );
+            return DateTime.ParseExact( (string) reader.Value, "hh:mm:ss", CultureInfo.InvariantCulture );
         }
 
 
@@ -44,7 +44,7 @@ namespace Zinc.WebServices.Json
         public override void WriteJson( JsonWriter writer, object value, JsonSerializer serializer )
         {
             DateTime d = (DateTime) value;
-            writer.WriteValue( d.ToString( "yyyy-MM-dd", CultureInfo.InvariantCulture ) );
+            writer.WriteValue( d.ToString( "hh:mm:ss", CultureInfo.InvariantCulture ) );
         }
     }
 }

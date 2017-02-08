@@ -91,6 +91,12 @@ namespace Zinc.WebServices
                 routeTemplate: "api/{controller}/{action}",
                 defaults: new { }
             );
+
+            config.Routes.MapHttpRoute(
+                name: "VersionedActionApi",
+                routeTemplate: "api/v1/{controller}/{action}",
+                defaults: new { }
+            );
         }
     }
 }

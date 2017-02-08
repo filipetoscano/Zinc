@@ -55,10 +55,6 @@
     <Compile Include="Journaling\Q.cs" />
     <Compile Include="Journaling\NullJournal.cs" />
     <Compile Include="Journaling\SqlServerJournal.cs" />
-    <Compile Include="Json\DateConverter.cs" />
-    <Compile Include="Json\NullableDateConverter.cs" />
-    <Compile Include="Json\NullableTimeConverter.cs" />
-    <Compile Include="Json\TimeConverter.cs" />
     <Compile Include="Journaling\IExecutionJournal.cs" />
     <Compile Include="MethodInvoker.cs" />
     <Compile Include="MethodLoggingType.cs" />
@@ -171,6 +167,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Journaling\SqlFull.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Zinc.Core\Zinc.Core.csproj">
+      <Project>{7c7be3e1-54f6-489d-b14f-71a0a5ecc5fd}</Project>
+      <Name>Zinc.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

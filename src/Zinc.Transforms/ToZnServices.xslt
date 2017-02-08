@@ -1060,21 +1060,21 @@ using Newtonsoft.Json;
     <xsl:template match=" * " mode="type-attr" />
 
     <xsl:template match=" zn:date " mode="type-attr">
-        <xsl:text>        [JsonConverter( typeof( Zinc.WebServices.Json.DateConverter ) )]</xsl:text>
+        <xsl:text>        [JsonConverter( typeof( Zinc.Json.DateConverter ) )]</xsl:text>
         <xsl:value-of select=" $NewLine " />
         <xsl:text>        [XmlElement( DataType = "date" )]</xsl:text>
         <xsl:value-of select=" $NewLine " />
     </xsl:template>
 
     <xsl:template match=" zn:date[ @optional = 'true' ] " mode="type-attr">
-        <xsl:text>        [JsonConverter( typeof( Zinc.WebServices.Json.NullableDateConverter ) )]</xsl:text>
+        <xsl:text>        [JsonConverter( typeof( Zinc.Json.NullableDateConverter ) )]</xsl:text>
         <xsl:value-of select=" $NewLine " />
         <xsl:text>        [XmlElement( DataType = "date" )]</xsl:text>
         <xsl:value-of select=" $NewLine " />
     </xsl:template>
 
     <xsl:template match=" zn:date[ @array = 'true' ] " mode="type-attr">
-        <xsl:text>        [JsonConverter( typeof( Zinc.WebServices.Json.NullableDateConverter ) )]</xsl:text>
+        <xsl:text>        [JsonConverter( typeof( Zinc.Json.NullableDateConverter ) )]</xsl:text>
         <xsl:value-of select=" $NewLine " />
         <xsl:text>        [XmlArrayItem( DataType = "date" )]</xsl:text>
         <xsl:value-of select=" $NewLine " />
@@ -1092,21 +1092,21 @@ using Newtonsoft.Json;
     </xsl:template>
 
     <xsl:template match=" zn:time " mode="type-attr">
-        <xsl:text>        [JsonConverter( typeof( Zinc.WebServices.Json.TimeConverter ) )]</xsl:text>
+        <xsl:text>        [JsonConverter( typeof( Zinc.Json.TimeConverter ) )]</xsl:text>
         <xsl:value-of select=" $NewLine " />
         <xsl:text>        [XmlElement( DataType = "time" )]</xsl:text>
         <xsl:value-of select=" $NewLine " />
     </xsl:template>
 
     <xsl:template match=" zn:time[ @optional = 'true' ] " mode="type-attr">
-        <xsl:text>        [JsonConverter( typeof( Zinc.WebServices.Json.NullableTimeConverter ) )]</xsl:text>
+        <xsl:text>        [JsonConverter( typeof( Zinc.Json.NullableTimeConverter ) )]</xsl:text>
         <xsl:value-of select=" $NewLine " />
         <xsl:text>        [XmlElement( DataType = "time" )]</xsl:text>
         <xsl:value-of select=" $NewLine " />
     </xsl:template>
 
     <xsl:template match=" zn:time[ @array = 'true' ] " mode="type-attr">
-        <xsl:text>        [JsonConverter( typeof( Zinc.WebServices.Json.NullableTimeConverter ) )]</xsl:text>
+        <xsl:text>        [JsonConverter( typeof( Zinc.Json.NullableTimeConverter ) )]</xsl:text>
         <xsl:value-of select=" $NewLine " />
         <xsl:text>        [XmlArrayItem( DataType = "time" )]</xsl:text>
         <xsl:value-of select=" $NewLine " />

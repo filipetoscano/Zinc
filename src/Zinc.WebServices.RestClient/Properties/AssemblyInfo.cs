@@ -2,8 +2,8 @@
 using System.Runtime.InteropServices;
 
 // General information
-[assembly: AssemblyTitle( "Zinc WebServices" )]
-[assembly: AssemblyDescription( "Base library for quick Web Service enablement of backend data-sources." )]
+[assembly: AssemblyTitle( "Zinc REST client" )]
+[assembly: AssemblyDescription( "Library for calling Zinc web services, using JSON-RPC." )]
 [assembly: AssemblyConfiguration( "" )]
 [assembly: AssemblyCompany( "" )]
 [assembly: AssemblyProduct( "Zinc" )]
@@ -13,4 +13,4 @@ using System.Runtime.InteropServices;
 
 // Additional information
 [assembly: ComVisible( false )]
-[assembly: Guid( "4c5dd63c-138c-44af-98b5-be22aefb0150" )]
+[assembly: Guid( "1fc59bb3-bb5e-4e26-9b02-401498a38140" )]
