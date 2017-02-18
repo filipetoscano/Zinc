@@ -48,7 +48,7 @@
 
         <WriteLinesToFile Overwrite="true" File="src\GlobalVersion.cs" Lines="$(versionInfo)" />
         <MakeDir Directories="build" />
-        <Exec Command=" nuget restore " />
+        <Exec Command=" nuget restore Zinc.sln " />
 
         <Exec Command=" yvscmd --project=src\Zinc.WebServices\Zinc.WebServices.csproj " />
         <Exec Command=" yvscmd --project=sample\Zn.Sample\Zn.Sample.csproj " />
