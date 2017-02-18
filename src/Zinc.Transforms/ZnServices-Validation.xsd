@@ -4,7 +4,7 @@
     targetNamespace="urn:zinc/validation"
     xmlns:zn="urn:zinc/validation">
 
-    <xsd:attribute name="data" type="xsd:string" />
+    <xsd:attribute name="rule" type="xsd:string" />
 
     <xsd:simpleType name="dataName">
         <xsd:restriction base="xsd:string">

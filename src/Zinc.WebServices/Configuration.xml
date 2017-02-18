@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<configuration xmlns="urn:yttrium/vs/config">
+<configuration xmlns="urn:platinum/config">
 
     <section name="zinc.webServices" type="ZincConfiguration">
         <element name="rest" type="ZincRestConfiguration">

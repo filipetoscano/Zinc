@@ -146,19 +146,19 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Errors.xml">
-      <Generator>YResxErrorTool</Generator>
+      <Generator>PtResxErrorTool</Generator>
       <LastGenOutput>Errors.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="Exceptions.xml">
-      <Generator>YResxExceptionTool</Generator>
+      <Generator>PtResxExceptionTool</Generator>
       <LastGenOutput>Exceptions.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="Configuration.xml">
-      <Generator>YConfigGenTool</Generator>
+      <Generator>PtConfigGenTool</Generator>
       <LastGenOutput>Configuration.cs</LastGenOutput>
     </None>
   </ItemGroup>

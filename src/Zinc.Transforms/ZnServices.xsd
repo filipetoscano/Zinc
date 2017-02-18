@@ -19,11 +19,23 @@
     ~
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <xsd:element name="services">
+        <xsd:annotation>
+            <xsd:documentation>Enumerates all of the services, and methods, which this application publishes.</xsd:documentation>
+        </xsd:annotation>
+
         <xsd:complexType>
             <xsd:sequence>
-                <xsd:element name="namespace" type="xsd:anyURI" />
+                <xsd:element name="namespace" type="xsd:anyURI">
+                    <xsd:annotation>
+                        <xsd:documentation>XML namespace of application, used for the SOAP endpoint.</xsd:documentation>
+                    </xsd:annotation>
+                </xsd:element>
 
                 <xsd:element name="service" type="zn:serviceType" minOccurs="0" maxOccurs="unbounded">
+                    <xsd:annotation>
+                        <xsd:documentation>Describes a service, or collection of methods.</xsd:documentation>
+                    </xsd:annotation>
+
                     <xsd:unique name="uqMethodName">
                         <xsd:selector xpath=" zn:method " />
                         <xsd:field xpath=" @name " />
@@ -107,6 +119,10 @@
                 </xsd:element>
 
                 <xsd:element name="request">
+                    <xsd:annotation>
+                        <xsd:documentation>Describes the request message of the method.</xsd:documentation>
+                    </xsd:annotation>
+
                     <xsd:complexType>
                         <xsd:complexContent>
                             <xsd:extension base="zn:structureType">
@@ -122,6 +138,10 @@
                 </xsd:element>
 
                 <xsd:element name="response">
+                    <xsd:annotation>
+                        <xsd:documentation>Describes the response message of the method.</xsd:documentation>
+                    </xsd:annotation>
+
                     <xsd:complexType>
                         <xsd:complexContent>
                             <xsd:extension base="zn:structureType">
@@ -228,6 +248,10 @@
                 <xsd:element name="enumeration-ref" type="zn:typedProperty" />
 
                 <xsd:element name="structure">
+                    <xsd:annotation>
+                        <xsd:documentation>Inline definition of class.</xsd:documentation>
+                    </xsd:annotation>
+
                     <xsd:complexType>
                         <xsd:complexContent>
                             <xsd:extension base="zn:structureType">
@@ -248,7 +272,12 @@
                         <xsd:field xpath=" @name " />
                     </xsd:unique>
                 </xsd:element>
-                <xsd:element name="structure-ref" type="zn:typedProperty" />
+
+                <xsd:element name="structure-ref" type="zn:typedProperty">
+                    <xsd:annotation>
+                        <xsd:documentation>Reference to existing class.</xsd:documentation>
+                    </xsd:annotation>
+                </xsd:element>
             </xsd:choice>
         </xsd:sequence>
     </xsd:complexType>
@@ -281,17 +310,21 @@
                 <xsd:documentation>Indicates whether the field repeats. Default is false.</xsd:documentation>
             </xsd:annotation>
         </xsd:attribute>
-        <xsd:attribute name="data" type="xsd:string" use="optional">
+
+        <xsd:attribute ref="mock:data" use="optional">
             <xsd:annotation>
                 <xsd:documentation>
-                    Markup indicating the nature of the value. Can be used to perform automatic mocking, as
-                    well as runtime validations.
+                    Indicates name of mock data set to be used for random data generation.
                 </xsd:documentation>
             </xsd:annotation>
         </xsd:attribute>
-
-        <xsd:attribute ref="mock:data" use="optional" />
-        <xsd:attribute ref="v:data" use="optional" />
+        <xsd:attribute ref="v:rule" use="optional">
+            <xsd:annotation>
+                <xsd:documentation>
+                    Indicates name of rule to be used for validation.
+                </xsd:documentation>
+            </xsd:annotation>
+        </xsd:attribute>
     </xsd:complexType>
 
     <xsd:complexType name="typedProperty">
@@ -324,6 +357,9 @@
                 <xsd:documentation>Indicates whether the field is optional. Default is false.</xsd:documentation>
             </xsd:annotation>
         </xsd:attribute>
+
+        <xsd:attribute ref="mock:data" use="optional" />
+        <xsd:attribute ref="v:rule" use="optional" />
     </xsd:complexType>
 
 
@@ -362,6 +398,11 @@
         </xsd:sequence>
 
         <xsd:attribute name="type" type="zn:token" use="required" />
+        <xsd:attribute name="flags" type="xsd:boolean" use="optional" default="false">
+            <xsd:annotation>
+                <xsd:documentation>Indicates whether an enumeration can be treated as a bit field; that is, a set of flags.</xsd:documentation>
+            </xsd:annotation>
+        </xsd:attribute>
     </xsd:complexType>
 
 
@@ -392,7 +433,7 @@
         </xsd:restriction>
     </xsd:simpleType>
 
-    
+
     <xsd:simpleType name="fullType">
         <xsd:annotation>
             <xsd:documentation>Defines a valid full .NET type identifier (namespace and name).</xsd:documentation>

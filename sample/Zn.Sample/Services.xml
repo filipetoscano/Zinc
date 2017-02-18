@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <?codebehind transformation="../../src/Zinc.Transforms/ToZnServices.xslt"?>
-<services xmlns="urn:zinc">
+<services xmlns="urn:zinc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="urn:zinc ../../src/Zinc.Transforms/ZnServices.xsd">
     <namespace>http://zinc.com/sample</namespace>
 
     <service name="One">

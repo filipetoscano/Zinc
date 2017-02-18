@@ -140,7 +140,7 @@
   <ItemGroup>
     <Content Include="OneServices.svc" />
     <None Include="Services.xml">
-      <Generator>YXsltTool</Generator>
+      <Generator>PtXsltTool</Generator>
       <LastGenOutput>Services.cs</LastGenOutput>
     </None>
     <Content Include="TwoServices.svc" />

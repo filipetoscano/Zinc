@@ -1121,9 +1121,9 @@ using Newtonsoft.Json;
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <xsl:template match=" * " mode="mock-attr" />
 
-    <xsl:template match=" *[ @m:data ] " mode="mock-attr" xmlns:m="urn:zinc/mock">
+    <xsl:template match=" *[ @mock:data ] " mode="mock-attr" xmlns:mock="urn:zinc/mock">
         <xsl:text>        [MockData( "</xsl:text>
-        <xsl:value-of select=" @m:data " />
+        <xsl:value-of select=" @mock:data " />
         <xsl:text>" )]</xsl:text>
         <xsl:value-of select=" $NewLine " />
     </xsl:template>
@@ -1132,16 +1132,16 @@ using Newtonsoft.Json;
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     ~
     ~ zn:* / mode=prop-rule
-    ~ For fields which have been marked with a @rule, emit the
+    ~ For fields which have been marked with a @val:rule, emit the
     ~ corresponding attribute. This can then be used by the runtime
     ~ to perform validations or dynamic data generation.
     ~
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <xsl:template match=" * " mode="prop-rule" />
 
-    <xsl:template match=" *[ @rule ] " mode="prop-rule">
+    <xsl:template match=" *[ @val:rule ] " mode="prop-rule" xmlns:val="urn:zinc/validation">
         <xsl:text>        [Rule( "</xsl:text>
-        <xsl:value-of select=" @rule" />
+        <xsl:value-of select=" @val:rule" />
         <xsl:text>" )]</xsl:text>
         <xsl:value-of select=" $NewLine " />
     </xsl:template>
