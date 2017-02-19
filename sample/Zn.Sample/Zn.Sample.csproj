@@ -61,20 +61,20 @@
       <HintPath>..\..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Platinum.Core, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Platinum.Core.1.0.1\lib\net46\Platinum.Core.dll</HintPath>
+    <Reference Include="Platinum.Core, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Platinum.Core.1.1.0\lib\net46\Platinum.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Platinum.Data, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Platinum.Data.1.0.1\lib\net46\Platinum.Data.dll</HintPath>
+    <Reference Include="Platinum.Data, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Platinum.Data.1.1.0\lib\net46\Platinum.Data.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Platinum.Mock, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Platinum.Mock.1.0.1\lib\net46\Platinum.Mock.dll</HintPath>
+    <Reference Include="Platinum.Mock, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Platinum.Mock.1.1.0\lib\net46\Platinum.Mock.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Platinum.Validation, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Platinum.Validation.1.0.1\lib\net46\Platinum.Validation.dll</HintPath>
+    <Reference Include="Platinum.Validation, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Platinum.Validation.1.1.0\lib\net46\Platinum.Validation.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Swashbuckle.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cd1bb07a5ac7c7bc, processorArchitecture=MSIL">
