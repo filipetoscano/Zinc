@@ -9,6 +9,7 @@ src/**/Errors.cs
 src/**/Exceptions.cs
 src/**/bin/
 src/**/obj/
+src/**/project.lock.json
 src/Zinc.Transforms/Zinc.Transforms.nuspec
 sample/**/bin/
 sample/**/obj/
@@ -27,4 +28,3 @@ sample/Zn.Sample/TwoService/MethodTwo.cs
 
 # Other
 
-src/Zinc.VisualStudio/project.lock.json
