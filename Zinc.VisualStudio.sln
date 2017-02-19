@@ -5,7 +5,9 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{BAB42627-05C8-42ED-8293-33EBA52C0F5C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zinc.VisualStudio", "src\Zinc.VisualStudio\Zinc.VisualStudio.csproj", "{461089E7-008E-4737-BA17-E1FCD1CC3D0E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zinc.VisualStudio", "src\Zinc.VisualStudio\Zinc.VisualStudio.csproj", "{8AC9B020-D296-48DF-8C9A-35D10D08FCCB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zinc.VisualStudio.Plugin", "src\Zinc.VisualStudio.Plugin\Zinc.VisualStudio.Plugin.csproj", "{461089E7-008E-4737-BA17-E1FCD1CC3D0E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,6 +15,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8AC9B020-D296-48DF-8C9A-35D10D08FCCB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8AC9B020-D296-48DF-8C9A-35D10D08FCCB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8AC9B020-D296-48DF-8C9A-35D10D08FCCB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8AC9B020-D296-48DF-8C9A-35D10D08FCCB}.Release|Any CPU.Build.0 = Release|Any CPU
 		{461089E7-008E-4737-BA17-E1FCD1CC3D0E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{461089E7-008E-4737-BA17-E1FCD1CC3D0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{461089E7-008E-4737-BA17-E1FCD1CC3D0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -22,6 +28,7 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{8AC9B020-D296-48DF-8C9A-35D10D08FCCB} = {BAB42627-05C8-42ED-8293-33EBA52C0F5C}
 		{461089E7-008E-4737-BA17-E1FCD1CC3D0E} = {BAB42627-05C8-42ED-8293-33EBA52C0F5C}
 	EndGlobalSection
 EndGlobal

@@ -1,5 +1,5 @@
 ﻿using System.Reflection;
-using System.Resources;
+using System.Runtime.InteropServices;
 
 // General information
 [assembly: AssemblyTitle( "Zinc Visual Studio" )]
@@ -12,8 +12,9 @@ using System.Resources;
 [assembly: AssemblyCulture( "" )]
 
 // Additional information
-[assembly: AssemblyDelaySign( false )]
-[assembly: NeutralResourcesLanguage( "en-US" )]
+[assembly: ComVisible( false )]
+[assembly: Guid( "8ac9b020-d296-48df-8c9a-35d10d08fccb" )]
 
 // Version information
 [assembly: AssemblyVersion( "1.0.0.0" )]
+[assembly: AssemblyFileVersion( "1.0.0.0" )]
