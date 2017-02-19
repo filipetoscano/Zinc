@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle( "Zinc SOAP client" )]
 [assembly: AssemblyDescription( "Library for calling Zinc web services, using SOAP." )]
 [assembly: AssemblyConfiguration( "" )]
-[assembly: AssemblyCompany( "" )]
+[assembly: AssemblyCompany( "Transition" )]
 [assembly: AssemblyProduct( "Zinc" )]
 [assembly: AssemblyCopyright( "" )]
 [assembly: AssemblyTrademark( "" )]

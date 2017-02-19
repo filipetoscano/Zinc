@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle( "Zinc Swashbuckle" )]
 [assembly: AssemblyDescription( "Support for Swashbuckle" )]
 [assembly: AssemblyConfiguration( "" )]
-[assembly: AssemblyCompany( "" )]
+[assembly: AssemblyCompany( "Transition" )]
 [assembly: AssemblyProduct( "Zinc" )]
 [assembly: AssemblyCopyright( "" )]
 [assembly: AssemblyTrademark( "" )]

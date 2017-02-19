@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle( "Zinc - Transforms" )]
 [assembly: AssemblyDescription( "Dummy project to hold transforms - not actually compiled :-)" )]
 [assembly: AssemblyConfiguration( "" )]
-[assembly: AssemblyCompany( "" )]
+[assembly: AssemblyCompany( "Transition" )]
 [assembly: AssemblyProduct( "Zinc" )]
 [assembly: AssemblyCopyright( "" )]
 [assembly: AssemblyTrademark( "" )]

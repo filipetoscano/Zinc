@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<errors xmlns="urn:platinum/actor">
+    <actor base="{Application}" />
+
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    ~
+    ~ Rest/
+    ~
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <error id="InvokeAsync_Send_WebException" actor="~" code="4000">
+        <description>Failed when invoking service '{0}', status was '{1}'.</description>
+    </error>
+    
+    <error id="InvokeAsync_Send_HttpRequestException" actor="~" code="4000">
+        <description>Failed when invoking service '{0}'.</description>
+    </error>
+
+    <error id="InvokeAsync_Send_Exception" actor="~" code="4000">
+        <description>Failed when invoking service '{0}'.</description>
+    </error>
+
+    <error id="InvokeAsync_Fault_Deserialize" actor="~" code="4000">
+        <description>Failed deserializing fault from service '{0}'.</description>
+    </error>
+
+    <error id="InvokeAsync_Response_Deserialize" actor="~" code="4000">
+        <description>Failed deserializing response from service '{0}'.</description>
+    </error>
+
+
+</errors>

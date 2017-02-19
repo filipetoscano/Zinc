@@ -73,10 +73,11 @@
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <Target Name="push">
         <Error Condition=" $(nugetPushKey) == '' " Text="Must specify 'nugetPushKey' when pushing to nuget source." />
-        <Exec Command=" nuget push Zinc.Core.$(Version).nupkg                   -s $(nugetSource) $(nugetPushKey) " WorkingDirectory="build" />
-        <Exec Command=" nuget push Zinc.WebServices.$(Version).nupkg            -s $(nugetSource) $(nugetPushKey) " WorkingDirectory="build" />
-        <Exec Command=" nuget push Zinc.WebServices.RestClient.$(Version).nupkg -s $(nugetSource) $(nugetPushKey) " WorkingDirectory="build" />
-        <Exec Command=" nuget push Zinc.Transforms.$(Version).nupkg             -s $(nugetSource) $(nugetPushKey) " WorkingDirectory="build" />
+        <Exec Command=" nuget push Zinc.Core.$(Version).nupkg                    -s $(nugetSource) $(nugetPushKey) " WorkingDirectory="build" />
+        <Exec Command=" nuget push Zinc.WebServices.$(Version).nupkg             -s $(nugetSource) $(nugetPushKey) " WorkingDirectory="build" />
+        <Exec Command=" nuget push Zinc.Transforms.$(Version).nupkg              -s $(nugetSource) $(nugetPushKey) " WorkingDirectory="build" />
+        <Exec Command=" nuget push Zinc.WebServices.RestClient.$(Version).nupkg  -s $(nugetSource) $(nugetPushKey) " WorkingDirectory="build" />
+        <Exec Command=" nuget push Zinc.WebServices.Swashbuckle.$(Version).nupkg -s $(nugetSource) $(nugetPushKey) " WorkingDirectory="build" />
     </Target>
 
 

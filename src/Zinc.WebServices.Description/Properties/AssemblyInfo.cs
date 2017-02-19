@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle( "Zinc - WebServices Description" )]
 [assembly: AssemblyDescription( "Service description for an Service application." )]
 [assembly: AssemblyConfiguration( "" )]
-[assembly: AssemblyCompany( "" )]
+[assembly: AssemblyCompany( "Transition" )]
 [assembly: AssemblyProduct( "Zinc" )]
 [assembly: AssemblyCopyright( "" )]
 [assembly: AssemblyTrademark( "" )]
