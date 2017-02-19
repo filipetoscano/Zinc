@@ -119,14 +119,14 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="OneService\MethodOne.xml">
-      <Generator>YXsltTool</Generator>
+      <Generator>ZnTool</Generator>
       <LastGenOutput>MethodOne.cs</LastGenOutput>
     </None>
     <Content Include="Default.aspx" />
     <Content Include="Global.asax" />
     <EmbeddedResource Include="MockData\Data01.xml" />
     <Content Include="OneService\MethodThree.xml">
-      <Generator>YXsltTool</Generator>
+      <Generator>ZnTool</Generator>
       <LastGenOutput>MethodThree.cs</LastGenOutput>
     </Content>
     <Content Include="packages.config" />
@@ -140,7 +140,7 @@
   <ItemGroup>
     <Content Include="OneServices.svc" />
     <None Include="Services.xml">
-      <Generator>PtXsltTool</Generator>
+      <Generator>ZnTool</Generator>
       <LastGenOutput>Services.cs</LastGenOutput>
     </None>
     <Content Include="TwoServices.svc" />

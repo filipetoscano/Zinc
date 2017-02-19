@@ -35,12 +35,6 @@
     ~ 
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <Target Name="build">
-        <CallTarget Targets="compile" />
-        <CallTarget Targets="pack" />
-    </Target>
-
-
-    <Target Name="compile">
         <PropertyGroup>
             <versionInfo>[assembly: System.Reflection.AssemblyVersion( "$(version)" )]</versionInfo>
             <nugetArgs> -OutputDirectory ..\..\build -IncludeReferencedProjects -Prop Configuration=Release </nugetArgs>
@@ -48,21 +42,20 @@
 
         <WriteLinesToFile Overwrite="true" File="src\GlobalVersion.cs" Lines="$(versionInfo)" />
         <MakeDir Directories="build" />
+
+        <!-- Deps -->
         <Exec Command=" nuget restore Zinc.sln " />
+        <Exec Command=" bin\ptvscmd.exe Zinc.sln " />
 
-        <Exec Command=" yvscmd --project=src\Zinc.WebServices\Zinc.WebServices.csproj " />
-        <Exec Command=" yvscmd --project=sample\Zn.Sample\Zn.Sample.csproj " />
-
+        <!-- Compile -->
         <MSBuild Projects="Zinc.sln" Properties="Configuration=Release" />
 
         <Copy SourceFiles="src\Zinc.Transforms\Zinc.Transforms.nuspecx" DestinationFiles="src\Zinc.Transforms\Zinc.Transforms.nuspec" />
         <XmlPoke XmlInputPath="src\Zinc.Transforms\Zinc.Transforms.nuspec"
                  Query="/package/metadata/version"
                  Value="$(version)" />
-    </Target>
 
-
-    <Target Name="pack">
+        <!-- Pack -->
         <Exec Command=" nuget pack Zinc.Core.csproj $(nugetArgs) "                           WorkingDirectory="src\Zinc.Core" />
         <Exec Command=" nuget pack Zinc.WebServices.csproj $(nugetArgs) "                    WorkingDirectory="src\Zinc.WebServices" />
         <Exec Command=" nuget pack Zinc.WebServices.RestClient.csproj $(nugetArgs) "         WorkingDirectory="src\Zinc.WebServices.RestClient" />
@@ -84,6 +77,27 @@
         <Exec Command=" nuget push Zinc.WebServices.$(Version).nupkg            -s $(nugetSource) $(nugetPushKey) " WorkingDirectory="build" />
         <Exec Command=" nuget push Zinc.WebServices.RestClient.$(Version).nupkg -s $(nugetSource) $(nugetPushKey) " WorkingDirectory="build" />
         <Exec Command=" nuget push Zinc.Transforms.$(Version).nupkg             -s $(nugetSource) $(nugetPushKey) " WorkingDirectory="build" />
+    </Target>
+
+
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    ~ 
+    ~ build-vs/
+    ~ Compile and produce the Visual Studio plugin.
+    ~ 
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <Target Name="build-vs">
+        <!-- Deps -->
+        <Exec Command=" nuget restore Zinc.VisualStudio.sln " />
+
+        <!-- Compile -->
+        <MSBuild Projects="Zinc.VisualStudio.sln" Properties="Configuration=Release" />
+
+        <!-- Packing -->
+        <Copy SourceFiles="src\Zinc.VisualStudio\bin\Release\Zinc.VisualStudio.dll" DestinationFolder="bin" />
+
+        <!-- Plugin -->
+        <Copy SourceFiles="src\Zinc.VisualStudio.Plugin\bin\Release\Zinc.VisualStudio.Plugin.vsix" DestinationFolder="build" />
     </Target>
 
 </Project>

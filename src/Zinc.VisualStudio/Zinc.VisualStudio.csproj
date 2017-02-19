@@ -45,10 +45,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="X.cs" />
     <Compile Include="ZnTool.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\ZnMethod-ToCode.xslt" />
+    <EmbeddedResource Include="Resources\ZnMethod-ToCode.xslt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
