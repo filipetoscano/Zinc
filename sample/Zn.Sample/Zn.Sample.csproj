@@ -145,7 +145,7 @@
     </None>
     <Content Include="TwoServices.svc" />
     <Content Include="TwoService\MethodTwo.xml">
-      <Generator>YXsltTool</Generator>
+      <Generator>ZnTool</Generator>
       <LastGenOutput>MethodTwo.cs</LastGenOutput>
     </Content>
     <Content Include="Web.config" />
