@@ -14,6 +14,16 @@ namespace Zinc.WebServices
         /// <summary />
         public void Apply( Schema schema, SchemaRegistry schemaRegistry, Type type )
         {
+            #region Validations
+
+            if ( schema == null )
+                throw new ArgumentNullException( nameof( schema ) );
+
+            if ( type == null )
+                throw new ArgumentNullException( nameof( type ) );
+
+            #endregion
+
             var properties = type.GetProperties()
                 .Where( prop => prop.PropertyType == typeof( DateTime )
                      && prop.GetCustomAttribute<JsonConverterAttribute>() != null );
