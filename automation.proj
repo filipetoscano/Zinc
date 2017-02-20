@@ -45,7 +45,7 @@
 
         <!-- Deps -->
         <Exec Command=" nuget restore Zinc.sln " />
-        <Exec Command=" bin\ptvscmd.exe Zinc.sln " />
+        <Exec Command=" bin\ptvscmd.exe --solution=Zinc.sln " />
 
         <!-- Compile -->
         <MSBuild Projects="Zinc.sln" Properties="Configuration=Release" />
