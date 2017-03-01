@@ -65,7 +65,6 @@ namespace Zinc.VisualStudio
                     Path.GetDirectoryName( args.FileName ),
                     Path.GetFileNameWithoutExtension( args.FileName ) + "Impl.cs" );
 
-            Console.WriteLine( impl );
             if ( File.Exists( impl ) == true )
                 return;
 
