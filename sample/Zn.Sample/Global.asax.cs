@@ -23,7 +23,7 @@ namespace Zn.Sample
             /*
              *
              */
-            GlobalConfiguration.Configure( WebApiConfig.Register );
+            GlobalConfiguration.Configuration.UseZinc();
         }
 
 

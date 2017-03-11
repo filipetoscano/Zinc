@@ -53,6 +53,7 @@
     </Compile>
     <Compile Include="ExecutionContext.cs" />
     <EmbeddedResource Include="Journaling\SqlPre.sql" />
+    <Compile Include="Extensions.cs" />
     <Compile Include="Journaling\Q.cs" />
     <Compile Include="Journaling\NullJournal.cs" />
     <Compile Include="Journaling\SqlServerJournal.cs" />
@@ -70,6 +71,7 @@
     <Compile Include="Rest\RestExecutionContext.cs" />
     <Compile Include="Rest\SqlServerLoggingHandler.cs" />
     <Compile Include="Rest\WebApiConfig.cs" />
+    <Compile Include="Rest\ZincApiConfig.cs" />
     <Compile Include="Rest\ZnHeaders.cs" />
     <Compile Include="ServiceModel\DebugMessageInspector.cs" />
     <Compile Include="ServiceModel\ElasticLoggingMessageInspector.cs" />
