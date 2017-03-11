@@ -19,6 +19,7 @@ namespace Zn.Sample.TwoService
                 ActivityId = this.Context.ActivityId,
                 AccessToken = this.Context.AccessToken,
                 ExecutionId = this.Context.ExecutionId,
+                OutEnum = request.InEnum,
             };
         }
     }

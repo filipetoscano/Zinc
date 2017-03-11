@@ -61,6 +61,8 @@
     <Compile Include="MethodLoggingType.cs" />
     <Compile Include="Rest\DebugLoggingHandler.cs" />
     <Compile Include="Rest\ElasticLoggingHandler.cs" />
+    <Compile Include="Rest\ExceptionHandler.cs" />
+    <Compile Include="Rest\ExceptionResponse.cs" />
     <Compile Include="Rest\ExecutionHandler.cs" />
     <Compile Include="Rest\HandleExceptionFilter.cs" />
     <Compile Include="Rest\JsonNetFormatter.cs" />

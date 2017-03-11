@@ -8,6 +8,11 @@
     <request rest:method="get">
         <date name="InDate" />
         <dateTime name="InDateTime" />
+        <enumeration name="InEnum" type="TestEnum">
+            <enum value="First" />
+            <enum value="Second" />
+            <enum value="Third" />
+        </enumeration>
     </request>
 
     <response>
@@ -21,5 +26,6 @@
         <guid name="ActivityId" />
         <string name="AccessToken" optional="true" />
         <guid name="ExecutionId" />
+        <enumeration-ref name="OutEnum" type="TestEnum" />
     </response>
 </method>

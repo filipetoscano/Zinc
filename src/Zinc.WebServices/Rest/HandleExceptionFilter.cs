@@ -7,7 +7,7 @@ using System.Web.Http.Filters;
 namespace Zinc.WebServices.Rest
 {
     /// <summary>
-    /// Convers the exception raised by the implementation class into an
+    /// Converts the exception raised by the implementation class into an
     /// instance of <see cref="ActorFault" />.
     /// </summary>
     public class HandleExceptionFilter : ExceptionFilterAttribute
@@ -22,7 +22,7 @@ namespace Zinc.WebServices.Rest
             #region Validations
 
             if ( context == null )
-                throw new ArgumentNullException( "context" );
+                throw new ArgumentNullException( nameof( context ) );
 
             #endregion
 

@@ -34,10 +34,15 @@ namespace Zinc.WebServices
             if ( context == null )
                 throw new ArgumentNullException( nameof( context ) );
 
-            if ( request == null )
-                throw new ArgumentNullException( nameof( request ) );
-
             #endregion
+
+
+            /*
+             * Where's my request? This can happen, when the user doesn't
+             * provide a "{}" during the JSON post.
+             */
+            if ( request == null )
+                throw new ZincException( ER.MethodInvoker_RequestIsNull );
 
 
             /*
@@ -141,6 +146,13 @@ namespace Zinc.WebServices
 
                 throw;
             }
+
+
+            /*
+             * We always expect a response: we should never accept a null response!
+             */
+            if ( response == null )
+                throw new ZincException( ER.MethodInvoker_ResponseIsNull, typeof( T ).FullName );
 
 
             /*

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Platinum;
+using System;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
@@ -17,7 +18,7 @@ namespace Zinc.WebServices.Rest
         protected override async Task HandleRequest( RestExecutionContext context, byte[] message )
         {
             string asString = Encoding.UTF8.GetString( message );
-            await Journal( context, 0, null, asString );
+            await Journal( context, false, null, asString );
         }
 
 
@@ -26,11 +27,11 @@ namespace Zinc.WebServices.Rest
         {
             // TODO: What about binary files? :/
             string asString = Encoding.UTF8.GetString( message );
-            await Journal( context, 1, statusCode, asString );
+            await Journal( context, true, statusCode, asString );
         }
 
 
-        private async Task Journal( RestExecutionContext context, int step, HttpStatusCode? statusCode, string message )
+        private async Task Journal( RestExecutionContext context, bool direction, HttpStatusCode? statusCode, string message )
         {
             const string Database = "SqlServerLogging";
 
@@ -65,22 +66,36 @@ namespace Zinc.WebServices.Rest
             /*
              * 
              */
+            object accessToken;
+            object statusCodeStr;
+
+            if ( context.AccessToken != null )
+                accessToken = context.AccessToken;
+            else
+                accessToken = DBNull.Value;
+
+            if ( statusCode.HasValue == true )
+                statusCodeStr = statusCode.ToString();
+            else
+                statusCodeStr = DBNull.Value;
+
+
+            /*
+             * 
+             */
             SqlCommand cmd = conn.CreateCommand();
-            cmd.CommandText = "insert into REST_JOURNAL ( ActivityId, ExecutionId, Method, URI, Step, StatusCode, JsonMessage, Moment ) "
-                            + "values ( @ActivityId, @ExecutionId, @Method, @URI, @Step, @StatusCode, @JsonMessage, @Moment ) ";
+            cmd.CommandText = "insert into ZN_REST_JOURNAL ( Application, ActivityId, AccessToken, ExecutionId, Method, URI, Direction, StatusCode, JsonMessage, Moment ) "
+                            + "values ( @Application, @ActivityId, @AccessToken, @ExecutionId, @Method, @URI, @Direction, @StatusCode, @JsonMessage, @Moment ) ";
             cmd.CommandType = CommandType.Text;
 
+            cmd.Parameters.Add( "@Application", SqlDbType.VarChar ).Value = App.Name;
             cmd.Parameters.Add( "@ActivityId", SqlDbType.UniqueIdentifier ).Value = context.ActivityId;
+            cmd.Parameters.Add( "@AccessToken", SqlDbType.VarChar ).Value = accessToken;
             cmd.Parameters.Add( "@ExecutionId", SqlDbType.UniqueIdentifier ).Value = context.ExecutionId;
             cmd.Parameters.Add( "@Method", SqlDbType.NVarChar ).Value = context.Method.ToString();
             cmd.Parameters.Add( "@URI", SqlDbType.NVarChar ).Value = context.RequestUri.ToString();
-            cmd.Parameters.Add( "@Step", SqlDbType.Int ).Value = step;
-
-            if ( statusCode.HasValue == true )
-                cmd.Parameters.Add( "@StatusCode", SqlDbType.NVarChar ).Value = statusCode.ToString();
-            else
-                cmd.Parameters.Add( "@StatusCode", SqlDbType.NVarChar ).Value = DBNull.Value;
-
+            cmd.Parameters.Add( "@Direction", SqlDbType.Bit ).Value = direction;
+            cmd.Parameters.Add( "@StatusCode", SqlDbType.NVarChar ).Value = statusCodeStr;
             cmd.Parameters.Add( "@JsonMessage", SqlDbType.NVarChar ).Value = message;
             cmd.Parameters.Add( "@Moment", SqlDbType.DateTime ).Value = DateTime.UtcNow;
 

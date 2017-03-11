@@ -54,7 +54,7 @@ namespace Zinc.WebServices
         /// <summary>
         /// Builds a Zinc execution context, based on the WCF execution context.
         /// </summary>
-        /// <param name="wcfContext">WCF execution context.</param>
+        /// <param name="operationContext">WCF execution context.</param>
         public ExecutionContext( OperationContext operationContext )
         {
             #region Validations

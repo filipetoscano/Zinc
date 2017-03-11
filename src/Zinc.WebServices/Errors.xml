@@ -8,20 +8,33 @@
     ~ MethodInvoker/
     ~
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-    <error id="MethodInvoker_RequestValidate" actor="~.Zinc" code="4000">
-        <description>Unhandled exception validating instance of '{0}'.</description>
+    <error id="MethodInvoker_RequestIsNull" actor="~.Zinc.Client" code="4000">
+        <description>Request message is missing.</description>
     </error>
 
-    <error id="MethodInvoker_RequestInvalid" actor="~.Zinc.Client" code="4001">
+    <error id="MethodInvoker_RequestValidate" actor="~.Zinc" code="4001">
+        <description>Unhandled exception validating instance of '{0}'.</description>
+        <arg name="RequestType" />
+    </error>
+
+    <error id="MethodInvoker_RequestInvalid" actor="~.Zinc.Client" code="4002">
         <description>Request '{0}' is invalid.</description>
+        <arg name="RequestType" />
+    </error>
+    
+    <error id="MethodInvoker_ResponseIsNull" actor="~.Zinc.Internal" code="4003">
+        <description>Response from implementation '{0}' was null: must always be non-null!</description>
+        <arg name="Method" />
     </error>
 
-    <error id="MethodInvoker_ResponseValidate" actor="~.Zinc" code="4002">
+    <error id="MethodInvoker_ResponseValidate" actor="~.Zinc" code="4004">
         <description>Unhandled exception validating instance of '{0}'.</description>
+        <arg name="ResponseType" />
     </error>
 
-    <error id="MethodInvoker_ResponseInvalid" actor="~.Zinc" code="4003">
+    <error id="MethodInvoker_ResponseInvalid" actor="~.Zinc" code="4005">
         <description>Response '{0}' is invalid.</description>
+        <arg name="ResponseType" />
     </error>
 
 
@@ -32,18 +45,22 @@
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <error id="Rest_SqlServer_ConnectionMissing" actor="~.Rest.Configuration" code="2000">
         <description>Connection string '{0}' is missing from configuration.</description>
+        <arg name="Database" />
     </error>
 
     <error id="Rest_SqlServer_Open" actor="~.Rest.Data" code="2001">
         <description>Failed to open connection to database '{0}'.</description>
+        <arg name="Database" />
     </error>
 
     <error id="Rest_SqlServer_ExecuteNonQuery" actor="~.Rest.Data" code="2002">
         <description>Failed to execute journal statement on database '{0}'.</description>
+        <arg name="Database" />
     </error>
 
     <error id="Rest_Configuration_MissingHandler" actor="~.Rest.Configuration" code="2003">
         <description>Handlers references '{0}', but has not been added as extension.</description>
+        <arg name="Handler" />
     </error>
 
     <error id="Rest_NoExecutionContext" actor="~.Rest.Configuration" code="2004">
@@ -58,14 +75,17 @@
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <error id="ServiceModel_SqlServer_ConnectionMissing" actor="~.Soap.Configuration" code="3000">
         <description>Connection string '{0}' is missing from configuration.</description>
+        <arg name="Database" />
     </error>
 
     <error id="ServiceModel_SqlServer_Open" actor="~.Soap.Data" code="3001">
         <description>Failed to open connection to database '{0}'.</description>
+        <arg name="Database" />
     </error>
 
     <error id="ServiceModel_SqlServer_ExecuteNonQuery" actor="~.Soap.Data" code="3002">
         <description>Failed to execute journal statement on database '{0}'.</description>
+        <arg name="Database" />
     </error>
 
     <error id="ServiceModel_ExecutionContext_NotFound" actor="~.Soap.Configuration" code="3003">

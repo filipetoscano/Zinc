@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Platinum;
+using System;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
@@ -56,7 +57,7 @@ namespace Zinc.WebServices.ServiceModel
             if ( config.Enabled == true )
             {
                 string message = ToMessage( config.Response, buffer );
-                Journal( ctx, 0, message );
+                Journal( ctx, false, message );
             }
 
             return ctx;
@@ -95,7 +96,7 @@ namespace Zinc.WebServices.ServiceModel
             if ( config.Enabled == true )
             {
                 string message = ToMessage( config.Response, buffer );
-                Journal( ctx, 1, message );
+                Journal( ctx, true, message );
             }
         }
 
@@ -135,9 +136,9 @@ namespace Zinc.WebServices.ServiceModel
         /// Writes the message to the database.
         /// </summary>
         /// <param name="context">Current execution context.</param>
-        /// <param name="step">Step within execution context.</param>
+        /// <param name="direction">Direction of message.</param>
         /// <param name="message">XML message.</param>
-        private static void Journal( WcfExecutionContext context, int step, string message )
+        private static void Journal( WcfExecutionContext context, bool direction, string message )
         {
             const string Database = "SqlServerLogging";
 
@@ -173,14 +174,16 @@ namespace Zinc.WebServices.ServiceModel
              * 
              */
             SqlCommand cmd = conn.CreateCommand();
-            cmd.CommandText = "insert into WCF_JOURNAL ( ActivityId, ExecutionId, Action, Step, XmlMessage, Moment )"
-                            + "values ( @ActivityId, @ExecutionId, @Action, @Step, @XmlMessage, @Moment ) ";
+            cmd.CommandText = "insert into ZN_SOAP_JOURNAL ( Application, ActivityId, AccessToken, ExecutionId, Action, Direction, XmlMessage, Moment )"
+                            + "values ( @Application, @ActivityId, @AccessToken, @ExecutionId, @Action, @Direction, @XmlMessage, @Moment ) ";
             cmd.CommandType = CommandType.Text;
 
+            cmd.Parameters.Add( "@Application", SqlDbType.VarChar ).Value = App.Name;
             cmd.Parameters.Add( "@ActivityId", SqlDbType.UniqueIdentifier ).Value = context.ActivityId;
+            cmd.Parameters.Add( "@AccessToken", SqlDbType.VarChar ).Value = context.AccessToken;
             cmd.Parameters.Add( "@ExecutionId", SqlDbType.UniqueIdentifier ).Value = context.ExecutionId;
             cmd.Parameters.Add( "@Action", SqlDbType.NVarChar ).Value = context.Action;
-            cmd.Parameters.Add( "@Step", SqlDbType.Int ).Value = step;
+            cmd.Parameters.Add( "@Direction", SqlDbType.Bit ).Value = direction;
             cmd.Parameters.Add( "@XmlMessage", SqlDbType.Xml ).Value = message;
             cmd.Parameters.Add( "@Moment", SqlDbType.DateTime ).Value = DateTime.UtcNow;
 

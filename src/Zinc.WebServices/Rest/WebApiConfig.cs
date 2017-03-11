@@ -63,9 +63,12 @@ namespace Zinc.WebServices
 
 
             /*
-             * Filters
+             * Exception handling:
+             *   - Filter: Exceptions returned from the WebApi are 'reworked'.
+             *   - Services: Global exception handling.
              */
             config.Filters.Add( new HandleExceptionFilter() );
+            config.Services.Replace( typeof( System.Web.Http.ExceptionHandling.IExceptionHandler ), new ExceptionHandler() );
 
 
             /*
@@ -79,6 +82,7 @@ namespace Zinc.WebServices
 
             var formatter = new JsonNetFormatter( settings );
             formatter.SupportedMediaTypes.Add( new MediaTypeHeaderValue( "application/json" ) );
+            formatter.SupportedMediaTypes.Add( new MediaTypeHeaderValue( "application/javascript" ) );
 
             config.Formatters.Add( formatter );
 
