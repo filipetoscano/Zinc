@@ -1157,10 +1157,9 @@ using Newtonsoft.Json;
         <xsl:value-of select=" $NewLine " />
     </xsl:template>
 
-    <xsl:template match=" v:regex " mode="valn-attr">
-        <xsl:text>        [RegularExpression( @"</xsl:text>
-        <xsl:value-of select=" @pattern " />
-        <xsl:text>" )]</xsl:text>
+    <!-- String -->
+    <xsl:template match=" v:email " mode="valn-attr">
+        <xsl:text>        [Email]</xsl:text>
         <xsl:value-of select=" $NewLine " />
     </xsl:template>
 
@@ -1185,6 +1184,60 @@ using Newtonsoft.Json;
         <xsl:value-of select=" @max " />
         <xsl:text> )]</xsl:text>
         <xsl:value-of select=" $NewLine " />
+    </xsl:template>
+
+    <xsl:template match=" v:regex " mode="valn-attr">
+        <xsl:text>        [RegularExpression( @"</xsl:text>
+        <xsl:value-of select=" @pattern " />
+        <xsl:text>" )]</xsl:text>
+        <xsl:value-of select=" $NewLine " />
+    </xsl:template>
+
+    <!-- Numerical -->
+    <xsl:template match=" v:digits " mode="valn-attr">
+        <xsl:if test=" @total ">
+            <xsl:text>        [TotalDigits( </xsl:text>
+            <xsl:value-of select=" @total " />
+            <xsl:text> )]</xsl:text>
+            <xsl:value-of select=" $NewLine " />
+        </xsl:if>
+
+        <xsl:if test=" @decimal ">
+            <xsl:text>        [DecimalDigits( </xsl:text>
+            <xsl:value-of select=" @decimal " />
+            <xsl:text> )]</xsl:text>
+            <xsl:value-of select=" $NewLine " />
+        </xsl:if>
+    </xsl:template>
+
+    <xsl:template match=" v:range " mode="valn-attr">
+        <xsl:if test=" @minInclusive ">
+            <xsl:text>        [MinValue( "</xsl:text>
+            <xsl:value-of select=" @minInclusive " />
+            <xsl:text>" )]</xsl:text>
+            <xsl:value-of select=" $NewLine " />
+        </xsl:if>
+
+        <xsl:if test=" @minExclusive ">
+            <xsl:text>        [MinValue( "</xsl:text>
+            <xsl:value-of select=" @minExclusive " />
+            <xsl:text>", IsExclusive = true )]</xsl:text>
+            <xsl:value-of select=" $NewLine " />
+        </xsl:if>
+
+        <xsl:if test=" @maxInclusive ">
+            <xsl:text>        [MaxValue( "</xsl:text>
+            <xsl:value-of select=" @maxInclusive " />
+            <xsl:text>" )]</xsl:text>
+            <xsl:value-of select=" $NewLine " />
+        </xsl:if>
+
+        <xsl:if test=" @maxExclusive ">
+            <xsl:text>        [MaxValue( "</xsl:text>
+            <xsl:value-of select=" @maxExclusive " />
+            <xsl:text>", IsExclusive = true )]</xsl:text>
+            <xsl:value-of select=" $NewLine " />
+        </xsl:if>
     </xsl:template>
 
 

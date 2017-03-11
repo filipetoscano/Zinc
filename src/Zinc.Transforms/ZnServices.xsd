@@ -108,13 +108,47 @@
     <xsd:element name="method">
         <xsd:complexType>
             <xsd:sequence>
-                <xsd:element name="notImplemented" minOccurs="0" />
-                <xsd:element name="summary" type="xsd:string" minOccurs="0" />
-                <xsd:element name="remarks" type="xsd:string" minOccurs="0" />
+                <xsd:element name="notImplemented" minOccurs="0">
+                    <xsd:annotation>
+                        <xsd:documentation>
+                            Marks that the current method has no implementation, and that the response
+                            should be automatically mocked.
+                        </xsd:documentation>
+                    </xsd:annotation>
+                </xsd:element>
+
+                <xsd:element name="summary" type="xsd:string" minOccurs="0">
+                    <xsd:annotation>
+                        <xsd:documentation>
+                            Describes the functional purpose of the current method. This description
+                            should be short, but concise to unambiguously specify the use-case for the
+                            method.
+                        </xsd:documentation>
+                    </xsd:annotation>
+                </xsd:element>
+
+                <xsd:element name="remarks" type="xsd:string" minOccurs="0">
+                    <xsd:annotation>
+                        <xsd:documentation>
+                            Additional functional or technical remarks which are relevant for the caller,
+                            when invoking the current method.
+                        </xsd:documentation>
+                    </xsd:annotation>
+                </xsd:element>
 
                 <xsd:element name="using" minOccurs="0" maxOccurs="unbounded">
+                    <xsd:annotation>
+                        <xsd:documentation>
+                            Imports an additional CLR namespace into the generated file.
+                        </xsd:documentation>
+                    </xsd:annotation>
+                    
                     <xsd:complexType>
-                        <xsd:attribute name="namespace" type="zn:csNamespace" />
+                        <xsd:attribute name="namespace" type="zn:csNamespace">
+                            <xsd:annotation>
+                                <xsd:documentation>CLR namespace to import.</xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:attribute>
                     </xsd:complexType>
                 </xsd:element>
 
@@ -183,36 +217,40 @@
                         <xsd:documentation>Boolean value. Mapped to 'bool'.</xsd:documentation>
                     </xsd:annotation>
                 </xsd:element>
-                <xsd:element name="short" type="zn:simpleProperty">
+
+                <!-- Numeric -->
+                <xsd:element name="short" type="zn:numericProperty">
                     <xsd:annotation>
                         <xsd:documentation>16-bit integer. Mapped to 'short'.</xsd:documentation>
                     </xsd:annotation>
                 </xsd:element>
-                <xsd:element name="int" type="zn:simpleProperty">
+                <xsd:element name="int" type="zn:numericProperty">
                     <xsd:annotation>
                         <xsd:documentation>32-bit integer. Mapped to 'int'.</xsd:documentation>
                     </xsd:annotation>
                 </xsd:element>
-                <xsd:element name="long" type="zn:simpleProperty">
+                <xsd:element name="long" type="zn:numericProperty">
                     <xsd:annotation>
                         <xsd:documentation>64-bit integer. Mapped to 'long'.</xsd:documentation>
                     </xsd:annotation>
                 </xsd:element>
-                <xsd:element name="float" type="zn:simpleProperty">
+                <xsd:element name="float" type="zn:numericProperty">
                     <xsd:annotation>
                         <xsd:documentation>Single precision floating point number. Mapped to 'float'.</xsd:documentation>
                     </xsd:annotation>
                 </xsd:element>
-                <xsd:element name="double" type="zn:simpleProperty">
+                <xsd:element name="double" type="zn:numericProperty">
                     <xsd:annotation>
                         <xsd:documentation>Double precision floating point number. Mapped to 'double'.</xsd:documentation>
                     </xsd:annotation>
                 </xsd:element>
-                <xsd:element name="decimal" type="zn:simpleProperty">
+                <xsd:element name="decimal" type="zn:numericProperty">
                     <xsd:annotation>
                         <xsd:documentation>Fixed precision number. Mapped to 'decimal'.</xsd:documentation>
                     </xsd:annotation>
                 </xsd:element>
+
+                <!-- Date/Time -->
                 <xsd:element name="date" type="zn:simpleProperty">
                     <xsd:annotation>
                         <xsd:documentation>Date value. Mapped to 'DateTime'.</xsd:documentation>
@@ -223,14 +261,16 @@
                         <xsd:documentation>Date and time value. Mapped to 'DateTime'.</xsd:documentation>
                     </xsd:annotation>
                 </xsd:element>
-                <xsd:element name="guid" type="zn:simpleProperty">
-                    <xsd:annotation>
-                        <xsd:documentation>Unique identifier. Mapped to 'Guid'.</xsd:documentation>
-                    </xsd:annotation>
-                </xsd:element>
                 <xsd:element name="time" type="zn:simpleProperty">
                     <xsd:annotation>
                         <xsd:documentation>Time value. Mapped to 'DateTime'.</xsd:documentation>
+                    </xsd:annotation>
+                </xsd:element>
+
+                <!-- Other -->
+                <xsd:element name="guid" type="zn:simpleProperty">
+                    <xsd:annotation>
+                        <xsd:documentation>Unique identifier. Mapped to 'Guid'.</xsd:documentation>
                     </xsd:annotation>
                 </xsd:element>
                 <xsd:element name="binary" type="zn:binaryProperty">
@@ -403,6 +443,19 @@
                 <xsd:documentation>Indicates whether an enumeration can be treated as a bit field; that is, a set of flags.</xsd:documentation>
             </xsd:annotation>
         </xsd:attribute>
+    </xsd:complexType>
+
+
+    <!-- Numeric property -->
+    <xsd:complexType name="numericProperty">
+        <xsd:complexContent>
+            <xsd:extension base="zn:simpleProperty">
+                <xsd:sequence>
+                    <xsd:element ref="v:digits" minOccurs="0" />
+                    <xsd:element ref="v:range" minOccurs="0" />
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
     </xsd:complexType>
 
 

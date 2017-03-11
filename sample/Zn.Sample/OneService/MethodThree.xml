@@ -8,22 +8,38 @@
     <summary>Third method of service one.</summary>
 
     <request>
-        <string name="Value">
-            <v:regex pattern="^\d{3}$" />
-        </string>
+        <structure name="String" type="StringValidations" optional="true">
+            <string name="Regex">
+                <v:regex pattern="^\d{3}$" />
+            </string>
 
-        <structure name="SimpleClass" type="SimpleClass">
-            <string name="Value">
+            <string name="Length" optional="true">
                 <v:length min="5" max="20" />
-                <!--
+            </string>
+
+            <string name="LengthMin" optional="true">
                 <v:length min="5" />
+            </string>
+
+            <string name="LengthMax" optional="true">
                 <v:length max="20" />
-                -->
             </string>
         </structure>
 
-        <structure-ref name="OptClass" type="SimpleClass" optional="true" />
+        <structure name="SimpleClass" type="SimpleClass">
+            <decimal name="Value1" optional="true">
+                <v:digits decimal="6" />
+                <v:range minInclusive="2.50" maxInclusive="500.10" />
+            </decimal>
 
+            <decimal name="Value2" optional="true">
+                <v:digits decimal="2" />
+                <v:range minExclusive="2.50" maxExclusive="500.10" />
+            </decimal>
+        </structure>
+    </request>
+
+    <response>
         <structure name="NestedClass" type="NestedClass">
             <string name="Value" />
             <structure-ref name="Nested" type="NestedClass" optional="true" />
@@ -33,8 +49,5 @@
             <string name="Value" />
             <structure-ref name="Nested" type="NestedClass" array="true" optional="true" />
         </structure>
-    </request>
-
-    <response>
     </response>
 </method>

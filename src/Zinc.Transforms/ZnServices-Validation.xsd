@@ -2,9 +2,19 @@
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
     elementFormDefault="qualified"
     targetNamespace="urn:zinc/validation"
-    xmlns:zn="urn:zinc/validation">
+    xmlns:v="urn:zinc/validation">
 
-    <xsd:attribute name="rule" type="xsd:string" />
+
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    ~
+    ~ @v:rule
+    ~
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <xsd:attribute name="rule" type="v:dataName">
+        <xsd:annotation>
+            <xsd:documentation>Name of validation rule set, which will dynamically be loaded.</xsd:documentation>
+        </xsd:annotation>
+    </xsd:attribute>
 
     <xsd:simpleType name="dataName">
         <xsd:restriction base="xsd:string">
@@ -12,16 +22,112 @@
         </xsd:restriction>
     </xsd:simpleType>
 
+
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    ~
+    ~ zn:string
+    ~
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <xsd:element name="email">
+        <xsd:annotation>
+            <xsd:documentation>Validates that the string is a valid e-mail address.</xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+
     <xsd:element name="length">
+        <xsd:annotation>
+            <xsd:documentation>Validates whether the character sequence is within given length range.</xsd:documentation>
+        </xsd:annotation>
+
         <xsd:complexType>
-            <xsd:attribute name="min" type="xsd:positiveInteger" use="optional" />
-            <xsd:attribute name="max" type="xsd:positiveInteger" use="optional" />
+            <xsd:attribute name="min" type="xsd:positiveInteger" use="optional">
+                <xsd:annotation>
+                    <xsd:documentation>String must have at least @min characters.</xsd:documentation>
+                </xsd:annotation>
+            </xsd:attribute>
+
+            <xsd:attribute name="max" type="xsd:positiveInteger" use="optional">
+                <xsd:annotation>
+                    <xsd:documentation>String must have at most @max characters.</xsd:documentation>
+                </xsd:annotation>
+            </xsd:attribute>
         </xsd:complexType>
     </xsd:element>
 
     <xsd:element name="regex">
+        <xsd:annotation>
+            <xsd:documentation>Value, when specified, must be valid against the given pattern.</xsd:documentation>
+        </xsd:annotation>
+
         <xsd:complexType>
-            <xsd:attribute name="pattern" type="xsd:string" use="required" />
+            <xsd:attribute name="pattern" type="xsd:string" use="required">
+                <xsd:annotation>
+                    <xsd:documentation>.NET regular expression.</xsd:documentation>
+                </xsd:annotation>
+            </xsd:attribute>
         </xsd:complexType>
     </xsd:element>
+
+
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    ~
+    ~ Numerical values
+    ~ zn:int / zn:decimal
+    ~
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <xsd:element name="digits">
+        <xsd:annotation>
+            <xsd:documentation>Validates the precision/scale of a number.</xsd:documentation>
+        </xsd:annotation>
+
+        <xsd:complexType>
+            <xsd:attribute name="total" type="xsd:nonNegativeInteger" use="optional">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        Total number of digits that are allowed in number. For floating-point types, counts
+                        digits on both sides of the decimal point.
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:attribute>
+
+            <xsd:attribute name="decimal" type="xsd:nonNegativeInteger" use="optional">
+                <xsd:annotation>
+                    <xsd:documentation>Maximum number of decimal digits. (For floating-point types only)</xsd:documentation>
+                </xsd:annotation>
+            </xsd:attribute>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="range">
+        <xsd:annotation>
+            <xsd:documentation>Range (min/max) validation for numeric values.</xsd:documentation>
+        </xsd:annotation>
+
+        <xsd:complexType>
+            <xsd:attribute name="minInclusive" type="xsd:decimal" use="optional">
+                <xsd:annotation>
+                    <xsd:documentation>Value must be greater than or equal to this value.</xsd:documentation>
+                </xsd:annotation>
+            </xsd:attribute>
+
+            <xsd:attribute name="minExclusive" type="xsd:decimal" use="optional">
+                <xsd:annotation>
+                    <xsd:documentation>Value must be greater than this value.</xsd:documentation>
+                </xsd:annotation>
+            </xsd:attribute>
+
+            <xsd:attribute name="maxInclusive" type="xsd:decimal" use="optional">
+                <xsd:annotation>
+                    <xsd:documentation>Value must be lesser than or equal to this value.</xsd:documentation>
+                </xsd:annotation>
+            </xsd:attribute>
+
+            <xsd:attribute name="maxExclusive" type="xsd:decimal" use="optional">
+                <xsd:annotation>
+                    <xsd:documentation>Value must be lesser than this value.</xsd:documentation>
+                </xsd:annotation>
+            </xsd:attribute>
+        </xsd:complexType>
+    </xsd:element>
+
 </xsd:schema>
