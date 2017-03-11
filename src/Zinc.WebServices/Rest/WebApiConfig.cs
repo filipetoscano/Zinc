@@ -18,7 +18,7 @@ namespace Zinc.WebServices
             #region Validations
 
             if ( config == null )
-                throw new ArgumentNullException( "config" );
+                throw new ArgumentNullException( nameof( config ) );
 
             #endregion
 

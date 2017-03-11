@@ -26,7 +26,7 @@ namespace Zinc.WebServices.Rest
             #region Validations
 
             if ( request == null )
-                throw new ArgumentNullException( "request" );
+                throw new ArgumentNullException( nameof( request ) );
 
             #endregion
 

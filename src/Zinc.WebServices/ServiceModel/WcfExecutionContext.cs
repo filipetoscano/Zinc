@@ -63,7 +63,7 @@ namespace Zinc.WebServices.ServiceModel
             #region Validations
 
             if ( message == null )
-                throw new ArgumentNullException( "message" );
+                throw new ArgumentNullException( nameof( message ) );
 
             #endregion
 

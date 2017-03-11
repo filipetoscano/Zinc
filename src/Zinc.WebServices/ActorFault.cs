@@ -98,7 +98,7 @@ namespace Zinc.WebServices
             #region Validations
 
             if ( exception == null )
-                throw new ArgumentNullException( "exception" );
+                throw new ArgumentNullException( nameof( exception ) );
 
             #endregion
 
@@ -122,7 +122,7 @@ namespace Zinc.WebServices
             #region Validations
 
             if ( exception == null )
-                throw new ArgumentNullException( "exception" );
+                throw new ArgumentNullException( nameof( exception ) );
 
             #endregion
 
