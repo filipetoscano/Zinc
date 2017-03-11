@@ -31,13 +31,7 @@ namespace Zinc.WebServices.Rest
              * We can .First() the headers, because the ExecutionHandler (which is
              * first in the pipeline) has guaranteed that they really exist.
              */
-            DateTime start = DateTime.UtcNow;
-
-            RestExecutionContext ctx = new RestExecutionContext();
-            ctx.ExecutionId = new Guid( request.Headers.First( x => x.Key == "X-ExecutionId" ).Value.First() );
-            ctx.ActivityId = new Guid( request.Headers.First( x => x.Key == "X-ActivityId" ).Value.First() );
-            ctx.Method = request.Method;
-            ctx.RequestUri = request.RequestUri;
+            var ctx = (RestExecutionContext) request.Properties[ RestExecutionContext.PropertyName ];
 
 
             /*
@@ -65,7 +59,10 @@ namespace Zinc.WebServices.Rest
         }
 
 
+        /// <summary />
         protected abstract Task HandleRequest( RestExecutionContext context, byte[] message );
+
+        /// <summary />
         protected abstract Task HandleResponse( RestExecutionContext context, HttpStatusCode statusCode, byte[] message );
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Zinc.WebServices.Journaling
 {
+    /// <summary />
     public class Q
     {
         /// <summary />

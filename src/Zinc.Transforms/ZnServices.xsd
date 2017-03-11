@@ -412,6 +412,7 @@
             <xsd:extension base="zn:simpleProperty">
                 <xsd:sequence>
                     <xsd:element ref="v:length" minOccurs="0" />
+                    <xsd:element ref="v:regex" minOccurs="0" />
                 </xsd:sequence>
             </xsd:extension>
         </xsd:complexContent>

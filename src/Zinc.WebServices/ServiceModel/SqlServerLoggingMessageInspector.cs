@@ -30,7 +30,7 @@ namespace Zinc.WebServices.ServiceModel
         /// <param name="channel">The incoming channel.</param>
         /// <param name="instanceContext">The current service instance.</param>
         /// <returns>
-        /// An instance of <see cref="MessageContext" />. This object is passed back to method
+        /// An instance of <see cref="WcfExecutionContext" />. This object is passed back to method
         /// <see cref="BeforeSendReply(ref Message, object)" />.
         /// </returns>
         public object AfterReceiveRequest( ref Message request, IClientChannel channel, InstanceContext instanceContext )
@@ -70,7 +70,7 @@ namespace Zinc.WebServices.ServiceModel
         /// The reply message. This value is null if the operation is one way.
         /// </param>
         /// <param name="correlationState">
-        /// The correlation object <see cref="<see cref="MessageContext" />.
+        /// The correlation object <see cref="WcfExecutionContext" />.
         /// </param>
         public void BeforeSendReply( ref Message reply, object correlationState )
         {
@@ -142,7 +142,7 @@ namespace Zinc.WebServices.ServiceModel
             const string Database = "SqlServerLogging";
 
             if ( ConfigurationManager.ConnectionStrings[ Database ] == null )
-                throw new WsException( ER.ServiceModel_SqlServer_ConnectionMissing, Database );
+                throw new ZincException( ER.ServiceModel_SqlServer_ConnectionMissing, Database );
 
 
             /*
@@ -157,15 +157,15 @@ namespace Zinc.WebServices.ServiceModel
             }
             catch ( SqlException ex )
             {
-                throw new WsException( ER.ServiceModel_SqlServer_Open, ex, Database );
+                throw new ZincException( ER.ServiceModel_SqlServer_Open, ex, Database );
             }
             catch ( ConfigurationErrorsException ex )
             {
-                throw new WsException( ER.ServiceModel_SqlServer_Open, ex, Database );
+                throw new ZincException( ER.ServiceModel_SqlServer_Open, ex, Database );
             }
             catch ( InvalidOperationException ex )
             {
-                throw new WsException( ER.ServiceModel_SqlServer_Open, ex, Database );
+                throw new ZincException( ER.ServiceModel_SqlServer_Open, ex, Database );
             }
 
 
@@ -190,7 +190,7 @@ namespace Zinc.WebServices.ServiceModel
             }
             catch ( SqlException ex )
             {
-                throw new WsException( ER.ServiceModel_SqlServer_ExecuteNonQuery, ex, Database );
+                throw new ZincException( ER.ServiceModel_SqlServer_ExecuteNonQuery, ex, Database );
             }
 
 

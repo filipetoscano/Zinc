@@ -4,6 +4,7 @@ using System.ServiceModel;
 
 namespace Zinc.WebServices
 {
+    /// <summary />
     public static class Soap
     {
         /// <summary>

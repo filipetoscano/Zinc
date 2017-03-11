@@ -16,5 +16,11 @@ namespace Zinc.WebServices
         /// issued/dispatched as part of the activity.
         /// </summary>
         public Guid ActivityId { get; set; }
+
+        /// <summary>
+        /// Access token, which may be validated to see if caller may access the
+        /// current API.
+        /// </summary>
+        public string AccessToken { get; set; }
     }
 }

@@ -1,16 +1,25 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <?codebehind transformation="../../../src/Zinc.Transforms/ToZnServices.xslt"?>
-<method xmlns="urn:zinc" xmlns:rest="urn:zinc/rest" xmlns:mock="urn:zinc/mock" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="urn:zinc ../../../src/Zinc.Transforms/ZnServices.xsd">
+<method xmlns="urn:zinc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="urn:zinc ../../../src/Zinc.Transforms/ZnServices.xsd"
+    xmlns:rest="urn:zinc/rest" xmlns:mock="urn:zinc/mock" xmlns:v="urn:zinc/validation">
 
     <notImplemented />
     <summary>Third method of service one.</summary>
 
     <request>
-        <string name="Value" />
+        <string name="Value">
+            <v:regex pattern="^\d{3}$" />
+        </string>
 
         <structure name="SimpleClass" type="SimpleClass">
-            <string name="Value" />
+            <string name="Value">
+                <v:length min="5" max="20" />
+                <!--
+                <v:length min="5" />
+                <v:length max="20" />
+                -->
+            </string>
         </structure>
 
         <structure-ref name="OptClass" type="SimpleClass" optional="true" />

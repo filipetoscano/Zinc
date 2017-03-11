@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Zinc.WebServices.Rest
 {
+    /// <summary />
     public class ExecutionHandler : DelegatingHandler
     {
         /// <summary>
@@ -34,17 +35,20 @@ namespace Zinc.WebServices.Rest
              * Ensures that the request contains valid headers for ActivityId and
              * ExecutionId.
              */
-            DateTime start = DateTime.UtcNow;
-
             RestExecutionContext ctx = new RestExecutionContext();
             ctx.ExecutionId = Guid.NewGuid();
             ctx.ActivityId = Guid.Empty;
             ctx.Method = request.Method;
             ctx.RequestUri = request.RequestUri;
+            ctx.MomentStart = DateTime.UtcNow;
 
-            if ( request.Headers.Contains( "X-ActivityId" ) == true )
+
+            /*
+             * 
+             */
+            if ( request.Headers.Contains( ZnHeaders.ActivityId ) == true )
             {
-                var h = request.Headers.First( x => x.Key == "X-ActivityId" );
+                var h = request.Headers.First( x => x.Key == ZnHeaders.ActivityId );
                 var v = h.Value.First();
                 Guid activityId;
 
@@ -64,11 +68,21 @@ namespace Zinc.WebServices.Rest
                 ctx.ActivityId = activityId;
             }
 
-            request.Headers.Remove( "X-ActivityId" );
 
-            request.Headers.Add( "X-ActivityId", ctx.ActivityId.ToString( "D" ) );
-            request.Headers.Add( "X-ExecutionId", ctx.ExecutionId.ToString( "D" ) );
-            request.Headers.Add( "X-MomentStart", start.ToString( "O", CultureInfo.InvariantCulture ) );
+            /*
+             * 
+             */
+            if ( request.Headers.Authorization != null
+                && request.Headers.Authorization.Scheme == "Bearer" )
+            {
+                ctx.AccessToken = request.Headers.Authorization.Parameter;
+            }
+
+
+            /*
+             * 
+             */
+            request.Properties[ RestExecutionContext.PropertyName ] = ctx;
 
 
             /*
@@ -80,9 +94,9 @@ namespace Zinc.WebServices.Rest
             /*
              *
              */
-            response.Headers.Add( "X-ExecutionId", ctx.ExecutionId.ToString( "D" ) );
-            response.Headers.Add( "X-MomentStart", start.ToString( "O", CultureInfo.InvariantCulture ) );
-            response.Headers.Add( "X-MomentEnd", DateTime.UtcNow.ToString( "O", CultureInfo.InvariantCulture ) );
+            response.Headers.Add( ZnHeaders.ExecutionId, ctx.ExecutionId.ToString( "D" ) );
+            response.Headers.Add( ZnHeaders.MomentStart, ctx.MomentStart.ToString( "O", CultureInfo.InvariantCulture ) );
+            response.Headers.Add( ZnHeaders.MomentEnd, DateTime.UtcNow.ToString( "O", CultureInfo.InvariantCulture ) );
 
             return response;
         }

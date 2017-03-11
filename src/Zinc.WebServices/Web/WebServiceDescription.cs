@@ -6,6 +6,7 @@ using System.Linq;
 
 namespace Zinc.WebServices.Web
 {
+    /// <summary />
     public class WebServiceDescription
     {
         /// <summary>

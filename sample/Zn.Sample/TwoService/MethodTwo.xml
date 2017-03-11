@@ -16,5 +16,10 @@
         <int name="RandomInteger" />
         <date name="RandomDate" />
         <dateTime name="RandomDateTime" />
+
+        <!-- Echo -->
+        <guid name="ActivityId" />
+        <string name="AccessToken" optional="true" />
+        <guid name="ExecutionId" />
     </response>
 </method>

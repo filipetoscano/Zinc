@@ -13,6 +13,7 @@ namespace Zinc.WebServices.Rest
     /// </summary>
     public class SqlServerLoggingHandler : LoggingHandler
     {
+        /// <summary />
         protected override async Task HandleRequest( RestExecutionContext context, byte[] message )
         {
             string asString = Encoding.UTF8.GetString( message );
@@ -20,6 +21,7 @@ namespace Zinc.WebServices.Rest
         }
 
 
+        /// <summary />
         protected override async Task HandleResponse( RestExecutionContext context, HttpStatusCode statusCode, byte[] message )
         {
             // TODO: What about binary files? :/
@@ -33,7 +35,7 @@ namespace Zinc.WebServices.Rest
             const string Database = "SqlServerLogging";
 
             if ( ConfigurationManager.ConnectionStrings[ Database ] == null )
-                throw new WsException( ER.Rest_SqlServer_ConnectionMissing, Database );
+                throw new ZincException( ER.Rest_SqlServer_ConnectionMissing, Database );
 
 
             /*
@@ -48,15 +50,15 @@ namespace Zinc.WebServices.Rest
             }
             catch ( SqlException ex )
             {
-                throw new WsException( ER.Rest_SqlServer_Open, ex, Database );
+                throw new ZincException( ER.Rest_SqlServer_Open, ex, Database );
             }
             catch ( ConfigurationErrorsException ex )
             {
-                throw new WsException( ER.Rest_SqlServer_Open, ex, Database );
+                throw new ZincException( ER.Rest_SqlServer_Open, ex, Database );
             }
             catch ( InvalidOperationException ex )
             {
-                throw new WsException( ER.Rest_SqlServer_Open, ex, Database );
+                throw new ZincException( ER.Rest_SqlServer_Open, ex, Database );
             }
 
 
@@ -88,7 +90,7 @@ namespace Zinc.WebServices.Rest
             }
             catch ( SqlException ex )
             {
-                throw new WsException( ER.Rest_SqlServer_ExecuteNonQuery, ex, Database );
+                throw new ZincException( ER.Rest_SqlServer_ExecuteNonQuery, ex, Database );
             }
 
 

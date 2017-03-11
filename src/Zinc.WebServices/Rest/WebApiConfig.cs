@@ -9,8 +9,10 @@ using Zinc.WebServices.Rest;
 
 namespace Zinc.WebServices
 {
+    /// <summary />
     public static class WebApiConfig
     {
+        /// <summary />
         public static void Register( HttpConfiguration config )
         {
             #region Validations
@@ -50,7 +52,7 @@ namespace Zinc.WebServices
                 foreach ( var e in cs.Handlers.Elements() )
                 {
                     if ( ext.ContainsKey( e.Name.LocalName ) == false )
-                        throw new WsException( ER.Rest_Configuration_MissingHandler, e.Name.LocalName );
+                        throw new ZincConfigurationException( ER.Rest_Configuration_MissingHandler, e.Name.LocalName );
 
                     string type = ext[ e.Name.LocalName ];
 
@@ -86,17 +88,11 @@ namespace Zinc.WebServices
              */
             config.MapHttpAttributeRoutes();
 
-            config.Routes.MapHttpRoute(
-                name: "ActionApi",
-                routeTemplate: "api/{controller}/{action}",
-                defaults: new { }
-            );
-
-            config.Routes.MapHttpRoute(
-                name: "VersionedActionApi",
-                routeTemplate: "api/v1/{controller}/{action}",
-                defaults: new { }
-            );
+            //config.Routes.MapHttpRoute(
+            //    name: "ActionApi",
+            //    routeTemplate: "api/{controller}/{action}",
+            //    defaults: new { }
+            //);
         }
     }
 }

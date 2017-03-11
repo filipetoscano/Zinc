@@ -130,6 +130,10 @@
       <LastGenOutput>MethodThree.cs</LastGenOutput>
     </Content>
     <Content Include="packages.config" />
+    <Content Include="Services.xml">
+      <Generator>ZnTool</Generator>
+      <LastGenOutput>Services.cs</LastGenOutput>
+    </Content>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -139,10 +143,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="OneServices.svc" />
-    <None Include="Services.xml">
-      <Generator>ZnTool</Generator>
-      <LastGenOutput>Services.cs</LastGenOutput>
-    </None>
     <Content Include="TwoServices.svc" />
     <Content Include="TwoService\MethodTwo.xml">
       <Generator>ZnTool</Generator>
@@ -178,9 +178,9 @@
     <Compile Include="OneService\MethodOneImpl.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
       <DependentUpon>Services.xml</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
     </Compile>
     <Compile Include="TwoServices.svc.cs">
       <DependentUpon>TwoServices.svc</DependentUpon>

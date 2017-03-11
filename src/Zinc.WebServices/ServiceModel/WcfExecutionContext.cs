@@ -7,15 +7,38 @@ using System.Xml.Serialization;
 
 namespace Zinc.WebServices.ServiceModel
 {
+    /// <summary>
+    /// Internal WCF header, which will get injected as part of the
+    /// 'execution' service behavior.
+    /// </summary>
     [XmlRoot( ElementName = WcfExecutionContext.HeaderName, Namespace = Zn.Namespace )]
     public class WcfExecutionContext : MessageHeader
     {
-        private const string HeaderName = "ExecutionContext";
+        internal const string HeaderName = "ExecutionContext";
 
-
+        /// <summary>
+        /// Externally provided activity Id.
+        /// </summary>
         public Guid ActivityId { get; set; }
+
+        /// <summary>
+        /// Externally provided access token.
+        /// </summary>
+        public string AccessToken { get; set; }
+
+        /// <summary>
+        /// Internal Id, referring to the present execution.
+        /// </summary>
         public Guid ExecutionId { get; set; }
+
+        /// <summary>
+        /// Name of the current action.
+        /// </summary>
         public string Action { get; set; }
+
+        /// <summary>
+        /// Moment in which the execution began.
+        /// </summary>
         public DateTime MomentStart { get; set; }
 
 
@@ -54,40 +77,49 @@ namespace Zinc.WebServices.ServiceModel
 
             WcfExecutionContext ctx = new WcfExecutionContext();
             ctx.ActivityId = new Guid( content[ 0 ].InnerText );
-            ctx.ExecutionId = new Guid( content[ 1 ].InnerText );
-            ctx.Action = content[ 2 ].InnerText;
-            ctx.MomentStart = DateTime.ParseExact( content[ 3 ].InnerText, "o", CultureInfo.InvariantCulture );
+            ctx.AccessToken = content[ 1 ].InnerText;
+            ctx.ExecutionId = new Guid( content[ 2 ].InnerText );
+            ctx.Action = content[ 3 ].InnerText;
+            ctx.MomentStart = DateTime.ParseExact( content[ 4 ].InnerText, "o", CultureInfo.InvariantCulture );
 
             return ctx;
         }
 
 
         /// <summary>
-        /// Gets the WCF execution context from the current operation context.
+        /// Gets the WCF execution context from the designated operation context.
         /// </summary>
+        /// <param name="ctx">
+        /// Operation context.
+        /// </param>
         /// <returns>
         /// Instance of <see cref="WcfExecutionContext" /> when present, otherwise
         /// faults out accordingly.
         /// </returns>
-        public static WcfExecutionContext Get()
+        internal static WcfExecutionContext Get( OperationContext ctx )
         {
-            var op = OperationContext.Current;
+            #region Validations
 
-            for (int i =0; i< op.IncomingMessageHeaders.Count; i++ )
+            if ( ctx == null )
+                throw new ArgumentNullException( nameof( ctx ) );
+
+            #endregion
+
+            for ( int i = 0; i < ctx.IncomingMessageHeaders.Count; i++ )
             {
-                MessageHeaderInfo mhi = op.IncomingMessageHeaders[ i ];
+                MessageHeaderInfo mhi = ctx.IncomingMessageHeaders[ i ];
 
                 if ( mhi.Name == WcfExecutionContext.HeaderName
                     && mhi.Namespace == Zn.Namespace )
                 {
-                    XmlReader xr = op.IncomingMessageHeaders.GetReaderAtHeader( i );
+                    XmlReader xr = ctx.IncomingMessageHeaders.GetReaderAtHeader( i );
 
                     XmlSerializer ser = new XmlSerializer( typeof( WcfExecutionContext ) );
                     return (WcfExecutionContext) ser.Deserialize( xr );
                 }
             }
 
-            throw new WsException( ER.ServiceModel_ExecutionContext_NotFound );
+            throw new ZincException( ER.ServiceModel_ExecutionContext_NotFound );
         }
 
 
@@ -106,6 +138,7 @@ namespace Zinc.WebServices.ServiceModel
         protected override void OnWriteHeaderContents( XmlDictionaryWriter writer, MessageVersion messageVersion )
         {
             writer.WriteElementString( "ActivityId", ActivityId.ToString() );
+            writer.WriteElementString( "AccessToken", AccessToken );
             writer.WriteElementString( "ExecutionId", ExecutionId.ToString() );
             writer.WriteElementString( "Action", Action );
             writer.WriteElementString( "MomentStart", MomentStart.ToString( "o", CultureInfo.InvariantCulture ) );

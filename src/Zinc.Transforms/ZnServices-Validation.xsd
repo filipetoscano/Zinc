@@ -14,8 +14,14 @@
 
     <xsd:element name="length">
         <xsd:complexType>
-            <xsd:attribute name="min" type="xsd:positiveInteger" />
-            <xsd:attribute name="max" type="xsd:positiveInteger" />
+            <xsd:attribute name="min" type="xsd:positiveInteger" use="optional" />
+            <xsd:attribute name="max" type="xsd:positiveInteger" use="optional" />
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="regex">
+        <xsd:complexType>
+            <xsd:attribute name="pattern" type="xsd:string" use="required" />
         </xsd:complexType>
     </xsd:element>
 </xsd:schema>

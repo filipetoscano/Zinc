@@ -6,8 +6,10 @@ using System.Xml;
 
 namespace Zinc.WebServices.ServiceModel
 {
+    /// <summary />
     public class ExecutionMessageInspector : IDispatchMessageInspector
     {
+        /// <summary />
         public object AfterReceiveRequest( ref Message request, IClientChannel channel, InstanceContext instanceContext )
         {
             /*
@@ -15,6 +17,7 @@ namespace Zinc.WebServices.ServiceModel
              */
             WcfExecutionContext ctx = new WcfExecutionContext();
             ctx.ActivityId = Guid.Empty;
+            ctx.AccessToken = null;
             ctx.ExecutionId = Guid.NewGuid();
             ctx.Action = request.Headers.Action;
             ctx.MomentStart = DateTime.UtcNow;
@@ -36,17 +39,27 @@ namespace Zinc.WebServices.ServiceModel
                 XmlDocument doc = new XmlDocument();
                 doc.Load( xr );
 
-                var elem = doc.DocumentElement.SelectSingleNode( " zn:ActivityId ", manager );
 
-                if ( elem != null )
+                var activityElem = doc.DocumentElement.SelectSingleNode( " zn:ActivityId ", manager );
+
+                if ( activityElem != null )
                 {
                     try
                     {
-                        ctx.ActivityId = new Guid( elem.InnerText );
+                        ctx.ActivityId = new Guid( activityElem.InnerText );
                     }
                     catch
                     {
+                        // Snuff!
                     }
+                }
+
+
+                var accessTokenElem = doc.DocumentElement.SelectSingleNode( " zn:AccessToken ", manager );
+
+                if ( accessTokenElem != null )
+                {
+                    ctx.AccessToken = accessTokenElem.InnerText;
                 }
             }
 
@@ -60,6 +73,7 @@ namespace Zinc.WebServices.ServiceModel
         }
 
 
+        /// <summary />
         public void BeforeSendReply( ref Message reply, object correlationState )
         {
             if ( reply == null )

@@ -29,7 +29,11 @@ namespace Zinc.WebServices.RestClient
 
             string key = "Service:" + application;
             string moduleBase = AppConfiguration.Get<string>( key );
-            this.BaseUrl = moduleBase + "api/" + this.Service;
+
+            // TODO: How to get to version?
+            int version = 1;
+
+            this.BaseUrl = moduleBase + "api/v" + version + "/" + this.Service;
         }
 
 

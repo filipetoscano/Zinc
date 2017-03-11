@@ -9,9 +9,24 @@ using Zinc.WebServices.Journaling;
 
 namespace Zinc.WebServices
 {
+    /// <summary>
+    /// Wrapper around concrete method implementation: this pre/post pipeline
+    /// needs to be constructed, so that a webservice may be available as a
+    /// WCF service *and* a WebAPI service.
+    /// </summary>
+    /// <typeparam name="T">Implementation type.</typeparam>
+    /// <typeparam name="Rq">Request message type.</typeparam>
+    /// <typeparam name="Rp">Response message type.</typeparam>
     public class MethodInvoker<T, Rq, Rp> : IMethod<Rq, Rp>
         where T : IMethod<Rq, Rp>
     {
+        /// <summary>
+        /// Performs the 'common' workload before and after executing the underlying
+        /// method.
+        /// </summary>
+        /// <param name="context">Execution context.</param>
+        /// <param name="request">Request message.</param>
+        /// <returns>Response message.</returns>
         public async Task<Rp> RunAsync( ExecutionContext context, Rq request )
         {
             #region Validations
@@ -58,7 +73,7 @@ namespace Zinc.WebServices
             }
             catch ( Exception ex )
             {
-                var vex = new WsException( ER.MethodInvoker_RequestValidate, ex, request.GetType().FullName );
+                var vex = new ZincException( ER.MethodInvoker_RequestValidate, ex, request.GetType().FullName );
                 context.MomentEnd = DateTime.UtcNow;
 
                 // TODO: journal
@@ -74,7 +89,7 @@ namespace Zinc.WebServices
             {
                 ActorAggregateException agex = new ActorAggregateException( vr.Errors );
 
-                var vex = new WsException( ER.MethodInvoker_RequestInvalid, agex, request.GetType().FullName );
+                var vex = new ZincException( ER.MethodInvoker_RequestInvalid, agex, request.GetType().FullName );
                 context.MomentEnd = DateTime.UtcNow;
 
                 // TODO: journal
@@ -143,7 +158,7 @@ namespace Zinc.WebServices
             }
             catch ( Exception ex )
             {
-                var vex = new WsException( ER.MethodInvoker_ResponseValidate, ex, request.GetType().FullName );
+                var vex = new ZincException( ER.MethodInvoker_ResponseValidate, ex, request.GetType().FullName );
                 context.MomentEnd = DateTime.UtcNow;
 
                 // TODO: journal
@@ -160,7 +175,7 @@ namespace Zinc.WebServices
             {
                 ActorAggregateException agex = new ActorAggregateException( vr.Errors );
 
-                var vex = new WsException( ER.MethodInvoker_ResponseInvalid, agex, request.GetType().FullName );
+                var vex = new ZincException( ER.MethodInvoker_ResponseInvalid, agex, request.GetType().FullName );
                 context.MomentEnd = DateTime.UtcNow;
 
                 // TODO: journal

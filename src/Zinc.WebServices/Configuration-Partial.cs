@@ -20,6 +20,7 @@ namespace Zinc.WebServices
         }
 
 
+        /// <summary />
         protected override bool OnDeserializeUnrecognizedElement( string elementName, XmlReader reader )
         {
             if ( elementName == "handlers" )

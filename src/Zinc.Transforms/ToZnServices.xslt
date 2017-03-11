@@ -3,6 +3,7 @@
     xmlns:msxsl="urn:schemas-microsoft-com:xslt"
     xmlns:zn="urn:zinc"
     xmlns:rest="urn:zinc/rest"
+    xmlns:v="urn:zinc/validation"
     xmlns:eo="urn:eo-util"
     exclude-result-prefixes="msxsl zn rest eo">
 
@@ -150,6 +151,13 @@ using Zinc.WebServices;
         <xsl:text>        [HttpPost]</xsl:text>
         <xsl:value-of select=" $NewLine " />
 
+        <xsl:text>        [Route( "api/v1/</xsl:text>
+        <xsl:value-of select=" ../@name " />
+        <xsl:text>/</xsl:text>
+        <xsl:value-of select=" @name " />
+        <xsl:text>" )]</xsl:text>
+        <xsl:value-of select=" $NewLine " />
+
         <xsl:text>        public async Task&lt;</xsl:text>
         <xsl:value-of select=" $ns " />
         <xsl:text>.</xsl:text>
@@ -221,6 +229,13 @@ using Zinc.WebServices;
 
         <!-- Code -->
         <xsl:text>        [HttpGet]</xsl:text>
+        <xsl:value-of select=" $NewLine " />
+
+        <xsl:text>        [Route( "api/v1/</xsl:text>
+        <xsl:value-of select=" ../@name " />
+        <xsl:text>/</xsl:text>
+        <xsl:value-of select=" @name " />
+        <xsl:text>" )]</xsl:text>
         <xsl:value-of select=" $NewLine " />
 
         <xsl:text>        public async Task&lt;</xsl:text>
@@ -463,7 +478,7 @@ using Zinc.WebServices;
         <xsl:text>ResponseContract();</xsl:text>
         <xsl:value-of select=" $NewLine " />
 
-        <xsl:text>            var context = new ExecutionContext() { Method = "</xsl:text>
+        <xsl:text>            var context = new ExecutionContext( OperationContext.Current ) { Method = "</xsl:text>
         <xsl:value-of select=" ../@name " />
         <xsl:text>/</xsl:text>
         <xsl:value-of select=" @name " />
@@ -806,9 +821,9 @@ using Newtonsoft.Json;
             <xsl:with-param name="indent" select=" '        ' " />
         </xsl:call-template>
         <xsl:value-of select=" $NewLine " />
-        <xsl:apply-templates select=" . " mode="prop-rule" />
         <xsl:apply-templates select=" . " mode="type-attr" />
         <xsl:apply-templates select=" . " mode="mock-attr" />
+        <xsl:apply-templates select=" @v:* | v:* " mode="valn-attr" />
         <xsl:text>        public </xsl:text>
         <xsl:apply-templates select=" . " mode="type" />
         <xsl:text> </xsl:text>
@@ -1131,18 +1146,44 @@ using Newtonsoft.Json;
 
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     ~
-    ~ zn:* / mode=prop-rule
-    ~ For fields which have been marked with a @val:rule, emit the
-    ~ corresponding attribute. This can then be used by the runtime
-    ~ to perform validations or dynamic data generation.
+    ~ v:* / mode=valn-attr
+    ~ For fields which have validations, emit them!
     ~
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-    <xsl:template match=" * " mode="prop-rule" />
-
-    <xsl:template match=" *[ @val:rule ] " mode="prop-rule" xmlns:val="urn:zinc/validation">
+    <xsl:template match=" @v:rule " mode="valn-attr">
         <xsl:text>        [Rule( "</xsl:text>
-        <xsl:value-of select=" @val:rule" />
+        <xsl:value-of select=" @v:rule" />
         <xsl:text>" )]</xsl:text>
+        <xsl:value-of select=" $NewLine " />
+    </xsl:template>
+
+    <xsl:template match=" v:regex " mode="valn-attr">
+        <xsl:text>        [RegularExpression( @"</xsl:text>
+        <xsl:value-of select=" @pattern " />
+        <xsl:text>" )]</xsl:text>
+        <xsl:value-of select=" $NewLine " />
+    </xsl:template>
+
+    <xsl:template match=" v:length[ @min and not( @max ) ] " mode="valn-attr">
+        <xsl:text>        [MinLength( </xsl:text>
+        <xsl:value-of select=" @min " />
+        <xsl:text> )]</xsl:text>
+        <xsl:value-of select=" $NewLine " />
+    </xsl:template>
+
+    <xsl:template match=" v:length[ not( @min ) and @max ] " mode="valn-attr">
+        <xsl:text>        [MaxLength( </xsl:text>
+        <xsl:value-of select=" @max " />
+        <xsl:text> )]</xsl:text>
+        <xsl:value-of select=" $NewLine " />
+    </xsl:template>
+
+    <xsl:template match=" v:length[ @min and @max ] " mode="valn-attr">
+        <xsl:text>        [StringLength( </xsl:text>
+        <xsl:value-of select=" @min " />
+        <xsl:text>, </xsl:text>
+        <xsl:value-of select=" @max " />
+        <xsl:text> )]</xsl:text>
         <xsl:value-of select=" $NewLine " />
     </xsl:template>
 

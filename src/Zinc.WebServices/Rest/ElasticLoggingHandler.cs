@@ -10,6 +10,7 @@ namespace Zinc.WebServices.Rest
     /// </summary>
     public class ElasticLoggingHandler : LoggingHandler
     {
+        /// <summary />
         protected override async Task HandleRequest( RestExecutionContext context, byte[] message )
         {
             string asString = Encoding.UTF8.GetString( message );
@@ -17,6 +18,7 @@ namespace Zinc.WebServices.Rest
         }
 
 
+        /// <summary />
         protected override async Task HandleResponse( RestExecutionContext context, HttpStatusCode statusCode, byte[] message )
         {
             // TODO: What about binary files? :/

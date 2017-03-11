@@ -4,11 +4,14 @@ using System.Xml;
 
 namespace Zinc.WebServices.ServiceModel
 {
+    /// <summary />
     public class WcfExecutionHeader : MessageHeader
     {
         private const string HeaderName = "ExecutionHeader";
         private const string HeaderNamespace = Zn.Namespace;
-        
+
+
+        /// <summary />
         public ExecutionHeader Content
         {
             get;

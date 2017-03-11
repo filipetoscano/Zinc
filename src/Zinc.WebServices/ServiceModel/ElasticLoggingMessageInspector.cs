@@ -18,7 +18,7 @@ namespace Zinc.WebServices.ServiceModel
         /// <param name="channel">The incoming channel.</param>
         /// <param name="instanceContext">The current service instance.</param>
         /// <returns>
-        /// An instance of <see cref="MessageContext" />. This object is passed back to method
+        /// An instance of <see cref="WcfExecutionContext" />. This object is passed back to method
         /// <see cref="BeforeSendReply(ref Message, object)" />.
         /// </returns>
         public object AfterReceiveRequest( ref Message request, IClientChannel channel, InstanceContext instanceContext )
@@ -47,7 +47,7 @@ namespace Zinc.WebServices.ServiceModel
         /// The reply message. This value is null if the operation is one way.
         /// </param>
         /// <param name="correlationState">
-        /// The correlation object <see cref="<see cref="MessageContext" />.
+        /// The correlation object <see cref="WcfExecutionContext" />.
         /// </param>
         public void BeforeSendReply( ref Message reply, object correlationState )
         {

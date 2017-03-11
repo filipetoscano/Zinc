@@ -6,8 +6,10 @@ using System.ServiceModel.Dispatcher;
 
 namespace Zinc.WebServices.ServiceModel
 {
+    /// <summary />
     public class DebugMessageInspector : IDispatchMessageInspector
     {
+        /// <summary />
         public object AfterReceiveRequest( ref Message request, IClientChannel channel, InstanceContext instanceContext )
         {
             MessageBuffer buffer = request.CreateBufferedCopy( Int32.MaxValue );
@@ -19,6 +21,7 @@ namespace Zinc.WebServices.ServiceModel
         }
 
 
+        /// <summary />
         public void BeforeSendReply( ref Message reply, object correlationState )
         {
             MessageBuffer buffer = reply.CreateBufferedCopy( Int32.MaxValue );

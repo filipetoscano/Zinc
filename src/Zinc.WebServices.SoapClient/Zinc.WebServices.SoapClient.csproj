@@ -29,6 +29,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <RunCodeAnalysis>true</RunCodeAnalysis>
+    <DocumentationFile>bin\Release\Zinc.WebServices.SoapClient.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="..\GlobalVersion.cs">

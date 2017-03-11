@@ -11,11 +11,12 @@ namespace Zinc.WebServices.Rest
     /// </summary>
     public class DebugLoggingHandler : LoggingHandler
     {
+        /// <summary />
         protected override async Task HandleRequest( RestExecutionContext context, byte[] message )
         {
             await Task.Run( () =>
             {
-                Debug.WriteLine( string.Format( 
+                Debug.WriteLine( string.Format(
                     CultureInfo.InvariantCulture,
                     "R:{0} - {1} {2}\r\n{3}",
                     context.ActivityId,
@@ -26,6 +27,7 @@ namespace Zinc.WebServices.Rest
         }
 
 
+        /// <summary />
         protected override async Task HandleResponse( RestExecutionContext context, HttpStatusCode statusCode, byte[] message )
         {
             await Task.Run( () =>

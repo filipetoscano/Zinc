@@ -22,6 +22,9 @@ namespace Zinc.WebServices
     [XmlRoot( Namespace = Zn.Namespace )]
     public class ActorFault
     {
+        /// <summary>
+        /// Gets or sets the Actor.
+        /// </summary>
         [DataMember( Order = 0 )]
         public string Actor
         {
@@ -30,6 +33,9 @@ namespace Zinc.WebServices
         }
 
 
+        /// <summary>
+        /// Gets or sets the Code.
+        /// </summary>
         [DataMember( Order = 1 )]
         public int Code
         {
@@ -38,6 +44,9 @@ namespace Zinc.WebServices
         }
 
 
+        /// <summary>
+        /// Gets or sets the Message.
+        /// </summary>
         [DataMember( Order = 2 )]
         public string Message
         {
@@ -46,6 +55,9 @@ namespace Zinc.WebServices
         }
 
 
+        /// <summary>
+        /// Gets or sets the type of the exception which was thrown.
+        /// </summary>
         [DataMember( Order = 3 )]
         public string ExceptionType
         {
@@ -54,6 +66,9 @@ namespace Zinc.WebServices
         }
 
 
+        /// <summary>
+        /// Gets or sets the list of faults that the fault wraps.
+        /// </summary>
         [DataMember( Order = 4 )]
         public ActorFault[] InnerFaults
         {
@@ -62,6 +77,9 @@ namespace Zinc.WebServices
         }
 
 
+        /// <summary>
+        /// Gets or sets the stack trace.
+        /// </summary>
         [DataMember( Order = 5 )]
         public string StackTrace
         {
@@ -70,6 +88,11 @@ namespace Zinc.WebServices
         }
 
 
+        /// <summary>
+        /// Creates an instance of <see cref="ActorFault"/> from an unhandled exception.
+        /// </summary>
+        /// <param name="exception">Unhandled exception.</param>
+        /// <returns>Instance of <see cref="ActorFault"/>.</returns>
         public static ActorFault FromUnhandled( Exception exception )
         {
             #region Validations
@@ -89,6 +112,11 @@ namespace Zinc.WebServices
         }
 
 
+        /// <summary>
+        /// Creates an instance of <see cref="ActorFault"/> from an actor exception.
+        /// </summary>
+        /// <param name="exception">Unhandled exception.</param>
+        /// <returns>Instance of <see cref="ActorFault"/>.</returns>
         public static ActorFault From( ActorException exception )
         {
             #region Validations

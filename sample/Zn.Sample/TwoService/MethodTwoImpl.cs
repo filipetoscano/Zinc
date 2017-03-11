@@ -15,7 +15,10 @@ namespace Zn.Sample.TwoService
                 RandomString = "not",
                 DataString = "data",
                 RandomDate = DateTime.Now,
-                RandomDateTime = DateTime.Now
+                RandomDateTime = DateTime.Now,
+                ActivityId = this.Context.ActivityId,
+                AccessToken = this.Context.AccessToken,
+                ExecutionId = this.Context.ExecutionId,
             };
         }
     }

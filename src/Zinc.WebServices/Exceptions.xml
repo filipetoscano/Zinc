@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <exceptions xmlns="urn:platinum/actor/exception">
-    <add name="WsException" />
+    <add name="ZincException" />
+    <add name="ZincConfigurationException" />
 </exceptions>

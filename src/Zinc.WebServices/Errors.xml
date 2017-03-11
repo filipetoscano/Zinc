@@ -5,14 +5,14 @@
 
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     ~
-    ~ Rest/
+    ~ MethodInvoker/
     ~
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <error id="MethodInvoker_RequestValidate" actor="~.Zinc" code="4000">
         <description>Unhandled exception validating instance of '{0}'.</description>
     </error>
 
-    <error id="MethodInvoker_RequestInvalid" actor="~.Client" code="4001">
+    <error id="MethodInvoker_RequestInvalid" actor="~.Zinc.Client" code="4001">
         <description>Request '{0}' is invalid.</description>
     </error>
 
@@ -42,8 +42,12 @@
         <description>Failed to execute journal statement on database '{0}'.</description>
     </error>
 
-    <error id="Rest_Configuration_MissingHandler" actor="~.Rest.Configuration" code="2002">
+    <error id="Rest_Configuration_MissingHandler" actor="~.Rest.Configuration" code="2003">
         <description>Handlers references '{0}', but has not been added as extension.</description>
+    </error>
+
+    <error id="Rest_NoExecutionContext" actor="~.Rest.Configuration" code="2004">
+        <description>No execution context was found: section 'zinc.webServices/rest/handlers' must contain 'execution' handler.</description>
     </error>
 
 

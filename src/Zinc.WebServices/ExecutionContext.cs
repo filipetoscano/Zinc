@@ -1,8 +1,9 @@
 ﻿using Platinum;
 using System;
-using System.Globalization;
-using System.Linq;
 using System.Net.Http;
+using System.ServiceModel;
+using Zinc.WebServices.Rest;
+using WcfExecutionContext = Zinc.WebServices.ServiceModel.WcfExecutionContext;
 
 namespace Zinc.WebServices
 {
@@ -29,6 +30,11 @@ namespace Zinc.WebServices
         public Guid ActivityId { get; set; }
 
         /// <summary>
+        /// Access token, used to access the current application.
+        /// </summary>
+        public string AccessToken { get; set; }
+
+        /// <summary>
         /// Unique identifier of the present method execution, which is a part
         /// of the overall SOA activity stream.
         /// </summary>
@@ -45,26 +51,24 @@ namespace Zinc.WebServices
         public DateTime MomentEnd { get; set; }
 
 
-        public ExecutionContext()
-        {
-        }
-
-
         /// <summary>
         /// Builds a Zinc execution context, based on the WCF execution context.
         /// </summary>
         /// <param name="wcfContext">WCF execution context.</param>
-        public ExecutionContext( ServiceModel.WcfExecutionContext wcfContext )
+        public ExecutionContext( OperationContext operationContext )
         {
             #region Validations
 
-            if ( wcfContext == null )
-                throw new ArgumentNullException( nameof( wcfContext ) );
+            if ( operationContext == null )
+                throw new ArgumentNullException( nameof( operationContext ) );
 
             #endregion
 
+            var wcfContext = WcfExecutionContext.Get( operationContext );
+
             this.Application = App.Name;
             this.ActivityId = wcfContext.ActivityId;
+            this.AccessToken = wcfContext.AccessToken;
             this.ExecutionId = wcfContext.ExecutionId;
             this.MomentStart = wcfContext.MomentStart;
         }
@@ -84,16 +88,16 @@ namespace Zinc.WebServices
 
             #endregion
 
-            // TODO: What if headers aren't present?
+            var ctx = (RestExecutionContext) request.Properties[ RestExecutionContext.PropertyName ];
 
-            var he = request.Headers.FirstOrDefault( x => x.Key == "X-ExecutionId" );
-            this.ExecutionId = new Guid( he.Value.First() );
+            if ( ctx == null )
+                throw new ZincConfigurationException( ER.Rest_NoExecutionContext );
 
-            var ha = request.Headers.FirstOrDefault( x => x.Key == "X-ActivityId" );
-            this.ActivityId = new Guid( ha.Value.First() );
-
-            var hs = request.Headers.FirstOrDefault( x => x.Key == "X-MomentStart" );
-            this.MomentStart = DateTime.ParseExact( hs.Value.First(), "O", CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal );
+            this.Application = App.Name;
+            this.ActivityId = ctx.ActivityId;
+            this.AccessToken = ctx.AccessToken;
+            this.ExecutionId = ctx.ExecutionId;
+            this.MomentStart = ctx.MomentStart;
         }
     }
 }
