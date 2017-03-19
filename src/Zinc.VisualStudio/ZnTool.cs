@@ -74,12 +74,12 @@ namespace Zinc.VisualStudio
             /*
              * 
              */
-            foreach ( XmlElement service in doc.SelectNodes( " /zn:services/zn:service", manager ) )
+            foreach ( XmlElement service in doc.SelectNodes( " /zn:services/zn:service ", manager ) )
             {
                 string serviceName = service.Attributes[ "name" ].Value;
                 string serviceFile = Path.Combine(
                     Path.GetDirectoryName( args.FileName ),
-                    service + "Services.svc" );
+                    serviceName + "Services.svc" );
 
                 if ( File.Exists( serviceFile ) == true )
                     continue;
