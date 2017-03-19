@@ -837,6 +837,7 @@ using Newtonsoft.Json;
     </xsl:template>
 
     <xsl:template match=" zn:summary " mode="prop" />
+    <xsl:template match=" zn:remarks " mode="prop" />
 
 
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
