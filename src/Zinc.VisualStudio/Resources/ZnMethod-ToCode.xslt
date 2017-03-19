@@ -19,7 +19,9 @@
     ~
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <xsl:template match=" zn:method ">
-        <xsl:text>using System;
+        <xsl:text>using Dapper;
+using Platinum.Data;
+using System;
 using System.Threading.Tasks;
 
 namespace </xsl:text>
