@@ -5,7 +5,7 @@
 
     <summary>First method of service two.</summary>
 
-    <request rest:method="get">
+    <request>
         <date name="InDate" />
         <dateTime name="InDateTime" />
         <enumeration name="InEnum" type="TestEnum">
