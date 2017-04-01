@@ -61,7 +61,6 @@
     <Compile Include="MethodInvoker.cs" />
     <Compile Include="MethodLoggingType.cs" />
     <Compile Include="Rest\DebugLoggingHandler.cs" />
-    <Compile Include="Rest\ElasticLoggingHandler.cs" />
     <Compile Include="Rest\ExceptionHandler.cs" />
     <Compile Include="Rest\ExceptionResponse.cs" />
     <Compile Include="Rest\ExecutionHandler.cs" />
@@ -74,7 +73,6 @@
     <Compile Include="Rest\ZincApiConfig.cs" />
     <Compile Include="Rest\ZnHeaders.cs" />
     <Compile Include="ServiceModel\DebugMessageInspector.cs" />
-    <Compile Include="ServiceModel\ElasticLoggingMessageInspector.cs" />
     <Compile Include="ServiceModel\ExecutionMessageInspector.cs" />
     <Compile Include="ServiceModel\SqlServerLoggingMessageInspector.cs" />
     <Compile Include="ServiceModel\WcfBehaviours.cs">

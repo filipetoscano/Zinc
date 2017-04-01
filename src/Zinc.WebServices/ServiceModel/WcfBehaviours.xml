@@ -8,5 +8,4 @@
     <!-- Logging -->
     <add name="Debug" />
     <add name="SqlServerLogging" />
-    <add name="ElasticLogging" />
 </behaviours>
