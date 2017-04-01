@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Platinum;
+using System;
 using System.Threading.Tasks;
 
 namespace Zinc.WebServices.Journaling
@@ -24,15 +25,12 @@ namespace Zinc.WebServices.Journaling
 
 
         /// <summary />
-        public Task PostAsync( ExecutionContext context, object response )
+        public Task PostAsync( ExecutionContext context, object response, ActorException error )
         {
             #region Validations
 
             if ( context == null )
                 throw new ArgumentNullException( nameof( context ) );
-
-            if ( response == null )
-                throw new ArgumentNullException( nameof( response ) );
 
             #endregion
 
@@ -41,7 +39,7 @@ namespace Zinc.WebServices.Journaling
 
 
         /// <summary />
-        public Task FullAsync( ExecutionContext context, object request, object response )
+        public Task FullAsync( ExecutionContext context, object request, object response, ActorException error )
         {
             #region Validations
 
@@ -50,9 +48,6 @@ namespace Zinc.WebServices.Journaling
 
             if ( request == null )
                 throw new ArgumentNullException( nameof( request ) );
-
-            if ( response == null )
-                throw new ArgumentNullException( nameof( response ) );
 
             #endregion
 

@@ -35,6 +35,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zinc.WebServices.SoapClient
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zinc.WebServices.Swashbuckle", "src\Zinc.WebServices.Swashbuckle\Zinc.WebServices.Swashbuckle.csproj", "{A75AB2A1-3CB8-4B33-A807-351EBBD49F6F}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{0A268014-0E7F-40BC-B39C-1FCD0C6A4D49}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zinc.WebServices.SvcUtil", "src\Zinc.WebServices.SvcUtil\Zinc.WebServices.SvcUtil.csproj", "{E9656DD1-60E4-432F-9DF4-A187EC9C4455}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zinc.WebServices.ProxyGenerator", "src\Zinc.WebServices.ProxyGenerator\Zinc.WebServices.ProxyGenerator.csproj", "{F294F2D3-4F5D-4EE6-87BC-4C90863B7A44}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -73,6 +79,14 @@ Global
 		{A75AB2A1-3CB8-4B33-A807-351EBBD49F6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A75AB2A1-3CB8-4B33-A807-351EBBD49F6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A75AB2A1-3CB8-4B33-A807-351EBBD49F6F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E9656DD1-60E4-432F-9DF4-A187EC9C4455}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E9656DD1-60E4-432F-9DF4-A187EC9C4455}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E9656DD1-60E4-432F-9DF4-A187EC9C4455}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E9656DD1-60E4-432F-9DF4-A187EC9C4455}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F294F2D3-4F5D-4EE6-87BC-4C90863B7A44}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F294F2D3-4F5D-4EE6-87BC-4C90863B7A44}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F294F2D3-4F5D-4EE6-87BC-4C90863B7A44}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F294F2D3-4F5D-4EE6-87BC-4C90863B7A44}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -86,5 +100,7 @@ Global
 		{1FC59BB3-BB5E-4E26-9B02-401498A38140} = {BAB42627-05C8-42ED-8293-33EBA52C0F5C}
 		{C228479C-0A08-4A65-9352-3403F3E81C88} = {BAB42627-05C8-42ED-8293-33EBA52C0F5C}
 		{A75AB2A1-3CB8-4B33-A807-351EBBD49F6F} = {BAB42627-05C8-42ED-8293-33EBA52C0F5C}
+		{E9656DD1-60E4-432F-9DF4-A187EC9C4455} = {0A268014-0E7F-40BC-B39C-1FCD0C6A4D49}
+		{F294F2D3-4F5D-4EE6-87BC-4C90863B7A44} = {0A268014-0E7F-40BC-B39C-1FCD0C6A4D49}
 	EndGlobalSection
 EndGlobal

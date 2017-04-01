@@ -2,12 +2,15 @@
 
 create table ZN_SERVICE_JOURNAL
 (
-    ExecutionId uniqueidentifier,
-    Method nvarchar(100),
-    ActivityId uniqueidentifier,
-    MessageXml xml,
-    Direction bit,
-    Moment datetime
+    ExecutionId uniqueidentifier not null,
+    Method nvarchar(100) not null,
+    ActivityId uniqueidentifier not null,
+    AccessToken varchar(500) null,
+    RequestXml xml null,
+    ResponseXml xml null,
+    ErrorXml xml null,
+    MomentStart datetime not null,
+    MomentEnd datetime null
 ) on [PRIMARY];
 
 

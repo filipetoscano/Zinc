@@ -81,11 +81,10 @@ namespace Zinc.WebServices
                 var vex = new ZincException( ER.MethodInvoker_RequestValidate, ex, request.GetType().FullName );
                 context.MomentEnd = DateTime.UtcNow;
 
-                // TODO: journal
                 if ( config.Type == MethodLoggingType.PrePost )
-                    await journal.PostAsync( context, vex );
+                    await journal.PostAsync( context, null, vex );
                 else
-                    await journal.FullAsync( context, request, vex );
+                    await journal.FullAsync( context, request, null, vex );
 
                 throw vex;
             }
@@ -97,11 +96,10 @@ namespace Zinc.WebServices
                 var vex = new ZincException( ER.MethodInvoker_RequestInvalid, agex, request.GetType().FullName );
                 context.MomentEnd = DateTime.UtcNow;
 
-                // TODO: journal
                 if ( config.Type == MethodLoggingType.PrePost )
-                    await journal.PostAsync( context, vex );
+                    await journal.PostAsync( context, null, vex );
                 else
-                    await journal.FullAsync( context, request, vex );
+                    await journal.FullAsync( context, request, null, vex );
 
                 throw vex;
             }
@@ -125,26 +123,26 @@ namespace Zinc.WebServices
             catch ( ActorException ex )
             {
                 context.MomentEnd = DateTime.UtcNow;
-                
-                // TODO: journal
+
                 if ( config.Type == MethodLoggingType.PrePost )
-                    await journal.PostAsync( context, ex );
+                    await journal.PostAsync( context, null, ex );
                 else
-                    await journal.FullAsync( context, request, ex );
+                    await journal.FullAsync( context, request, null, ex );
 
                 throw;
             }
             catch ( Exception ex )
             {
-                context.MomentEnd = DateTime.UtcNow;
-                
-                // TODO: journal
-                if ( config.Type == MethodLoggingType.PrePost )
-                    await journal.PostAsync( context, ex );
-                else
-                    await journal.FullAsync( context, request, ex );
+                var uex = new ZincException( ER.MethodInvoker_UnhandledException, ex, typeof( T ).FullName, ex.Message );
 
-                throw;
+                context.MomentEnd = DateTime.UtcNow;
+
+                if ( config.Type == MethodLoggingType.PrePost )
+                    await journal.PostAsync( context, null, uex );
+                else
+                    await journal.FullAsync( context, request, null, uex );
+
+                throw uex;
             }
 
 
@@ -173,12 +171,10 @@ namespace Zinc.WebServices
                 var vex = new ZincException( ER.MethodInvoker_ResponseValidate, ex, request.GetType().FullName );
                 context.MomentEnd = DateTime.UtcNow;
 
-                // TODO: journal
-                // TODO: perhaps we could log response AND vex
                 if ( config.Type == MethodLoggingType.PrePost )
-                    await journal.PostAsync( context, vex );
+                    await journal.PostAsync( context, response, vex );
                 else
-                    await journal.FullAsync( context, request, vex );
+                    await journal.FullAsync( context, request, response, vex );
 
                 throw vex;
             }
@@ -186,16 +182,14 @@ namespace Zinc.WebServices
             if ( vr.IsValid == false )
             {
                 ActorAggregateException agex = new ActorAggregateException( vr.Errors );
-
                 var vex = new ZincException( ER.MethodInvoker_ResponseInvalid, agex, request.GetType().FullName );
+
                 context.MomentEnd = DateTime.UtcNow;
 
-                // TODO: journal
-                // TODO: perhaps we could log response AND vex
                 if ( config.Type == MethodLoggingType.PrePost )
-                    await journal.PostAsync( context, vex );
+                    await journal.PostAsync( context, response, vex );
                 else
-                    await journal.FullAsync( context, request, vex );
+                    await journal.FullAsync( context, request, response, vex );
 
                 throw vex;
             }
@@ -207,9 +201,9 @@ namespace Zinc.WebServices
             context.MomentEnd = DateTime.UtcNow;
 
             if ( config.Type == MethodLoggingType.PrePost )
-                await journal.PostAsync( context, response );
+                await journal.PostAsync( context, response, null );
             else
-                await journal.FullAsync( context, request, response );
+                await journal.FullAsync( context, request, response, null );
 
             return response;
         }

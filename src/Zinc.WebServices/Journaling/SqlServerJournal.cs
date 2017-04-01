@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using Platinum;
 using Platinum.Data;
 using System;
 using System.Data.Common;
@@ -39,10 +40,11 @@ namespace Zinc.WebServices.Journaling
 
             await conn.ExecuteAsync( Q.SqlPre, new
             {
+                ExecutionId = context.ExecutionId,
                 Method = context.Method,
                 ActivityId = context.ActivityId,
-                ExecutionId = context.ExecutionId,
-                Request = requestXml,
+                AccessToken = context.AccessToken,
+                RequestXml = requestXml,
                 MomentStart = context.MomentStart
             } );
 
@@ -52,23 +54,24 @@ namespace Zinc.WebServices.Journaling
 
 
         /// <summary />
-        public async Task PostAsync( ExecutionContext context, object response )
+        public async Task PostAsync( ExecutionContext context, object response, ActorException error )
         {
             #region Validations
 
             if ( context == null )
                 throw new ArgumentNullException( nameof( context ) );
 
-            if ( response == null )
-                throw new ArgumentNullException( nameof( response ) );
-
             #endregion
+
+            if ( response == null && error == null )
+                throw new ArgumentOutOfRangeException( nameof( response ), "Field may not be null, if error is also null." );
 
 
             /*
              * 
              */
             string responseXml = ToXml( response );
+            string errorXml = ToXml( error );
 
 
             /*
@@ -78,17 +81,16 @@ namespace Zinc.WebServices.Journaling
 
             await conn.ExecuteAsync( Q.SqlPost, new
             {
-                Method = context.Method,
-                ActivityId = context.ActivityId,
                 ExecutionId = context.ExecutionId,
-                Response = responseXml,
+                ResponseXml = responseXml,
+                ErrorXml = errorXml,
                 MomentEnd = context.MomentEnd
             } );
         }
 
 
         /// <summary />
-        public async Task FullAsync( ExecutionContext context, object request, object response )
+        public async Task FullAsync( ExecutionContext context, object request, object response, ActorException error )
         {
             #region Validations
 
@@ -109,6 +111,7 @@ namespace Zinc.WebServices.Journaling
              */
             string requestXml = ToXml( request );
             string responseXml = ToXml( response );
+            string errorXml = ToXml( error );
 
 
             /*
@@ -118,11 +121,13 @@ namespace Zinc.WebServices.Journaling
 
             await conn.ExecuteAsync( Q.SqlFull, new
             {
+                ExecutionId = context.ExecutionId,
                 Method = context.Method,
                 ActivityId = context.ActivityId,
-                ExecutionId = context.ExecutionId,
-                Request = requestXml,
-                Response = responseXml,
+                AccessToken = context.AccessToken,
+                RequestXml = requestXml,
+                ResponseXml = responseXml,
+                ErrorXml = errorXml,
                 MomentStart = context.MomentStart,
                 MomentEnd = context.MomentEnd
             } );
@@ -131,12 +136,8 @@ namespace Zinc.WebServices.Journaling
 
         private static string ToXml( object obj )
         {
-            #region Validations
-
             if ( obj == null )
-                throw new ArgumentNullException( nameof( obj ) );
-
-            #endregion
+                return null;
 
             XmlSerializer ser = new XmlSerializer( obj.GetType() );
 

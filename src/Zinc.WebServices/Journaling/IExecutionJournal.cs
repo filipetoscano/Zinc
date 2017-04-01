@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using Platinum;
+using System.Threading.Tasks;
 
 namespace Zinc.WebServices.Journaling
 {
@@ -20,7 +21,8 @@ namespace Zinc.WebServices.Journaling
         /// </summary>
         /// <param name="context">Execution context.</param>
         /// <param name="response">Response.</param>
-        Task PostAsync( ExecutionContext context, object response );
+        /// <param name="error">Error.</param>
+        Task PostAsync( ExecutionContext context, object response, ActorException error );
 
 
         /// <summary>
@@ -29,6 +31,7 @@ namespace Zinc.WebServices.Journaling
         /// <param name="context">Execution context.</param>
         /// <param name="request">Request.</param>
         /// <param name="response">Response.</param>
-        Task FullAsync( ExecutionContext context, object request, object response );
+        /// <param name="error">Error.</param>
+        Task FullAsync( ExecutionContext context, object request, object response, ActorException error );
     }
 }

@@ -37,6 +37,12 @@
         <arg name="ResponseType" />
     </error>
 
+    <error id="MethodInvoker_UnhandledException" actor="~.Zinc" code="4006">
+        <description>Unhandled exception from '{0}': '{1}'.</description>
+        <arg name="Method" />
+        <arg name="UnhandledMessage" />
+    </error>
+
 
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     ~
