@@ -8,8 +8,10 @@ using Zn.Sample;
 
 namespace Zn.Sample
 {
+    /// <summary />
     public class SwaggerConfig
     {
+        /// <summary />
         public static void Register()
         {
             var thisAssembly = typeof( SwaggerConfig ).Assembly;

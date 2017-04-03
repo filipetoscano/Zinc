@@ -83,7 +83,7 @@ namespace Zinc.WebServices.ProxyGenerator
 
             var module = doc
                 .AddElement( "module" )
-                .AddAttribute( "name", cl.Module );
+                .AddAttribute( "name", cl.Application );
 
 
             /*
@@ -227,6 +227,8 @@ namespace Zinc.WebServices.ProxyGenerator
             {
                 XsltArgumentList xargs = new XsltArgumentList();
                 xargs.AddParam( "Namespace", "", cl.Namespace );
+                xargs.AddParam( "Async", "", cl.Async );
+                xargs.AddParam( "Sync", "", cl.Sync );
 
                 try
                 {
@@ -269,9 +271,12 @@ namespace Zinc.WebServices.ProxyGenerator
              * 
              */
             string file = Path.Combine( path, assembly + ".xml" );
+            
 
             if ( File.Exists( file ) == false )
             {
+                logger.Debug( "miss: '{0}'", file );
+
                 xmldocs.Add( assembly, null );
                 return null;
             }
@@ -280,6 +285,8 @@ namespace Zinc.WebServices.ProxyGenerator
             /*
              * 
              */
+            logger.Debug( "xmld: '{0}'", file );
+
             XmlDocument doc = new XmlDocument();
             doc.Load( file );
 

@@ -1,6 +1,8 @@
 ﻿using Newtonsoft.Json;
+using Platinum;
 using Platinum.Configuration;
 using System;
+using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Text;
@@ -78,6 +80,50 @@ namespace Zinc.WebServices.RestClient
         {
             get;
             set;
+        }
+
+
+        /// <summary />
+        [ಠ_ಠ( "Needs error-handling." )]
+        protected Tp Invoke<Tq, Tp>( string method, Tq request )
+        {
+            string json = JsonConvert.SerializeObject( request );
+
+            string url = this.BaseUrl + "/" + method;
+
+            HttpWebRequest webRequest = (HttpWebRequest) HttpWebRequest.Create( url );
+            webRequest.ContentType = "application/json";
+            webRequest.Method = "POST";
+            webRequest.ServicePoint.Expect100Continue = false;
+
+
+            /*
+             * 
+             */
+            Stream reqs = webRequest.GetRequestStream();
+
+            StreamWriter sw = new StreamWriter( reqs );
+            sw.WriteLine( json );
+            sw.Close();
+
+            reqs.Close();
+
+
+            /*
+             * 
+             */
+            HttpWebResponse webResponse = (HttpWebResponse) webRequest.GetResponse();
+
+            Stream resp = webResponse.GetResponseStream();
+
+            StreamReader sr = new StreamReader( resp );
+            string jsonResp = sr.ReadToEnd();
+
+            sr.Close();
+            resp.Close();
+            webResponse.Close();
+
+            return JsonConvert.DeserializeObject<Tp>( jsonResp );
         }
 
 

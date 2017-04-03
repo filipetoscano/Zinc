@@ -10,18 +10,22 @@
     <request>
         <structure name="String" type="StringValidations" optional="true">
             <string name="Regex">
+                <summary>Must be 3 digits long.</summary>
                 <v:regex pattern="^\d{3}$" />
             </string>
 
             <string name="Length" optional="true">
+                <summary>Must be between 5 and 20 characters long.</summary>
                 <v:length min="5" max="20" />
             </string>
 
             <string name="LengthMin" optional="true">
+                <summary>Must be at least 5 characters long.</summary>
                 <v:length min="5" />
             </string>
 
             <string name="LengthMax" optional="true">
+                <summary>Must be at most 20 characters long.</summary>
                 <v:length max="20" />
             </string>
         </structure>

@@ -12,7 +12,7 @@ namespace Zinc.WebServices.ProxyGenerator
         public string Assembly { get; set; }
 
         /// <summary />
-        public string Module { get; set; }
+        public string Application { get; set; }
 
         /// <summary />
         public string Namespace { get; set; }
@@ -22,6 +22,12 @@ namespace Zinc.WebServices.ProxyGenerator
 
         /// <summary />
         public string Output { get; set; }
+
+        /// <summary />
+        public bool Async { get; set; } = true;
+
+        /// <summary />
+        public bool Sync { get; set; } = false;
 
 
         /// <summary />
@@ -40,9 +46,9 @@ namespace Zinc.WebServices.ProxyGenerator
                     continue;
                 }
 
-                if ( arg.StartsWith( "--module=" ) == true )
+                if ( arg.StartsWith( "--application=" ) == true )
                 {
-                    cl.Module = arg.Substring( "--module=".Length );
+                    cl.Application = arg.Substring( "--application=".Length );
                     continue;
                 }
 
@@ -52,9 +58,21 @@ namespace Zinc.WebServices.ProxyGenerator
                     continue;
                 }
 
-                if ( arg.StartsWith( "--out=" ) == true )
+                if ( arg.StartsWith( "--output=" ) == true )
                 {
-                    cl.Output = arg.Substring( "--out=".Length );
+                    cl.Output = arg.Substring( "--output=".Length );
+                    continue;
+                }
+
+                if ( arg == "--sync" )
+                {
+                    cl.Sync = true;
+                    continue;
+                }
+
+                if ( arg == "--no-async" )
+                {
+                    cl.Async = false;
                     continue;
                 }
             }
@@ -69,9 +87,9 @@ namespace Zinc.WebServices.ProxyGenerator
                 return null;
             }
 
-            if ( string.IsNullOrEmpty( cl.Module ) == true )
+            if ( string.IsNullOrEmpty( cl.Application ) == true )
             {
-                logger.Fatal( "err: Module is a required option." );
+                logger.Fatal( "err: Application is a required option." );
                 return null;
             }
 

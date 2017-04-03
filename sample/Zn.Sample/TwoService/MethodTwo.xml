@@ -6,26 +6,50 @@
     <summary>First method of service two.</summary>
 
     <request>
-        <date name="InDate" />
-        <dateTime name="InDateTime" />
+        <date name="InDate">
+            <summary>Input date</summary>
+        </date>
+        <dateTime name="InDateTime">
+            <summary>Input date and time</summary>
+        </dateTime>
+
         <enumeration name="InEnum" type="TestEnum">
-            <enum value="First" />
-            <enum value="Second" />
+            <summary>Input enumerate.</summary>
+
+            <enum value="First">
+                <summary>1st enum value</summary>
+            </enum>
+            <enum value="Second">
+                <summary>2nd enum value</summary>
+            </enum>
             <enum value="Third" />
         </enumeration>
     </request>
 
     <response>
-        <string name="RandomString" />
-        <string name="DataString" mock:data="matrix/name" />
-        <int name="RandomInteger" />
-        <date name="RandomDate" />
-        <dateTime name="RandomDateTime" />
+        <string name="RandomString">
+            <summary>A random string value.</summary>
+        </string>
+        <string name="DataString" mock:data="matrix/name">
+            <summary>A name from the Matrix.</summary>
+        </string>
+        <int name="RandomInteger">
+            <summary>A random integer value.</summary>
+        </int>
+        <date name="RandomDate">
+            <summary>A random date value.</summary>
+        </date>
+        <dateTime name="RandomDateTime">
+            <summary>A random date and time value.</summary>
+        </dateTime>
 
         <!-- Echo -->
         <guid name="ActivityId" />
         <string name="AccessToken" optional="true" />
         <guid name="ExecutionId" />
-        <enumeration-ref name="OutEnum" type="TestEnum" />
+
+        <enumeration-ref name="OutEnum" type="TestEnum">
+            <summary>Output enumerate.</summary>
+        </enumeration-ref>
     </response>
 </method>
