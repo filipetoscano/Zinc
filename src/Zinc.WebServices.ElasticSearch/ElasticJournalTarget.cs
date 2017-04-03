@@ -241,7 +241,7 @@ namespace Zinc.WebServices.ElasticSearch
                     document.Add( "request", ToJson( request ) );
 
                 if ( response != null )
-                    document.Add( "response", ToJson( request ) );
+                    document.Add( "response", ToJson( response ) );
 
                 if ( error != null )
                 {

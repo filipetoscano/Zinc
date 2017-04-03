@@ -4,7 +4,7 @@ using System;
 using System.Threading.Tasks;
 using Zinc.WebServices.Journaling;
 
-namespace Zinc.WebServices.ElasticLogging
+namespace Zinc.WebServices.ElasticSearch
 {
     /// <summary />
     public class ElasticJournal : IExecutionJournal
@@ -33,7 +33,12 @@ namespace Zinc.WebServices.ElasticLogging
             LogLevel level = LogLevel.Debug;
 
             if ( error != null )
-                level = LogLevel.Error;
+            {
+                if ( error.Actor.EndsWith( ".Client" ) == true )
+                    level = LogLevel.Info;
+                else
+                    level = LogLevel.Error;
+            }
 
 
             /*
