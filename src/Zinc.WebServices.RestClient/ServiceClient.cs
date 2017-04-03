@@ -5,6 +5,7 @@ using System;
 using System.IO;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -87,6 +88,16 @@ namespace Zinc.WebServices.RestClient
         [ಠ_ಠ( "Needs error-handling." )]
         protected Tp Invoke<Tq, Tp>( string method, Tq request )
         {
+            #region Validations
+
+            if ( method == null )
+                throw new ArgumentNullException( nameof( method ) );
+
+            if ( request == null )
+                throw new ArgumentNullException( nameof( request ) );
+
+            #endregion
+
             string json = JsonConvert.SerializeObject( request );
 
             string url = this.BaseUrl + "/" + method;
@@ -95,6 +106,11 @@ namespace Zinc.WebServices.RestClient
             webRequest.ContentType = "application/json";
             webRequest.Method = "POST";
             webRequest.ServicePoint.Expect100Continue = false;
+
+            webRequest.Headers.Add( "Zn-ActivityId", this.ActivityId.ToString() );
+
+            if ( string.IsNullOrEmpty( this.AccessToken ) == false )
+                webRequest.Headers.Add( "Authorization", "Bearer " + this.AccessToken );
 
 
             /*
@@ -148,9 +164,6 @@ namespace Zinc.WebServices.RestClient
                 content.Headers.ContentType.MediaType = "application/json";
                 content.Headers.Add( "Zn-ActivityId", this.ActivityId.ToString() );
 
-                if ( string.IsNullOrEmpty( this.AccessToken ) == false )
-                    content.Headers.Add( "Zn-AccessToken", this.AccessToken );
-
 
                 /*
                  * 
@@ -159,6 +172,9 @@ namespace Zinc.WebServices.RestClient
                 reqm.Content = content;
                 reqm.Method = HttpMethod.Post;
                 reqm.RequestUri = new Uri( url, UriKind.Absolute );
+
+                if ( string.IsNullOrEmpty( this.AccessToken ) == false )
+                    reqm.Headers.Authorization = new AuthenticationHeaderValue( "Bearer", this.AccessToken );
 
 
                 /*
