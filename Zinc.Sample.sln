@@ -1,0 +1,50 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{BAB42627-05C8-42ED-8293-33EBA52C0F5C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ZZ Sample", "ZZ Sample", "{E7D0D594-4D33-4F71-AD97-21223E1DB256}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zinc.Core", "src\Zinc.Core\Zinc.Core.csproj", "{7C7BE3E1-54F6-489D-B14F-71A0A5ECC5FD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zn.Sample.Client", "sample\Zn.Sample.Client\Zn.Sample.Client.csproj", "{3ACD80F6-9A42-42C5-9DDD-065995B23614}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zinc.WebServices.RestClient", "src\Zinc.WebServices.RestClient\Zinc.WebServices.RestClient.csproj", "{1FC59BB3-BB5E-4E26-9B02-401498A38140}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{3F3DA924-94DA-46DF-8464-4A8138C622B7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zinc.WebServices.RestClient.Test", "tests\Zinc.WebServices.RestClient\Zinc.WebServices.RestClient.Test.csproj", "{C50433E7-A31F-4B67-9F19-BF6BAFA620E2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7C7BE3E1-54F6-489D-B14F-71A0A5ECC5FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C7BE3E1-54F6-489D-B14F-71A0A5ECC5FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C7BE3E1-54F6-489D-B14F-71A0A5ECC5FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C7BE3E1-54F6-489D-B14F-71A0A5ECC5FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3ACD80F6-9A42-42C5-9DDD-065995B23614}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3ACD80F6-9A42-42C5-9DDD-065995B23614}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1FC59BB3-BB5E-4E26-9B02-401498A38140}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1FC59BB3-BB5E-4E26-9B02-401498A38140}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1FC59BB3-BB5E-4E26-9B02-401498A38140}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1FC59BB3-BB5E-4E26-9B02-401498A38140}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C50433E7-A31F-4B67-9F19-BF6BAFA620E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C50433E7-A31F-4B67-9F19-BF6BAFA620E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C50433E7-A31F-4B67-9F19-BF6BAFA620E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C50433E7-A31F-4B67-9F19-BF6BAFA620E2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{7C7BE3E1-54F6-489D-B14F-71A0A5ECC5FD} = {BAB42627-05C8-42ED-8293-33EBA52C0F5C}
+		{3ACD80F6-9A42-42C5-9DDD-065995B23614} = {E7D0D594-4D33-4F71-AD97-21223E1DB256}
+		{1FC59BB3-BB5E-4E26-9B02-401498A38140} = {BAB42627-05C8-42ED-8293-33EBA52C0F5C}
+		{C50433E7-A31F-4B67-9F19-BF6BAFA620E2} = {3F3DA924-94DA-46DF-8464-4A8138C622B7}
+	EndGlobalSection
+EndGlobal

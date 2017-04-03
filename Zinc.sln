@@ -47,8 +47,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "deps", "deps", "{8BCD0A85-3
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dependencies", "src\Dependencies\Dependencies.csproj", "{3B214302-5DE9-493D-9FF1-0E1697222324}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zn.Sample.Client", "sample\Zn.Sample.Client\Zn.Sample.Client.csproj", "{3ACD80F6-9A42-42C5-9DDD-065995B23614}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -99,8 +97,6 @@ Global
 		{B5932D01-8198-400D-9505-2298562D535D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3B214302-5DE9-493D-9FF1-0E1697222324}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3B214302-5DE9-493D-9FF1-0E1697222324}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3ACD80F6-9A42-42C5-9DDD-065995B23614}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3ACD80F6-9A42-42C5-9DDD-065995B23614}.Release|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -118,6 +114,5 @@ Global
 		{F294F2D3-4F5D-4EE6-87BC-4C90863B7A44} = {0A268014-0E7F-40BC-B39C-1FCD0C6A4D49}
 		{B5932D01-8198-400D-9505-2298562D535D} = {BAB42627-05C8-42ED-8293-33EBA52C0F5C}
 		{3B214302-5DE9-493D-9FF1-0E1697222324} = {8BCD0A85-3CA4-41E5-A7C5-628AEC8D7BDA}
-		{3ACD80F6-9A42-42C5-9DDD-065995B23614} = {E7D0D594-4D33-4F71-AD97-21223E1DB256}
 	EndGlobalSection
 EndGlobal
