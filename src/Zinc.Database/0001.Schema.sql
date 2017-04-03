@@ -1,7 +1,11 @@
 
 
+--
+--
+--
 create table ZN_SERVICE_JOURNAL
 (
+    [Application] varchar(100) not null,
     ExecutionId uniqueidentifier not null,
     Method nvarchar(100) not null,
     ActivityId uniqueidentifier not null,
@@ -10,10 +14,16 @@ create table ZN_SERVICE_JOURNAL
     ResponseXml xml null,
     ErrorXml xml null,
     MomentStart datetime not null,
-    MomentEnd datetime null
+    MomentEnd datetime null,
+    constraint PK_ZN_SERVICE_JOURNAL primary key nonclustered ( ExecutionId )
 ) on [PRIMARY];
 
+create clustered index IX_ZN_SERVICE_JOURNAL on ZN_SERVICE_JOURNAL ( MomentStart );
 
+
+--
+--
+--
 create table ZN_SOAP_JOURNAL
 (
     [Application] varchar(100) not null,
@@ -26,7 +36,12 @@ create table ZN_SOAP_JOURNAL
     Moment datetime not null
 ) on [PRIMARY];
 
+create clustered index IX_ZN_SOAP_JOURNAL on ZN_SOAP_JOURNAL ( Moment );
 
+
+--
+--
+--
 create table ZN_REST_JOURNAL
 (
     [Application] varchar(100) not null,
@@ -40,5 +55,7 @@ create table ZN_REST_JOURNAL
     JsonMessage nvarchar(max) null,
     Moment datetime not null
 ) on [PRIMARY];
+
+create clustered index IX_ZN_REST_JOURNAL on ZN_REST_JOURNAL ( Moment );
 
 /* eof */

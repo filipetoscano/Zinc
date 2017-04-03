@@ -40,6 +40,7 @@ namespace Zinc.WebServices.Journaling
 
             await conn.ExecuteAsync( Q.SqlPre, new
             {
+                Application = App.Name,
                 ExecutionId = context.ExecutionId,
                 Method = context.Method,
                 ActivityId = context.ActivityId,
@@ -100,9 +101,6 @@ namespace Zinc.WebServices.Journaling
             if ( request == null )
                 throw new ArgumentNullException( nameof( request ) );
 
-            if ( response == null )
-                throw new ArgumentNullException( nameof( response ) );
-
             #endregion
 
 
@@ -121,6 +119,7 @@ namespace Zinc.WebServices.Journaling
 
             await conn.ExecuteAsync( Q.SqlFull, new
             {
+                Application = App.Name,
                 ExecutionId = context.ExecutionId,
                 Method = context.Method,
                 ActivityId = context.ActivityId,
@@ -134,6 +133,15 @@ namespace Zinc.WebServices.Journaling
         }
 
 
+        /// <summary>
+        /// Serializes an instance of an object to XML.
+        /// </summary>
+        /// <param name="obj">
+        /// Object.
+        /// </param>
+        /// <returns>
+        /// XML representation of object.
+        /// </returns>
         private static string ToXml( object obj )
         {
             if ( obj == null )
@@ -149,6 +157,25 @@ namespace Zinc.WebServices.Journaling
                     return sw.ToString();
                 }
             }
+        }
+
+
+        /// <summary>
+        /// Serializes an instance of <see cref="ActorException" /> to XML.
+        /// </summary>
+        /// <param name="error">
+        /// Exception.
+        /// </param>
+        /// <returns>
+        /// XML representation of error.
+        /// </returns>
+        private static string ToXml( ActorException error )
+        {
+            if ( error == null )
+                return null;
+
+            var fault = ActorFault.From( error );
+            return ToXml( fault );
         }
     }
 }

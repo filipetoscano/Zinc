@@ -1,13 +1,15 @@
 ﻿using Platinum.Configuration;
-using System;
+using Platinum.Data;
 using System.Net;
 using System.Web.Http;
 using Zinc.WebServices;
 
 namespace Zn.Sample
 {
+    /// <summary />
     public class Global : System.Web.HttpApplication
     {
+        /// <summary />
         protected void Application_Start()
         {
             /*
@@ -23,10 +25,12 @@ namespace Zn.Sample
             /*
              *
              */
-            GlobalConfiguration.Configuration.UseZinc();
+            GlobalConfiguration.Configure( ZincApiConfig.Register );
+            DataConfig.Register();
         }
 
 
+        /// <summary />
         protected void Application_PreSendRequestHeaders()
         {
             Response.Headers.Set( "Server", "Zinc" );
