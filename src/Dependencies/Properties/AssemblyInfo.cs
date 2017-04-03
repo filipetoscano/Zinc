@@ -2,8 +2,8 @@
 using System.Runtime.InteropServices;
 
 // General information
-[assembly: AssemblyTitle( "Zinc Transforms" )]
-[assembly: AssemblyDescription( "Dummy project to hold transforms - not actually compiled :-)" )]
+[assembly: AssemblyTitle( "Zinc Dependencies" )]
+[assembly: AssemblyDescription( "Dummy project to hold dependencies - not actually compiled :-)" )]
 [assembly: AssemblyConfiguration( "" )]
 [assembly: AssemblyCompany( "Transition" )]
 [assembly: AssemblyProduct( "Zinc" )]
@@ -13,7 +13,7 @@ using System.Runtime.InteropServices;
 
 // Additional information
 [assembly: ComVisible( false )]
-[assembly: Guid( "3c73c964-278f-4bc1-876d-f8467f5522fc" )]
+[assembly: Guid( "3b214302-5de9-493d-9ff1-0e1697222324" )]
 
 // Version information
 [assembly: AssemblyVersion( "1.0.0.0" )]

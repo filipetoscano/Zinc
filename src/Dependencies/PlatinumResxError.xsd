@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    elementFormDefault="qualified"
+    targetNamespace="urn:platinum/actor"
+    xmlns:p="urn:platinum/actor"
+    xmlns="urn:platinum/actor">
+
+
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    ~
+    ~ configuration/
+    ~ Schema root
+    ~
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <xsd:element name="errors">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="actor">
+                    <xsd:complexType>
+                        <xsd:attribute name="base" type="xsd:string" use="required" />
+                    </xsd:complexType>
+                </xsd:element>
+
+                <xsd:choice minOccurs="0" maxOccurs="unbounded">
+                    <xsd:element name="error" type="p:entry" />
+                </xsd:choice>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+
+    <xsd:complexType name="entry">
+        <xsd:sequence>
+            <xsd:element name="description" type="xsd:string" />
+            <xsd:element name="remarks" type="xsd:string" minOccurs="0" />
+
+            <xsd:element name="arg" minOccurs="0" maxOccurs="unbounded">
+                <xsd:complexType>
+                    <xsd:attribute name="name" type="p:argName" use="required" />
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:sequence>
+
+        <xsd:attribute name="id" type="xsd:string" use="required" />
+        <xsd:attribute name="actor" type="xsd:string" use="required" />
+        <xsd:attribute name="code" type="xsd:string" use="required" />
+    </xsd:complexType>
+    
+
+    <xsd:simpleType name="argName">
+        <xsd:restriction base="xsd:string">
+            <xsd:pattern value="[A-Za-z][A-Za-z0-9_]*" />
+        </xsd:restriction>
+    </xsd:simpleType>
+
+</xsd:schema>

@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    elementFormDefault="qualified"
+    targetNamespace="urn:platinum/validation"
+    xmlns:y="urn:platinum/validation"
+    xmlns="urn:platinum/validation">
+
+
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    ~
+    ~ ruleSet/
+    ~ Schema root
+    ~
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <xsd:element name="ruleSet">
+        <xsd:annotation>
+            <xsd:documentation>
+                Describes a rule set: a list of (potentially conditional) per-field rules which
+                apply to a given class.
+            </xsd:documentation>
+        </xsd:annotation>
+
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="summary" type="xsd:string" minOccurs="0" />
+                <xsd:element name="remarks" type="xsd:string" minOccurs="0" />
+
+                <xsd:element name="field" minOccurs="0" maxOccurs="unbounded">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="summary" type="xsd:string" minOccurs="0" />
+                            <xsd:element name="remarks" type="xsd:string" minOccurs="0" />
+
+                            <xsd:choice minOccurs="0">
+                                <xsd:sequence>
+                                    <xsd:element name="required" type="emptyRule" minOccurs="0" />
+                                    <xsd:element name="forbidden" type="emptyRule" minOccurs="0" />
+                                    <xsd:element name="email" type="emptyRule" minOccurs="0" />
+                                    <xsd:element name="length" type="lengthRule" minOccurs="0" />
+                                    <xsd:element name="regex" type="regexRule" minOccurs="0" />
+                                    <xsd:element name="function" type="functionRule" minOccurs="0" />
+                                </xsd:sequence>
+
+                                <xsd:sequence>
+                                    <xsd:element name="if" maxOccurs="unbounded">
+                                        <xsd:complexType>
+                                            <xsd:complexContent>
+                                                <xsd:extension base="ruleList">
+                                                    <xsd:attribute name="when" type="xsd:string" />
+                                                    <xsd:attribute name="equals" type="xsd:string" />
+                                                </xsd:extension>
+                                            </xsd:complexContent>
+                                        </xsd:complexType>
+                                    </xsd:element>
+
+                                    <xsd:element name="else" type="ruleList" minOccurs="0" />
+                                </xsd:sequence>
+                            </xsd:choice>
+                        </xsd:sequence>
+
+                        <xsd:attribute name="name" type="xsd:string" use="required" />
+                    </xsd:complexType>
+                </xsd:element>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    ~
+    ~
+    ~
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <xsd:complexType name="ruleList">
+        <xsd:sequence>
+            <xsd:element name="required" type="emptyRule" minOccurs="0" />
+            <xsd:element name="forbidden" type="emptyRule" minOccurs="0" />
+            <xsd:element name="email" type="emptyRule" minOccurs="0" />
+            <xsd:element name="length" type="lengthRule" minOccurs="0" />
+            <xsd:element name="regex" type="regexRule" minOccurs="0" />
+            <xsd:element name="function" type="functionRule" minOccurs="0" />
+        </xsd:sequence>
+    </xsd:complexType>
+
+
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    ~
+    ~ Rule specific types
+    ~
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <xsd:complexType name="emptyRule" />
+
+    <xsd:complexType name="functionRule">
+        <xsd:attribute name="name" type="xsd:string" use="required">
+            <xsd:annotation>
+                <xsd:documentation>Name of the embedded javascript resource, containing the file.</xsd:documentation>
+            </xsd:annotation>
+        </xsd:attribute>
+    </xsd:complexType>
+
+    <xsd:complexType name="lengthRule">
+        <xsd:attribute name="min" type="xsd:positiveInteger" use="optional" />
+        <xsd:attribute name="max" type="xsd:positiveInteger" use="optional" />
+    </xsd:complexType>
+
+    <xsd:complexType name="regexRule">
+        <xsd:attribute name="pattern" type="xsd:string" use="required" />
+    </xsd:complexType>
+
+</xsd:schema>
