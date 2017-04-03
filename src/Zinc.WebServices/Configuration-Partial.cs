@@ -34,4 +34,18 @@ namespace Zinc.WebServices
             }
         }
     }
+
+
+    /// <summary />
+    public class MethodRawLoggingConfiguration
+    {
+        /// <summary />
+        public bool Enabled { get; set; }
+
+        /// <summary />
+        public bool Request { get; set; }
+
+        /// <summary />
+        public bool Response { get; set; }
+    }
 }

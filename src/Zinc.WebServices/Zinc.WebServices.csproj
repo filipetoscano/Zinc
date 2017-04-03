@@ -72,6 +72,7 @@
     <Compile Include="Rest\WebApiConfig.cs" />
     <Compile Include="Rest\ZincApiConfig.cs" />
     <Compile Include="Rest\ZnHeaders.cs" />
+    <Compile Include="SecretAttribute.cs" />
     <Compile Include="ServiceModel\DebugMessageInspector.cs" />
     <Compile Include="ServiceModel\ExecutionMessageInspector.cs" />
     <Compile Include="ServiceModel\SqlServerLoggingMessageInspector.cs" />

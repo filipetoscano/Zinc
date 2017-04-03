@@ -2,6 +2,18 @@
 <configuration xmlns="urn:platinum/config">
 
     <section name="zinc.webServices" type="ZincConfiguration">
+        <element name="journaling" type="JournalConfiguration">
+            <string name="to" />
+            <enum name="type" type="MethodLoggingType" optional="true" default="PrePost" />
+        </element>
+
+        <repeater name="journals">
+            <item name="add" type="ZincJournal">
+                <string name="name" key="true" />
+                <string name="type" />
+            </item>
+        </repeater>
+
         <element name="rest" type="ZincRestConfiguration">
             <bool name="enabled" optional="true" default="true" />
 
@@ -15,24 +27,6 @@
                 </item>
             </repeater>
         </element>
-
-        <repeater name="logging">
-            <item name="for" type="MethodLoggingConfiguration">
-                <string name="method" key="true" />
-                <enum name="type" type="MethodLoggingType" optional="true" default="PrePost" />
-                <bool name="request" optional="true" default="true" />
-                <bool name="response" optional="true" default="true" />
-            </item>
-        </repeater>
-
-        <repeater name="raw-logging" as="RawLogging">
-            <item name="for" type="MethodRawLoggingConfiguration">
-                <string name="method" key="true" />
-                <bool name="enabled" optional="true" default="true" />
-                <bool name="request" optional="true" default="true" />
-                <bool name="response" optional="true" default="true" />
-            </item>
-        </repeater>
     </section>
 
 </configuration>

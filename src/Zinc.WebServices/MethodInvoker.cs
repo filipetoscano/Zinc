@@ -2,6 +2,7 @@
 using Platinum.Reflection;
 using Platinum.Validation;
 using System;
+using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
@@ -46,10 +47,25 @@ namespace Zinc.WebServices
 
 
             /*
-             * TODO: from config
+             * 
              */
-            IExecutionJournal journal = new NullJournal();
-            MethodLoggingConfiguration config = new MethodLoggingConfiguration() { Type = MethodLoggingType.PrePost, Request = true, Response = true };
+            JournalConfiguration config = ZincConfiguration.Current.Journaling;
+
+            ZincJournal journalConfig = ZincConfiguration.Current.Journals.FirstOrDefault( j => j.Name == config.To );
+
+            if ( journalConfig == null )
+                throw new ZincException( ER.Journaling_JournalNotFound, config.To );
+
+            IExecutionJournal journal;
+
+            try
+            {
+                journal = Platinum.Activator.Create<IExecutionJournal>( journalConfig.Type );
+            }
+            catch ( ActorException ex )
+            {
+                throw new ZincException( ER.Journaling_InvalidMoniker, ex, config.To );
+            }
 
 
             /*

@@ -46,6 +46,22 @@
 
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     ~
+    ~ Journaling/
+    ~
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <error id="Journaling_JournalNotFound" actor="~.Zinc" code="5001">
+        <description>Journal '{0}' is not defined in 'zinc.webServices/journals'.</description>
+        <arg name="Journal" />
+    </error>
+
+    <error id="Journaling_InvalidMoniker" actor="~.Zinc" code="5002">
+        <description>Journal '{0}' has invalid @type moniker.</description>
+        <arg name="Journal" />
+    </error>
+
+    
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    ~
     ~ Rest/
     ~
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
