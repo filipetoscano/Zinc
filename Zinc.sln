@@ -41,6 +41,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zinc.WebServices.SvcUtil", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zinc.WebServices.ProxyGenerator", "src\Zinc.WebServices.ProxyGenerator\Zinc.WebServices.ProxyGenerator.csproj", "{F294F2D3-4F5D-4EE6-87BC-4C90863B7A44}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zinc.WebServices.ElasticSearch", "src\Zinc.WebServices.ElasticSearch\Zinc.WebServices.ElasticSearch.csproj", "{B5932D01-8198-400D-9505-2298562D535D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -87,6 +89,10 @@ Global
 		{F294F2D3-4F5D-4EE6-87BC-4C90863B7A44}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F294F2D3-4F5D-4EE6-87BC-4C90863B7A44}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F294F2D3-4F5D-4EE6-87BC-4C90863B7A44}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B5932D01-8198-400D-9505-2298562D535D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5932D01-8198-400D-9505-2298562D535D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5932D01-8198-400D-9505-2298562D535D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5932D01-8198-400D-9505-2298562D535D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -102,5 +108,6 @@ Global
 		{A75AB2A1-3CB8-4B33-A807-351EBBD49F6F} = {BAB42627-05C8-42ED-8293-33EBA52C0F5C}
 		{E9656DD1-60E4-432F-9DF4-A187EC9C4455} = {0A268014-0E7F-40BC-B39C-1FCD0C6A4D49}
 		{F294F2D3-4F5D-4EE6-87BC-4C90863B7A44} = {0A268014-0E7F-40BC-B39C-1FCD0C6A4D49}
+		{B5932D01-8198-400D-9505-2298562D535D} = {BAB42627-05C8-42ED-8293-33EBA52C0F5C}
 	EndGlobalSection
 EndGlobal

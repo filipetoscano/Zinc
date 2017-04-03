@@ -58,6 +58,7 @@
         <!-- Pack -->
         <Exec Command=" nuget pack Zinc.Core.csproj $(nugetArgs) "                           WorkingDirectory="src\Zinc.Core" />
         <Exec Command=" nuget pack Zinc.WebServices.csproj $(nugetArgs) "                    WorkingDirectory="src\Zinc.WebServices" />
+        <Exec Command=" nuget pack Zinc.WebServices.ElasticSearch.csproj $(nugetArgs) "      WorkingDirectory="src\Zinc.WebServices.ElasticSearch" />
         <Exec Command=" nuget pack Zinc.WebServices.RestClient.csproj $(nugetArgs) "         WorkingDirectory="src\Zinc.WebServices.RestClient" />
         <Exec Command=" nuget pack Zinc.WebServices.SoapClient.csproj $(nugetArgs) "         WorkingDirectory="src\Zinc.WebServices.SoapClient" />
         <Exec Command=" nuget pack Zinc.WebServices.Swashbuckle.csproj $(nugetArgs) "        WorkingDirectory="src\Zinc.WebServices.Swashbuckle" />
@@ -73,11 +74,12 @@
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <Target Name="push">
         <Error Condition=" $(nugetPushKey) == '' " Text="Must specify 'nugetPushKey' when pushing to nuget source." />
-        <Exec Command=" nuget push Zinc.Core.$(Version).nupkg                    -s $(nugetSource) $(nugetPushKey) " WorkingDirectory="build" />
-        <Exec Command=" nuget push Zinc.WebServices.$(Version).nupkg             -s $(nugetSource) $(nugetPushKey) " WorkingDirectory="build" />
-        <Exec Command=" nuget push Zinc.Transforms.$(Version).nupkg              -s $(nugetSource) $(nugetPushKey) " WorkingDirectory="build" />
-        <Exec Command=" nuget push Zinc.WebServices.RestClient.$(Version).nupkg  -s $(nugetSource) $(nugetPushKey) " WorkingDirectory="build" />
-        <Exec Command=" nuget push Zinc.WebServices.Swashbuckle.$(Version).nupkg -s $(nugetSource) $(nugetPushKey) " WorkingDirectory="build" />
+        <Exec Command=" nuget push Zinc.Core.$(Version).nupkg                        -s $(nugetSource) $(nugetPushKey) " WorkingDirectory="build" />
+        <Exec Command=" nuget push Zinc.WebServices.$(Version).nupkg                 -s $(nugetSource) $(nugetPushKey) " WorkingDirectory="build" />
+        <Exec Command=" nuget push Zinc.WebServices.ElasticSearch.$(Version).nupkg   -s $(nugetSource) $(nugetPushKey) " WorkingDirectory="build" />
+        <Exec Command=" nuget push Zinc.Transforms.$(Version).nupkg                  -s $(nugetSource) $(nugetPushKey) " WorkingDirectory="build" />
+        <Exec Command=" nuget push Zinc.WebServices.RestClient.$(Version).nupkg      -s $(nugetSource) $(nugetPushKey) " WorkingDirectory="build" />
+        <Exec Command=" nuget push Zinc.WebServices.Swashbuckle.$(Version).nupkg     -s $(nugetSource) $(nugetPushKey) " WorkingDirectory="build" />
     </Target>
 
 
