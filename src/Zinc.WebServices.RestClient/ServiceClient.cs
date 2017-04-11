@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using Platinum;
 using Platinum.Configuration;
 using System;
 using System.IO;
@@ -16,25 +15,26 @@ namespace Zinc.WebServices.RestClient
     public abstract class ServiceClient
     {
         /// <summary />
-        public ServiceClient( string application )
+        public ServiceClient( string application, short version = 1 )
         {
             #region Validations
 
             if ( application == null )
                 throw new ArgumentNullException( nameof( application ) );
 
+            if ( version < 1 )
+                throw new ArgumentOutOfRangeException( nameof( version ), "Expected non-negative number." );
+
             #endregion
 
             this.Application = application;
-            this.Service = this.GetType().Name.Substring( 0, this.GetType().Name.Length - "Client".Length );
+            this.Service = this.GetType().Name.StripSuffix( "Client" );
 
             string key = "Service:" + application;
             string moduleBase = AppConfiguration.Get<string>( key );
 
-            // TODO: How to get to version?
-            int version = 1;
-
-            this.BaseUrl = moduleBase + "api/v" + version + "/" + this.Service;
+            this.BaseUrl = moduleBase.EnsureEndsWith( "/" )
+                + "api/v" + version + "/" + this.Service;
         }
 
 
@@ -65,7 +65,7 @@ namespace Zinc.WebServices.RestClient
 
 
         /// <summary>
-        /// Gets the name of the Service service.
+        /// Gets the name of the service.
         /// </summary>
         private string Service
         {
@@ -85,7 +85,6 @@ namespace Zinc.WebServices.RestClient
 
 
         /// <summary />
-        [ಠ_ಠ( "Needs error-handling." )]
         protected Tp Invoke<Tq, Tp>( string method, Tq request )
         {
             #region Validations
@@ -99,10 +98,24 @@ namespace Zinc.WebServices.RestClient
             #endregion
 
             string json = JsonConvert.SerializeObject( request );
-
             string url = this.BaseUrl + "/" + method;
+            string service = this.Service + "/" + method;
 
-            HttpWebRequest webRequest = (HttpWebRequest) HttpWebRequest.Create( url );
+
+            /*
+             * 
+             */
+            HttpWebRequest webRequest;
+
+            try
+            {
+                webRequest = (HttpWebRequest) HttpWebRequest.Create( url );
+            }
+            catch ( Exception ex )
+            {
+                throw new ServiceException( ER.Invoke_Request_Create, ex, this.Application, service );
+            }
+
             webRequest.ContentType = "application/json";
             webRequest.Method = "POST";
             webRequest.ServicePoint.Expect100Continue = false;
@@ -116,7 +129,16 @@ namespace Zinc.WebServices.RestClient
             /*
              * 
              */
-            Stream reqs = webRequest.GetRequestStream();
+            Stream reqs;
+
+            try
+            {
+                reqs = webRequest.GetRequestStream();
+            }
+            catch ( Exception ex )
+            {
+                throw new ServiceException( ER.Invoke_Request_GetStream, ex, this.Application, service );
+            }
 
             StreamWriter sw = new StreamWriter( reqs );
             sw.WriteLine( json );
@@ -128,10 +150,46 @@ namespace Zinc.WebServices.RestClient
             /*
              * 
              */
-            HttpWebResponse webResponse = (HttpWebResponse) webRequest.GetResponse();
+            HttpWebResponse webResponse;
+            bool isError = false;
 
-            Stream resp = webResponse.GetResponseStream();
+            try
+            {
+                webResponse = (HttpWebResponse) webRequest.GetResponse();
+            }
+            catch ( WebException ex )
+            {
+                webResponse = (HttpWebResponse) ex.Response;
 
+                if ( webResponse.StatusCode != HttpStatusCode.InternalServerError )
+                    throw new ServiceException( ER.Invoke_Response_Get, ex, this.Application, service, webResponse.StatusCode );
+
+                isError = true;
+            }
+            catch ( Exception ex )
+            {
+                throw new ServiceException( ER.Invoke_Response_UnhandledGet, ex, this.Application, service );
+            }
+
+
+            /*
+             * 
+             */
+            Stream resp;
+
+            try
+            {
+                resp = webResponse.GetResponseStream();
+            }
+            catch ( Exception ex )
+            {
+                throw new ServiceException( ER.Invoke_Response_GetStream, ex, this.Application, service );
+            }
+
+
+            /*
+             * 
+             */
             StreamReader sr = new StreamReader( resp );
             string jsonResp = sr.ReadToEnd();
 
@@ -139,7 +197,42 @@ namespace Zinc.WebServices.RestClient
             resp.Close();
             webResponse.Close();
 
-            return JsonConvert.DeserializeObject<Tp>( jsonResp );
+
+            /*
+             * 
+             */
+            if ( isError == true )
+            {
+                ServiceFault fault;
+
+                try
+                {
+                    fault = JsonConvert.DeserializeObject<ServiceFault>( jsonResp );
+                }
+                catch ( JsonSerializationException ex )
+                {
+                    throw new ServiceException( ER.Invoke_Fault_Deserialize, ex, this.Application, service );
+                }
+
+                throw new ServiceFaultException( url, fault );
+            }
+
+
+            /*
+             * 
+             */
+            Tp response;
+
+            try
+            {
+                response = JsonConvert.DeserializeObject<Tp>( jsonResp );
+            }
+            catch ( JsonSerializationException ex )
+            {
+                throw new ServiceException( ER.Invoke_Response_Deserialize, ex, this.Application, service );
+            }
+
+            return response;
         }
 
 
@@ -157,6 +250,7 @@ namespace Zinc.WebServices.RestClient
             #endregion
 
             string url = this.BaseUrl + "/" + method;
+            string service = this.Service + "/" + method;
 
             using ( var http = new HttpClient() )
             {
@@ -192,16 +286,16 @@ namespace Zinc.WebServices.RestClient
                     {
                         WebException wex = (WebException) ex.InnerException;
 
-                        throw new ServiceException( ER.InvokeAsync_Send_WebException, url, wex.Status );
+                        throw new ServiceException( ER.InvokeAsync_Send_WebException, this.Application, service, wex.Status );
                     }
                     else
                     {
-                        throw new ServiceException( ER.InvokeAsync_Send_HttpRequestException, ex, url );
+                        throw new ServiceException( ER.InvokeAsync_Send_HttpRequestException, ex, this.Application, service );
                     }
                 }
                 catch ( Exception ex )
                 {
-                    throw new ServiceException( ER.InvokeAsync_Send_Exception, ex, url );
+                    throw new ServiceException( ER.InvokeAsync_Send_Exception, ex, this.Application, service );
                 }
 
 
@@ -222,7 +316,7 @@ namespace Zinc.WebServices.RestClient
                     }
                     catch ( JsonSerializationException ex )
                     {
-                        throw new ServiceException( ER.InvokeAsync_Fault_Deserialize, ex, url );
+                        throw new ServiceException( ER.InvokeAsync_Fault_Deserialize, ex, service );
                     }
 
                     throw new ServiceFaultException( url, fault );
@@ -251,7 +345,7 @@ namespace Zinc.WebServices.RestClient
                 }
                 catch ( JsonSerializationException ex )
                 {
-                    throw new ServiceException( ER.InvokeAsync_Response_Deserialize, ex, url );
+                    throw new ServiceException( ER.InvokeAsync_Response_Deserialize, ex, service );
                 }
 
                 return response;

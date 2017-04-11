@@ -2,30 +2,89 @@
 <errors xmlns="urn:platinum/actor">
     <actor base="{Application}" />
 
+
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     ~
-    ~ Rest/
+    ~ Invoke/
     ~
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-    <error id="InvokeAsync_Send_WebException" actor="~" code="4000">
-        <description>Failed when invoking service '{0}', status was '{1}'.</description>
-    </error>
-    
-    <error id="InvokeAsync_Send_HttpRequestException" actor="~" code="4000">
-        <description>Failed when invoking service '{0}'.</description>
+    <error id="Invoke_Request_Create" actor="~.{0}" code="6000">
+        <description></description>
+        <arg name="Application" />
+        <arg name="Service" />
     </error>
 
-    <error id="InvokeAsync_Send_Exception" actor="~" code="4000">
-        <description>Failed when invoking service '{0}'.</description>
+    <error id="Invoke_Request_GetStream" actor="~.{0}" code="6001">
+        <description></description>
+        <arg name="Application" />
+        <arg name="Service" />
     </error>
 
-    <error id="InvokeAsync_Fault_Deserialize" actor="~" code="4000">
-        <description>Failed deserializing fault from service '{0}'.</description>
+    <error id="Invoke_Response_Get" actor="~.{0}" code="6002">
+        <description></description>
+        <arg name="Application" />
+        <arg name="Service" />
     </error>
 
-    <error id="InvokeAsync_Response_Deserialize" actor="~" code="4000">
-        <description>Failed deserializing response from service '{0}'.</description>
+    <error id="Invoke_Response_UnhandledGet" actor="~.{0}" code="6003">
+        <description></description>
+        <arg name="Application" />
+        <arg name="Service" />
     </error>
 
+    <error id="Invoke_Response_GetStream" actor="~.{0}" code="6004">
+        <description></description>
+        <arg name="Application" />
+        <arg name="Service" />
+    </error>
+
+    <error id="Invoke_Fault_Deserialize" actor="~.{0}" code="4001">
+        <description>Failed deserializing fault from service '{1}'.</description>
+        <arg name="Application" />
+        <arg name="Service" />
+    </error>
+
+    <error id="Invoke_Response_Deserialize" actor="~.{0}" code="4000">
+        <description>Failed deserializing response from service '{1}'.</description>
+        <arg name="Application" />
+        <arg name="Service" />
+    </error>
+
+
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    ~
+    ~ InvokeAsync/
+    ~
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <error id="InvokeAsync_Send_WebException" actor="~.{0}" code="5000">
+        <description>Failed when invoking service '{1}', status was '{2}'.</description>
+        <arg name="Application" />
+        <arg name="Service" />
+        <arg name="Status" />
+    </error>
+
+    <error id="InvokeAsync_Send_HttpRequestException" actor="~.{0}" code="5001">
+        <description>Failed when invoking service '{1}'.</description>
+        <arg name="Application" />
+        <arg name="Service" />
+    </error>
+
+    <error id="InvokeAsync_Send_Exception" actor="~.{0}" code="5002">
+        <description>Failed when invoking service '{1}'.</description>
+        <arg name="Application" />
+        <arg name="Service" />
+    </error>
+
+    <error id="InvokeAsync_Fault_Deserialize" actor="~.{0}" code="4001">
+        <description>Failed deserializing fault from service '{1}'.</description>
+        <arg name="Application" />
+        <arg name="Service" />
+    </error>
+
+    <error id="InvokeAsync_Response_Deserialize" actor="~.{0}" code="4000">
+        <description>Failed deserializing response from service '{1}'.</description>
+        <arg name="Application" />
+        <arg name="Service" />
+    </error>
 
 </errors>

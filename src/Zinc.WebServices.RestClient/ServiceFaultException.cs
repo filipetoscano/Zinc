@@ -61,22 +61,5 @@ namespace Zinc.WebServices.RestClient
         {
             get { return this.Fault.Message; }
         }
-
-
-        /// <summary />
-        public override string ToString()
-        {
-            // TODO: Remove override with next version of Platinum
-
-            string s = string.Format( CultureInfo.InvariantCulture, "({0}/{1}) {2} [{3}]", this.Actor, this.Code, this.Description, this.Message );
-
-            if ( this.StackTrace != null )
-                s = s + "\n" + this.StackTrace;
-
-            if ( this.InnerException != null )
-                s = s + "\n\n" + this.InnerException.ToString();
-
-            return s;
-        }
     }
 }
