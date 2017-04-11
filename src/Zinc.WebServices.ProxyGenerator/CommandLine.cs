@@ -1,13 +1,8 @@
-﻿using NLog;
-
-namespace Zinc.WebServices.ProxyGenerator
+﻿namespace Zinc.WebServices.ProxyGenerator
 {
     /// <summary />
     public class CommandLine
     {
-        private static Logger logger = LogManager.GetCurrentClassLogger();
-
-
         /// <summary />
         public string Assembly { get; set; }
 
@@ -83,25 +78,25 @@ namespace Zinc.WebServices.ProxyGenerator
              */
             if ( string.IsNullOrEmpty( cl.Assembly ) == true )
             {
-                logger.Fatal( "err: Assembly is a required option" );
+                Konsole.Fatal( "err: Assembly is a required option" );
                 return null;
             }
 
             if ( string.IsNullOrEmpty( cl.Application ) == true )
             {
-                logger.Fatal( "err: Application is a required option." );
+                Konsole.Fatal( "err: Application is a required option." );
                 return null;
             }
 
             if ( string.IsNullOrEmpty( cl.Namespace ) == true )
             {
-                logger.Fatal( "err: Namespace is a required option." );
+                Konsole.Fatal( "err: Namespace is a required option." );
                 return null;
             }
 
             if ( string.IsNullOrEmpty( cl.Output ) == true )
             {
-                logger.Fatal( "err: Output is a required option." );
+                Konsole.Fatal( "err: Output is a required option." );
                 return null;
             }
 

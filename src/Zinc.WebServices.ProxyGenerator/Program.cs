@@ -1,5 +1,4 @@
-﻿using NLog;
-using Platinum.Reflection;
+﻿using Platinum.Reflection;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -15,8 +14,6 @@ namespace Zinc.WebServices.ProxyGenerator
 {
     public class Program
     {
-        private static Logger logger = LogManager.GetCurrentClassLogger();
-
         static int Main( string[] args )
         {
             var cl = CommandLine.Parse( args );
@@ -32,7 +29,7 @@ namespace Zinc.WebServices.ProxyGenerator
 
             if ( File.Exists( assemblyPath ) == false )
             {
-                logger.Fatal( "ERR: File '{0}' not found.", cl.Assembly );
+                Konsole.Fatal( "ERR: File '{0}' not found.", cl.Assembly );
                 return 1;
             }
 
@@ -49,7 +46,7 @@ namespace Zinc.WebServices.ProxyGenerator
                 if ( File.Exists( depPath ) == false )
                     return null;
 
-                logger.Debug( "need: '{0}'", depPath );
+                Konsole.Debug( "need: '{0}'", depPath );
                 return Assembly.LoadFrom( depPath );
             } );
 
@@ -57,7 +54,7 @@ namespace Zinc.WebServices.ProxyGenerator
             /*
              * 
              */
-            logger.Debug( "load: '{0}'", assemblyPath );
+            Konsole.Debug( "load: '{0}'", assemblyPath );
             Assembly assembly;
 
             try
@@ -66,12 +63,12 @@ namespace Zinc.WebServices.ProxyGenerator
             }
             catch ( FileLoadException ex )
             {
-                logger.Fatal( ex, "ERR: Could not load assembly '{0}'.", assemblyPath );
+                Konsole.Fatal( ex, "ERR: Could not load assembly '{0}'.", assemblyPath );
                 return 2;
             }
             catch ( BadImageFormatException ex )
             {
-                logger.Fatal( ex, "ERR: Could not load assembly '{0}'.", assemblyPath );
+                Konsole.Fatal( ex, "ERR: Could not load assembly '{0}'.", assemblyPath );
                 return 3;
             }
 
@@ -221,7 +218,7 @@ namespace Zinc.WebServices.ProxyGenerator
              * 
              */
             string output = Path.Combine( Environment.CurrentDirectory, cl.Output );
-            logger.Info( "Generating {0}...", output );
+            Konsole.Info( "Generating {0}...", output );
 
             using ( TextWriter xw = new StreamWriter( output, false, Encoding.UTF8 ) )
             {
@@ -230,13 +227,15 @@ namespace Zinc.WebServices.ProxyGenerator
                 xargs.AddParam( "Async", "", cl.Async );
                 xargs.AddParam( "Sync", "", cl.Sync );
 
+                xargs.AddExtensionObject( "urn:eo-util", new XsltExtensionObject() );
+
                 try
                 {
                     xslt.Transform( doc, xargs, xw );
                 }
                 catch ( Exception ex )
                 {
-                    logger.Fatal( ex );
+                    Konsole.Fatal( ex );
                 }
             }
 
@@ -275,7 +274,7 @@ namespace Zinc.WebServices.ProxyGenerator
 
             if ( File.Exists( file ) == false )
             {
-                logger.Debug( "miss: '{0}'", file );
+                Konsole.Debug( "miss: '{0}'", file );
 
                 xmldocs.Add( assembly, null );
                 return null;
@@ -285,7 +284,7 @@ namespace Zinc.WebServices.ProxyGenerator
             /*
              * 
              */
-            logger.Debug( "xmld: '{0}'", file );
+            Konsole.Debug( "xmld: '{0}'", file );
 
             XmlDocument doc = new XmlDocument();
             doc.Load( file );

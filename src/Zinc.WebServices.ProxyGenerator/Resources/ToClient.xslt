@@ -1,7 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-    xmlns:msxsl="urn:schemas-microsoft-com:xslt" exclude-result-prefixes="msxsl">
-    <xsl:output method="text" indent="yes"/>
+    xmlns:msxsl="urn:schemas-microsoft-com:xslt"
+    xmlns:fn="urn:eo-util"
+    exclude-result-prefixes="msxsl fn">
+
+    <xsl:output method="text" indent="no" />
 
     <xsl:param name="Namespace" />
     <xsl:param name="Async" />
@@ -315,11 +318,9 @@ namespace </xsl:text>
             <xsl:when test=" summary ">
                 <xsl:value-of select=" $indent "/>
                 <xsl:text>/// &lt;summary&gt;</xsl:text>
-                <xsl:value-of select=" $new-line " />
+                <!-- This new line not needed -->
 
-                <xsl:value-of select=" $indent "/>
-                <xsl:text>/// </xsl:text>
-                <xsl:value-of select=" summary " />
+                <xsl:value-of select=" fn:ToWrap( summary, concat( $indent, '/// ' ), 80 ) " />
                 <xsl:value-of select=" $new-line " />
 
                 <xsl:value-of select=" $indent "/>
