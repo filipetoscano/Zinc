@@ -14,16 +14,22 @@ namespace Zinc.WebServices.ProxyGenerator
         /// <summary />
         internal static void Fatal( string message )
         {
-            Console.ForegroundColor = FatalColor;
-            Console.WriteLine( message );
+            using ( new ConsoleSettings() )
+            {
+                Console.ForegroundColor = FatalColor;
+                Console.WriteLine( message );
+            }
         }
 
 
         /// <summary />
         internal static void Fatal( string message, params object[] args )
         {
-            Console.ForegroundColor = FatalColor;
-            Console.WriteLine( message, args );
+            using ( new ConsoleSettings() )
+            {
+                Console.ForegroundColor = FatalColor;
+                Console.WriteLine( message, args );
+            }
         }
 
 
@@ -37,9 +43,12 @@ namespace Zinc.WebServices.ProxyGenerator
 
             #endregion
 
-            Console.ForegroundColor = FatalColor;
-            Console.WriteLine( message, args );
-            Console.WriteLine( exception.ToString() );
+            using ( new ConsoleSettings() )
+            {
+                Console.ForegroundColor = FatalColor;
+                Console.WriteLine( message, args );
+                Console.WriteLine( exception.ToString() );
+            }
         }
 
 
@@ -53,24 +62,33 @@ namespace Zinc.WebServices.ProxyGenerator
 
             #endregion
 
-            Console.ForegroundColor = FatalColor;
-            Console.WriteLine( exception.ToString() );
+            using ( new ConsoleSettings() )
+            {
+                Console.ForegroundColor = FatalColor;
+                Console.WriteLine( exception.ToString() );
+            }
         }
 
 
         /// <summary />
         internal static void Warn( string message )
         {
-            Console.ForegroundColor = WarnColor;
-            Console.WriteLine( message );
+            using ( new ConsoleSettings() )
+            {
+                Console.ForegroundColor = WarnColor;
+                Console.WriteLine( message );
+            }
         }
 
 
         /// <summary />
         internal static void Warn( string message, params object[] args )
         {
-            Console.ForegroundColor = WarnColor;
-            Console.WriteLine( message, args );
+            using ( new ConsoleSettings() )
+            {
+                Console.ForegroundColor = WarnColor;
+                Console.WriteLine( message, args );
+            }
         }
 
 
@@ -84,9 +102,12 @@ namespace Zinc.WebServices.ProxyGenerator
 
             #endregion
 
-            Console.ForegroundColor = WarnColor;
-            Console.WriteLine( message, args );
-            Console.WriteLine( exception.ToString() );
+            using ( new ConsoleSettings() )
+            {
+                Console.ForegroundColor = WarnColor;
+                Console.WriteLine( message, args );
+                Console.WriteLine( exception.ToString() );
+            }
         }
 
 
@@ -100,24 +121,33 @@ namespace Zinc.WebServices.ProxyGenerator
 
             #endregion
 
-            Console.ForegroundColor = WarnColor;
-            Console.WriteLine( exception.ToString() );
+            using ( new ConsoleSettings() )
+            {
+                Console.ForegroundColor = WarnColor;
+                Console.WriteLine( exception.ToString() );
+            }
         }
 
 
         /// <summary />
         internal static void Info( string message )
         {
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine( message );
+            using ( new ConsoleSettings() )
+            {
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine( message );
+            }
         }
 
 
         /// <summary />
         internal static void Info( string message, params object[] args )
         {
-            Console.ForegroundColor = InfoColor;
-            Console.WriteLine( message, args );
+            using ( new ConsoleSettings() )
+            {
+                Console.ForegroundColor = InfoColor;
+                Console.WriteLine( message, args );
+            }
         }
 
 
@@ -131,9 +161,12 @@ namespace Zinc.WebServices.ProxyGenerator
 
             #endregion
 
-            Console.ForegroundColor = InfoColor;
-            Console.WriteLine( message, args );
-            Console.WriteLine( exception.ToString() );
+            using ( new ConsoleSettings() )
+            {
+                Console.ForegroundColor = InfoColor;
+                Console.WriteLine( message, args );
+                Console.WriteLine( exception.ToString() );
+            }
         }
 
 
@@ -147,24 +180,33 @@ namespace Zinc.WebServices.ProxyGenerator
 
             #endregion
 
-            Console.ForegroundColor = InfoColor;
-            Console.WriteLine( exception.ToString() );
+            using ( new ConsoleSettings() )
+            {
+                Console.ForegroundColor = InfoColor;
+                Console.WriteLine( exception.ToString() );
+            }
         }
 
 
         /// <summary />
         internal static void Debug( string message )
         {
-            Console.ForegroundColor = DebugColor;
-            Console.WriteLine( message );
+            using ( new ConsoleSettings() )
+            {
+                Console.ForegroundColor = DebugColor;
+                Console.WriteLine( message );
+            }
         }
 
 
         /// <summary />
         internal static void Debug( string message, params object[] args )
         {
-            Console.ForegroundColor = DebugColor;
-            Console.WriteLine( message, args );
+            using ( new ConsoleSettings() )
+            {
+                Console.ForegroundColor = DebugColor;
+                Console.WriteLine( message, args );
+            }
         }
 
 
@@ -178,9 +220,12 @@ namespace Zinc.WebServices.ProxyGenerator
 
             #endregion
 
-            Console.ForegroundColor = DebugColor;
-            Console.WriteLine( message, args );
-            Console.WriteLine( exception.ToString() );
+            using ( new ConsoleSettings() )
+            {
+                Console.ForegroundColor = DebugColor;
+                Console.WriteLine( message, args );
+                Console.WriteLine( exception.ToString() );
+            }
         }
 
 
@@ -194,8 +239,34 @@ namespace Zinc.WebServices.ProxyGenerator
 
             #endregion
 
-            Console.ForegroundColor = DebugColor;
-            Console.WriteLine( exception.ToString() );
+            using ( new ConsoleSettings() )
+            {
+                Console.ForegroundColor = DebugColor;
+                Console.WriteLine( exception.ToString() );
+            }
+        }
+
+
+        /// <summary>
+        /// Save and restore console settings.
+        /// </summary>
+        internal class ConsoleSettings : IDisposable
+        {
+            private static ConsoleColor _fg;
+            private static ConsoleColor _bg;
+
+            public ConsoleSettings()
+            {
+                _fg = Console.ForegroundColor;
+                _bg = Console.BackgroundColor;
+            }
+
+
+            public void Dispose()
+            {
+                Console.ForegroundColor = _fg;
+                Console.BackgroundColor = _bg;
+            }
         }
     }
 }
