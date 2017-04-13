@@ -12,7 +12,7 @@
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>Zinc schema and transformations</description>
         <copyright></copyright>
-        <tags></tags>
+        <tags>zinc</tags>
     </metadata>
     <files>
         <file src="ToZnServices.xslt" target="content\ToZnServices.xslt" />

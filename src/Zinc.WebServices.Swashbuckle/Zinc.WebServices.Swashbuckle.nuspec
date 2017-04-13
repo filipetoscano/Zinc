@@ -12,6 +12,6 @@
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>$description$</description>
         <copyright></copyright>
-        <tags></tags>
+        <tags>zinc</tags>
     </metadata>
 </package>
