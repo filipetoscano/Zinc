@@ -17,6 +17,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "global", "global", "{C8137D
 		README.md = README.md
 		src\Zinc.Core\Zinc.Core.nuspec = src\Zinc.Core\Zinc.Core.nuspec
 		src\Zinc.Transforms\Zinc.Transforms.nuspecx = src\Zinc.Transforms\Zinc.Transforms.nuspecx
+		src\Zinc.WebServices.ElasticSearch\Zinc.WebServices.ElasticSearch.nuspec = src\Zinc.WebServices.ElasticSearch\Zinc.WebServices.ElasticSearch.nuspec
 		src\Zinc.WebServices\Zinc.WebServices.nuspec = src\Zinc.WebServices\Zinc.WebServices.nuspec
 		src\Zinc.WebServices.RestClient\Zinc.WebServices.RestClient.nuspec = src\Zinc.WebServices.RestClient\Zinc.WebServices.RestClient.nuspec
 		src\Zinc.WebServices.SoapClient\Zinc.WebServices.SoapClient.nuspec = src\Zinc.WebServices.SoapClient\Zinc.WebServices.SoapClient.nuspec

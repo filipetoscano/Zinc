@@ -28,3 +28,6 @@ sample/Zn.Sample/TwoService/MethodTwo.cs
 
 # Other
 
+sample/Zn.Sample/ER.resx
+sample/Zn.Sample/Errors.cs
+sample/Zn.Sample/Exceptions.cs

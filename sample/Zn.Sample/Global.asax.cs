@@ -1,4 +1,5 @@
-﻿using Platinum.Configuration;
+﻿using NLog;
+using Platinum.Configuration;
 using Platinum.Data;
 using System.Net;
 using System.Web.Http;
@@ -27,6 +28,14 @@ namespace Zn.Sample
              */
             GlobalConfiguration.Configure( ZincApiConfig.Register );
             DataConfig.Register();
+        }
+
+
+        /// <summary />
+        protected void Application_End()
+        {
+            LogManager.Flush();
+            LogManager.Shutdown();
         }
 
 

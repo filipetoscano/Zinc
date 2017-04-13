@@ -142,6 +142,7 @@ namespace Zinc.WebServices.Journaling
         /// <returns>
         /// XML representation of object.
         /// </returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage( "Microsoft.Usage", "CA2202:Do not dispose objects multiple times" )]
         private static string ToXml( object obj )
         {
             if ( obj == null )
@@ -154,8 +155,9 @@ namespace Zinc.WebServices.Journaling
                 using ( var xw = XmlWriter.Create( sw ) )
                 {
                     ser.Serialize( xw, obj );
-                    return sw.ToString();
                 }
+
+                return sw.ToString();
             }
         }
 

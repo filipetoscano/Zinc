@@ -100,7 +100,8 @@
         <Copy SourceFiles="src\Zinc.VisualStudio\bin\Release\Zinc.VisualStudio.dll" DestinationFolder="bin" />
 
         <!-- Plugin -->
-        <Copy SourceFiles="src\Zinc.VisualStudio.Plugin\bin\Release\Zinc.VisualStudio.Plugin.vsix" DestinationFolder="build" />
+        <Copy SourceFiles="src\Zinc.VisualStudio.Plugin\bin\Release\Zinc.VisualStudio.Plugin.vsix"
+              DestinationFolder="build\Zinc.VisualStudio.Plugin.$(version).vsix" />
     </Target>
 
 </Project>

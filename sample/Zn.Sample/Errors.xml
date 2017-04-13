@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<errors xmlns="urn:platinum/actor">
+    <actor base="{Application}" />
+
+
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    ~
+    ~ MethodInvoker/
+    ~
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <error id="One_Error1" actor="~" code="10000">
+        <description>Error #1 with '{0}'.</description>
+        <arg name="Arg1" />
+    </error>
+
+    <error id="One_Error2" actor="~" code="10001">
+        <description>Error #2 with '{0}' and '{1}'.</description>
+        <arg name="Arg1" />
+        <arg name="Arg2" />
+    </error>
+
+</errors>
