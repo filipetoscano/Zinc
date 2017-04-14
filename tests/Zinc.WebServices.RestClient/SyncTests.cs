@@ -46,9 +46,10 @@ namespace Zinc.WebServices.RestClient.Test
 
                 Assert.Fail( "Expected exception." );
             }
-            catch ( ServiceException )
+            catch ( ServiceException ex )
             {
-                Assert.Fail( "TODO" );
+                Assert.AreEqual( "Invoke_MethodNotFound", ex.Message );
+                Assert.AreEqual( 4003, ex.Code );
             }
             catch ( Exception ex )
             {
@@ -117,16 +118,16 @@ namespace Zinc.WebServices.RestClient.Test
             }
             catch ( ServiceFaultException ex )
             {
-                // Zinc.WebServices.ZincException
-                Assert.AreEqual( "ZnSample.Zinc", ex.Actor );
-                Assert.AreEqual( 4006, ex.Code );
+                // Zn.Sample.SampleException
+                Assert.AreEqual( "ZnSample", ex.Actor );
+                Assert.AreEqual( 10001, ex.Code );
 
-                // System.Exception
+                // Zn.Sample.SampleException
                 Assert.IsTrue( ex.InnerException != null, "Expected inner exception." );
                 Assert.IsTrue( ex.InnerException is ActorException, "Inner exception must be ActorException." );
                 ActorException iex = (ActorException) ex.InnerException;
                 Assert.AreEqual( "ZnSample", iex.Actor );
-                Assert.AreEqual( 991, iex.Code );
+                Assert.AreEqual( 10000, iex.Code );
             }
             catch ( Exception ex )
             {

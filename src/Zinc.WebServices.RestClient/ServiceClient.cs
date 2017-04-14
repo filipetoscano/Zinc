@@ -113,7 +113,7 @@ namespace Zinc.WebServices.RestClient
             }
             catch ( Exception ex )
             {
-                throw new ServiceException( ER.Invoke_Request_Create, ex, this.Application, service );
+                throw new ServiceException( ER.InvokeSync_Request_Create, ex, this.Application, service, url );
             }
 
             webRequest.ContentType = "application/json";
@@ -137,7 +137,7 @@ namespace Zinc.WebServices.RestClient
             }
             catch ( Exception ex )
             {
-                throw new ServiceException( ER.Invoke_Request_GetStream, ex, this.Application, service );
+                throw new ServiceException( ER.InvokeSync_Request_GetStream, ex, this.Application, service );
             }
 
             StreamWriter sw = new StreamWriter( reqs );
@@ -161,15 +161,28 @@ namespace Zinc.WebServices.RestClient
             {
                 webResponse = (HttpWebResponse) ex.Response;
 
+                if ( webResponse.StatusCode == HttpStatusCode.Forbidden )
+                    throw new ServiceException( ER.Invoke_Forbidden, this.Application, service );
+
+                if ( webResponse.StatusCode == HttpStatusCode.NotFound )
+                    throw new ServiceException( ER.Invoke_MethodNotFound, this.Application, service );
+
                 if ( webResponse.StatusCode != HttpStatusCode.InternalServerError )
-                    throw new ServiceException( ER.Invoke_Response_Get, ex, this.Application, service, webResponse.StatusCode );
+                    throw new ServiceException( ER.Invoke_NeitherOkNorError, ex, this.Application, service, webResponse.StatusCode );
 
                 isError = true;
             }
             catch ( Exception ex )
             {
-                throw new ServiceException( ER.Invoke_Response_UnhandledGet, ex, this.Application, service );
+                throw new ServiceException( ER.InvokeSync_Response_UnhandledGet, ex, this.Application, service );
             }
+
+
+            /*
+             * 
+             */
+            if ( webResponse.ContentType.StartsWith( "application/json" ) == false )
+                throw new ServiceException( ER.Invoke_NotJson, this.Application, service, webResponse.ContentType );
 
 
             /*
@@ -183,7 +196,7 @@ namespace Zinc.WebServices.RestClient
             }
             catch ( Exception ex )
             {
-                throw new ServiceException( ER.Invoke_Response_GetStream, ex, this.Application, service );
+                throw new ServiceException( ER.InvokeSync_Response_GetStream, ex, this.Application, service );
             }
 
 
@@ -214,7 +227,7 @@ namespace Zinc.WebServices.RestClient
                     throw new ServiceException( ER.Invoke_Fault_Deserialize, ex, this.Application, service );
                 }
 
-                throw new ServiceFaultException( url, fault );
+                throw fault.AsException();
             }
 
 
@@ -305,8 +318,17 @@ namespace Zinc.WebServices.RestClient
                 var data = await resp.Content.ReadAsByteArrayAsync().ConfigureAwait( false );
                 var status = resp.StatusCode;
 
+                if ( status == HttpStatusCode.Forbidden )
+                    throw new ServiceException( ER.Invoke_Forbidden, this.Application, service );
+
+                if ( status == HttpStatusCode.NotFound )
+                    throw new ServiceException( ER.Invoke_MethodNotFound, this.Application, service );
+
                 if ( status == HttpStatusCode.InternalServerError )
                 {
+                    if ( resp.Content.Headers.ContentType.MediaType != "application/json" )
+                        throw new ServiceException( ER.Invoke_NotJson, this.Application, service, resp.Content.Headers.ContentType.MediaType );
+
                     var err = Encoding.UTF8.GetString( data );
                     ServiceFault fault;
 
@@ -316,21 +338,14 @@ namespace Zinc.WebServices.RestClient
                     }
                     catch ( JsonSerializationException ex )
                     {
-                        throw new ServiceException( ER.InvokeAsync_Fault_Deserialize, ex, service );
+                        throw new ServiceException( ER.Invoke_Fault_Deserialize, ex, service );
                     }
 
-                    throw new ServiceFaultException( url, fault );
+                    throw fault.AsException();
                 }
 
                 if ( status != HttpStatusCode.OK )
-                {
-                    ServiceFault fault = new ServiceFault();
-                    fault.Actor = this.Application + "Svc";
-                    fault.Code = 1000;
-                    fault.Message = $"Status '{ status }' invoking service.";
-
-                    throw new ServiceFaultException( url, fault );
-                }
+                    throw new ServiceException( ER.Invoke_NeitherOkNorError, this.Application, service, status );
 
 
                 /*
@@ -345,7 +360,7 @@ namespace Zinc.WebServices.RestClient
                 }
                 catch ( JsonSerializationException ex )
                 {
-                    throw new ServiceException( ER.InvokeAsync_Response_Deserialize, ex, service );
+                    throw new ServiceException( ER.Invoke_Response_Deserialize, ex, service );
                 }
 
                 return response;

@@ -1,65 +1,49 @@
 ﻿using Platinum;
 using System;
-using System.Globalization;
 
 namespace Zinc.WebServices.RestClient
 {
     /// <summary />
     public class ServiceFaultException : ActorException
     {
+        private string _actor;
+        private int _code;
+
+
         /// <summary />
-        public ServiceFaultException( string url, ServiceFault fault )
-            : base( fault.Message )
+        public ServiceFaultException( string actor, int code, string message, ActorException innerException )
+            : base( message, innerException )
         {
             #region Validations
 
-            if ( url == null )
-                throw new ArgumentNullException( nameof( url ) );
-
-            if ( fault == null )
-                throw new ArgumentNullException( nameof( fault ) );
+            if ( actor == null )
+                throw new ArgumentNullException( nameof( actor ) );
 
             #endregion
 
-            this.ServiceUrl = url;
-            this.Fault = fault;
-        }
-
-
-        /// <summary />
-        public string ServiceUrl
-        {
-            get;
-            private set;
-        }
-
-
-        /// <summary />
-        public ServiceFault Fault
-        {
-            get;
-            private set;
+            _actor = actor;
+            _code = code;
         }
 
 
         /// <summary />
         public override string Actor
         {
-            get { return this.Fault.Actor; }
+            get { return _actor; }
         }
 
 
         /// <summary />
         public override int Code
         {
-            get { return this.Fault.Code; }
+            get { return _code; }
         }
 
 
         /// <summary />
         public override string Description
         {
-            get { return this.Fault.Message; }
+            get { return this.Message; }
         }
     }
 }

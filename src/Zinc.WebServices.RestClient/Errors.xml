@@ -8,36 +8,6 @@
     ~ Invoke/
     ~
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-    <error id="Invoke_Request_Create" actor="~.{0}" code="6000">
-        <description></description>
-        <arg name="Application" />
-        <arg name="Service" />
-    </error>
-
-    <error id="Invoke_Request_GetStream" actor="~.{0}" code="6001">
-        <description></description>
-        <arg name="Application" />
-        <arg name="Service" />
-    </error>
-
-    <error id="Invoke_Response_Get" actor="~.{0}" code="6002">
-        <description></description>
-        <arg name="Application" />
-        <arg name="Service" />
-    </error>
-
-    <error id="Invoke_Response_UnhandledGet" actor="~.{0}" code="6003">
-        <description></description>
-        <arg name="Application" />
-        <arg name="Service" />
-    </error>
-
-    <error id="Invoke_Response_GetStream" actor="~.{0}" code="6004">
-        <description></description>
-        <arg name="Application" />
-        <arg name="Service" />
-    </error>
-
     <error id="Invoke_Fault_Deserialize" actor="~.{0}" code="4001">
         <description>Failed deserializing fault from service '{1}'.</description>
         <arg name="Application" />
@@ -46,6 +16,63 @@
 
     <error id="Invoke_Response_Deserialize" actor="~.{0}" code="4000">
         <description>Failed deserializing response from service '{1}'.</description>
+        <arg name="Application" />
+        <arg name="Service" />
+    </error>
+
+    <error id="Invoke_Forbidden" actor="~.{0}" code="4002">
+        <description>Method execution forbidden '{1}'.</description>
+        <arg name="Application" />
+        <arg name="Service" />
+    </error>
+
+    <error id="Invoke_MethodNotFound" actor="~.{0}" code="4003">
+        <description>Method not found '{1}'.</description>
+        <arg name="Application" />
+        <arg name="Service" />
+    </error>
+
+    <error id="Invoke_NeitherOkNorError" actor="~.{0}" code="4004">
+        <description>Method '{1}' didn't execute OK/200 or fail/500: status was '{2}'.</description>
+        <arg name="Application" />
+        <arg name="Service" />
+        <arg name="Status" />
+    </error>
+
+    <error id="Invoke_NotJson" actor="~.{0}" code="4005">
+        <description>Invoking '{1}' didn't return JSON: content type was '{2}'.</description>
+        <arg name="Application" />
+        <arg name="Service" />
+        <arg name="ContentType" />
+    </error>
+
+
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    ~
+    ~ InvokeSync/
+    ~
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <error id="InvokeSync_Request_Create" actor="~.{0}" code="6000">
+        <description>Failed to create request for '{1}' with URL '{2}'.</description>
+        <arg name="Application" />
+        <arg name="Service" />
+        <arg name="URL" />
+    </error>
+
+    <error id="InvokeSync_Request_GetStream" actor="~.{0}" code="6001">
+        <description>Failed to get request stream.</description>
+        <arg name="Application" />
+        <arg name="Service" />
+    </error>
+
+    <error id="InvokeSync_Response_UnhandledGet" actor="~.{0}" code="6002">
+        <description>Failed to get response for '{1}'.</description>
+        <arg name="Application" />
+        <arg name="Service" />
+    </error>
+
+    <error id="InvokeSync_Response_GetStream" actor="~.{0}" code="6003">
+        <description>Failed to get response stream for '{1}'.</description>
         <arg name="Application" />
         <arg name="Service" />
     </error>
@@ -71,18 +98,6 @@
 
     <error id="InvokeAsync_Send_Exception" actor="~.{0}" code="5002">
         <description>Failed when invoking service '{1}'.</description>
-        <arg name="Application" />
-        <arg name="Service" />
-    </error>
-
-    <error id="InvokeAsync_Fault_Deserialize" actor="~.{0}" code="4001">
-        <description>Failed deserializing fault from service '{1}'.</description>
-        <arg name="Application" />
-        <arg name="Service" />
-    </error>
-
-    <error id="InvokeAsync_Response_Deserialize" actor="~.{0}" code="4000">
-        <description>Failed deserializing response from service '{1}'.</description>
         <arg name="Application" />
         <arg name="Service" />
     </error>

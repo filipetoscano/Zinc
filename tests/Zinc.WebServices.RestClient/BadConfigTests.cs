@@ -27,9 +27,10 @@ namespace Zinc.WebServices.RestClient.Test
 
                 Assert.Fail( "Expected exception." );
             }
-            catch ( ServiceException )
+            catch ( ServiceException ex )
             {
-                Assert.Fail( "TODO" );
+                Assert.AreEqual( "Invoke_NotJson", ex.Message );
+                Assert.AreEqual( "ZnClient.Sample", ex.Actor );
             }
             catch ( Exception ex )
             {
@@ -58,9 +59,10 @@ namespace Zinc.WebServices.RestClient.Test
 
                 Assert.Fail( "Expected exception." );
             }
-            catch ( ServiceException )
+            catch ( ServiceException ex )
             {
-                Assert.Fail( "TODO" );
+                Assert.AreEqual( "Invoke_NotJson", ex.Message );
+                Assert.AreEqual( "ZnClient.Sample", ex.Actor );
             }
             catch ( Exception ex )
             {

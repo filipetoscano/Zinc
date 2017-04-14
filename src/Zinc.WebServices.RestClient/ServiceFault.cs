@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Platinum;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Zinc.WebServices.RestClient
 {
@@ -22,5 +24,27 @@ namespace Zinc.WebServices.RestClient
 
         /// <summary />
         public string StackTrace { get; set; }
+
+
+        /// <summary />
+        public ServiceFaultException AsException()
+        {
+            ActorException innerException = null;
+
+            if ( this.InnerFaults != null && this.InnerFaults.Count > 0 )
+            {
+                if ( this.InnerFaults.Count == 1 )
+                {
+                    innerException = this.InnerFaults[ 0 ].AsException();
+                }
+                else
+                {
+                    var exceptions = this.InnerFaults.Select( x => x.AsException() );
+                    innerException = new ActorAggregateException( exceptions );
+                }
+            }
+
+            return new ServiceFaultException( this.Actor, this.Code, this.Message, innerException );
+        }
     }
 }

@@ -46,9 +46,10 @@ namespace Zinc.WebServices.RestClient.Test
 
                 Assert.Fail( "Expected exception." );
             }
-            catch ( ServiceException )
+            catch ( ServiceException ex )
             {
-                Assert.Fail( "TODO" );
+                Assert.AreEqual( "Invoke_MethodNotFound", ex.Message );
+                Assert.AreEqual( 4003, ex.Code );
             }
             catch ( Exception ex )
             {
