@@ -7,6 +7,7 @@ using System.Reflection;
 using System.Text;
 using System.Web.Http;
 using System.Xml;
+using System.Xml.Serialization;
 using System.Xml.Xsl;
 using Zinc.WebServices.ProxyGenerator.Properties;
 
@@ -128,11 +129,14 @@ namespace Zinc.WebServices.ProxyGenerator
 
             foreach ( var t in types )
             {
+                var xml = t.GetCustomAttribute<XmlTypeAttribute>();
+
                 if ( t.IsEnum == true )
                 {
                     var enumDef = typesDef.AddElement( "enumeration" )
                         .AddAttribute( "name", t.Name )
-                        .AddAttribute( "ref", ToReference( t ) );
+                        .AddAttribute( "ref", ToReference( t ) )
+                        .AddAttribute( "ns", xml.Namespace );
 
                     foreach ( string n in t.GetEnumNames() )
                         enumDef.AddElement( "enum" ).AddAttribute( "value", n );
@@ -141,7 +145,8 @@ namespace Zinc.WebServices.ProxyGenerator
                 {
                     var typeDef = typesDef.AddElement( "type" )
                         .AddAttribute( "name", t.Name )
-                        .AddAttribute( "ref", ToReference( t ) );
+                        .AddAttribute( "ref", ToReference( t ) )
+                        .AddAttribute( "ns", xml.Namespace );
 
                     EmitTypeDefinition( typeDef, t );
                 }
@@ -366,9 +371,15 @@ namespace Zinc.WebServices.ProxyGenerator
 
             foreach ( var p in type.GetProperties() )
             {
-                typeDef.AddElement( "p" )
-                    .AddAttribute( "name", p.Name )
-                    .AddAttribute( "type", ToTypeName( p.PropertyType ) );
+                string typeName = ToTypeName( p.PropertyType );
+                var xml = p.GetCustomAttribute<XmlElementAttribute>();
+
+                var pe = typeDef.AddElement( "p" );
+                pe.AddAttribute( "name", p.Name );
+                pe.AddAttribute( "type", typeName );
+
+                if ( xml != null && xml.DataType != null )
+                    pe.AddAttribute( "spec", xml.DataType );
             }
         }
 

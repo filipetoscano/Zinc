@@ -30,6 +30,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -45,10 +49,17 @@
     <Compile Include="Proxy.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\src\Zinc.Core\Zinc.Core.csproj">
+      <Project>{7c7be3e1-54f6-489d-b14f-71a0a5ecc5fd}</Project>
+      <Name>Zinc.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\src\Zinc.WebServices.RestClient\Zinc.WebServices.RestClient.csproj">
       <Project>{1fc59bb3-bb5e-4e26-9b02-401498a38140}</Project>
       <Name>Zinc.WebServices.RestClient</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
