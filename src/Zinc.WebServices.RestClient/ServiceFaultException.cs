@@ -1,5 +1,6 @@
 ﻿using Platinum;
 using System;
+using System.Globalization;
 
 namespace Zinc.WebServices.RestClient
 {
@@ -44,6 +45,25 @@ namespace Zinc.WebServices.RestClient
         public override string Description
         {
             get { return this.Message; }
+        }
+
+
+        /// <summary>
+        /// Override the default implementation of .ToString(), so that all
+        /// relevant information is available in the string representation.
+        /// </summary>
+        /// <returns>String representation of error.</returns>
+        public override string ToString()
+        {
+            string s = string.Format( CultureInfo.InvariantCulture, "({0}/{1}) {2}", this.Actor, this.Code, this.Message );
+
+            if ( this.StackTrace != null )
+                s = s + "\n" + this.StackTrace;
+
+            if ( this.InnerException != null )
+                s = s + "\n\n" + this.InnerException.ToString();
+
+            return s;
         }
     }
 }
