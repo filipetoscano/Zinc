@@ -230,11 +230,7 @@ namespace </xsl:text>
         <xsl:text>
 </xsl:text>
 
-        <xsl:text>    [XmlType( Namespace = "</xsl:text>
-        <xsl:value-of select=" @ns " />
-        <xsl:text>" )]</xsl:text>
-        <xsl:value-of select=" $new-line" />
-
+        <xsl:call-template name="xml-namespace" />
         <xsl:text>    public partial class </xsl:text>
         <xsl:value-of select=" @name " />
         <xsl:text>
@@ -259,6 +255,7 @@ namespace </xsl:text>
         <xsl:text>
 </xsl:text>
 
+        <xsl:call-template name="xml-namespace" />
         <xsl:text>    public enum </xsl:text>
         <xsl:value-of select=" @name " />
         <xsl:text>
@@ -371,5 +368,22 @@ namespace </xsl:text>
         </xsl:choose>
     </xsl:template>
 
+
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    ~
+    ~ xml-namespace
+    ~
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <xsl:template name="xml-namespace">
+        <xsl:param name="indent" select=" '    ' " />
+
+        <xsl:if test=" @ns ">
+            <xsl:value-of select=" $indent " />
+            <xsl:text>[XmlType( Namespace = "</xsl:text>
+            <xsl:value-of select=" @ns " />
+            <xsl:text>" )]</xsl:text>
+            <xsl:value-of select=" $new-line" />
+        </xsl:if>
+    </xsl:template>
 
 </xsl:stylesheet>

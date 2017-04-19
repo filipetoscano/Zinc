@@ -131,12 +131,17 @@ namespace Zinc.WebServices.ProxyGenerator
             {
                 var xml = t.GetCustomAttribute<XmlTypeAttribute>();
 
+                if ( xml == null )
+                    Console.WriteLine( "warn: type '{0}' does not have XmlType attribute.", t.FullName );
+
                 if ( t.IsEnum == true )
                 {
                     var enumDef = typesDef.AddElement( "enumeration" )
                         .AddAttribute( "name", t.Name )
-                        .AddAttribute( "ref", ToReference( t ) )
-                        .AddAttribute( "ns", xml.Namespace );
+                        .AddAttribute( "ref", ToReference( t ) );
+
+                    if ( xml != null )
+                        enumDef.AddAttribute( "ns", xml.Namespace );
 
                     foreach ( string n in t.GetEnumNames() )
                         enumDef.AddElement( "enum" ).AddAttribute( "value", n );
@@ -145,8 +150,10 @@ namespace Zinc.WebServices.ProxyGenerator
                 {
                     var typeDef = typesDef.AddElement( "type" )
                         .AddAttribute( "name", t.Name )
-                        .AddAttribute( "ref", ToReference( t ) )
-                        .AddAttribute( "ns", xml.Namespace );
+                        .AddAttribute( "ref", ToReference( t ) );
+
+                    if ( xml != null )
+                        typeDef.AddAttribute( "ns", xml.Namespace );
 
                     EmitTypeDefinition( typeDef, t );
                 }
