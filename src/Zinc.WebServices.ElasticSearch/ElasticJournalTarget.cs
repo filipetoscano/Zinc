@@ -246,14 +246,12 @@ namespace Zinc.WebServices.ElasticSearch
                 if ( error != null )
                 {
                     document[ "message" ] = error.Description;
-                    document.Add( "exid", error.Message );
                     document.Add( "actor", error.Actor );
                     document.Add( "code", error.Code );
                     document.Add( "exception", error.ToString() );
                 }
                 else
                 {
-                    document.Add( "exid", null );
                     document.Add( "actor", null );
                     document.Add( "code", null );
                     document.Add( "exception", null );
