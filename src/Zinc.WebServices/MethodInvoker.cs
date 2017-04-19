@@ -51,6 +51,9 @@ namespace Zinc.WebServices
              */
             JournalConfiguration config = ZincConfiguration.Current.Journaling;
 
+            if ( config.To == null )
+                throw new ZincException( ER.Journaling_NotConfigured );
+
             ZincJournal journalConfig = ZincConfiguration.Current.Journals.FirstOrDefault( j => j.Name == config.To );
 
             if ( journalConfig == null )

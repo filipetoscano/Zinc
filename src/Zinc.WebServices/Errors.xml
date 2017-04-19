@@ -21,7 +21,7 @@
         <description>Request '{0}' is invalid.</description>
         <arg name="RequestType" />
     </error>
-    
+
     <error id="MethodInvoker_ResponseIsNull" actor="~.Zinc.Internal" code="4003">
         <description>Response from implementation '{0}' was null: must always be non-null!</description>
         <arg name="Method" />
@@ -49,17 +49,21 @@
     ~ Journaling/
     ~
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-    <error id="Journaling_JournalNotFound" actor="~.Zinc" code="5001">
+    <error id="Journaling_NotConfigured" actor="~.Zinc.Configuration" code="5000">
+        <description>No journal defined in 'zinc.webServices/journaling/@to'.</description>
+    </error>
+
+    <error id="Journaling_JournalNotFound" actor="~.Zinc.Configuration" code="5001">
         <description>Journal '{0}' is not defined in 'zinc.webServices/journals'.</description>
         <arg name="Journal" />
     </error>
 
-    <error id="Journaling_InvalidMoniker" actor="~.Zinc" code="5002">
+    <error id="Journaling_InvalidMoniker" actor="~.Zinc.Configuration" code="5002">
         <description>Journal '{0}' has invalid @type moniker.</description>
         <arg name="Journal" />
     </error>
 
-    
+
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     ~
     ~ Rest/
