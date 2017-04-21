@@ -4,4 +4,4 @@
     --assembly=..\Zn.Sample\bin\Zn.Sample.dll ^
     --application=Sample ^
     --namespace=Zn.Sample ^
-    --output=Proxy.cs
+    --output=Proxy.cs --sync

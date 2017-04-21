@@ -36,6 +36,14 @@ namespace Zn.Sample
         /// <summary>
         /// First method of service one.
         /// </summary>
+        public OneSvc.MethodOneResponse MethodOne( OneSvc.MethodOneRequest request )
+        {
+            return Invoke<OneSvc.MethodOneRequest,OneSvc.MethodOneResponse>( "MethodOne", request );
+        }
+
+        /// <summary>
+        /// First method of service one.
+        /// </summary>
         public Task<OneSvc.MethodOneResponse> MethodOneAsync( OneSvc.MethodOneRequest request )
         {
             return MethodOneAsync( request, CancellationToken.None );
@@ -47,6 +55,14 @@ namespace Zn.Sample
         public Task<OneSvc.MethodOneResponse> MethodOneAsync( OneSvc.MethodOneRequest request, CancellationToken cancellationToken )
         {
             return InvokeAsync<OneSvc.MethodOneRequest, OneSvc.MethodOneResponse>( "MethodOne", request, cancellationToken );
+        }
+
+        /// <summary>
+        /// Third method of service one.
+        /// </summary>
+        public OneSvc.MethodThreeResponse MethodThree( OneSvc.MethodThreeRequest request )
+        {
+            return Invoke<OneSvc.MethodThreeRequest,OneSvc.MethodThreeResponse>( "MethodThree", request );
         }
 
         /// <summary>
@@ -73,6 +89,14 @@ namespace Zn.Sample
         /// <summary />
         public TwoClient() : base( "Sample" )
         {
+        }
+
+        /// <summary>
+        /// First method of service two.
+        /// </summary>
+        public TwoSvc.MethodTwoResponse MethodTwo( TwoSvc.MethodTwoRequest request )
+        {
+            return Invoke<TwoSvc.MethodTwoRequest,TwoSvc.MethodTwoResponse>( "MethodTwo", request );
         }
 
         /// <summary>
@@ -113,6 +137,9 @@ namespace Zn.Sample
         public partial class MethodThreeRequest
         {
             /// <summary />
+            public string Secret { get; set; }
+
+            /// <summary />
             public StringValidations String { get; set; }
 
             /// <summary />
@@ -122,6 +149,12 @@ namespace Zn.Sample
         /// <summary />
         public partial class MethodThreeResponse
         {
+            /// <summary />
+            public string StringValue { get; set; }
+
+            /// <summary />
+            public byte[] BinaryValue { get; set; }
+
             /// <summary />
             public NestedClass NestedClass { get; set; }
 
@@ -187,6 +220,9 @@ namespace Zn.Sample
             /// A random date and time value.
             /// </summary>
             public DateTime RandomDateTime { get; set; }
+
+            /// <summary />
+            public byte[] BinaryValue { get; set; }
 
             /// <summary />
             public System.Guid ActivityId { get; set; }

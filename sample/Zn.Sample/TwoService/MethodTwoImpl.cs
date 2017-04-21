@@ -36,7 +36,7 @@ namespace Zn.Sample.TwoService
             /*
              * 
              */
-            Task.WaitAll( t1, t2 );
+            await Task.WhenAll( t1, t2 );
 
 
             /*
