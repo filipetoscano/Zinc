@@ -60,6 +60,7 @@
     <Compile Include="Journaling\IExecutionJournal.cs" />
     <Compile Include="MethodInvoker.cs" />
     <Compile Include="MethodLoggingType.cs" />
+    <Compile Include="PingController.cs" />
     <Compile Include="Rest\DebugLoggingHandler.cs" />
     <Compile Include="Rest\ExceptionHandler.cs" />
     <Compile Include="Rest\ExceptionResponse.cs" />

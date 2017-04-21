@@ -34,10 +34,9 @@ namespace Zinc.WebServices.RestClient
             this.Service = this.GetType().Name.StripSuffix( "Client" );
 
             string key = "Service:" + application;
-            string moduleBase = AppConfiguration.Get<string>( key );
 
-            this.BaseUrl = moduleBase.EnsureEndsWith( "/" )
-                + "api/v" + version + "/" + this.Service;
+            this.ServiceUrl = AppConfiguration.Get<string>( key ).EnsureEndsWith( "/" );
+            this.BaseUrl = ServiceUrl + "api/v" + version + "/" + this.Service;
         }
 
 
@@ -79,6 +78,16 @@ namespace Zinc.WebServices.RestClient
 
         /// <summary>
         /// Gets the URL for the current service.
+        /// </summary>
+        private string ServiceUrl
+        {
+            get;
+            set;
+        }
+
+
+        /// <summary>
+        /// Gets the base URL for methods the current service.
         /// </summary>
         private string BaseUrl
         {
@@ -265,8 +274,19 @@ namespace Zinc.WebServices.RestClient
 
             #endregion
 
-            string url = this.BaseUrl + "/" + method;
-            string service = this.Service + "/" + method;
+            string url;
+            string service;
+
+            if ( method == "##ping" )
+            {
+                url = this.ServiceUrl + "ping";
+                service = this.Service + "/ping";
+            }
+            else
+            {
+                url = this.BaseUrl + "/" + method;
+                service = this.Service + "/" + method;
+            }
 
             var content = new StringContent( JsonConvert.SerializeObject( request ) );
             content.Headers.ContentType.MediaType = "application/json";
