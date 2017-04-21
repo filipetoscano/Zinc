@@ -5,15 +5,52 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{BAB42627-05C8-42ED-8293-33EBA52C0F5C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zinc.WebServices", "src\Zinc.WebServices\Zinc.WebServices.csproj", "{4C5DD63C-138C-44AF-98B5-BE22AEFB0150}"
+EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ZZ Sample", "ZZ Sample", "{E7D0D594-4D33-4F71-AD97-21223E1DB256}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zn.Sample", "sample\Zn.Sample\Zn.Sample.csproj", "{8A613594-84D9-4B0C-8064-67C41CA08760}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "global", "global", "{C8137D8B-AED6-4AD2-8970-B03086212FAC}"
+	ProjectSection(SolutionItems) = preProject
+		automation.proj = automation.proj
+		README.md = README.md
+		src\Zinc.Core\Zinc.Core.nuspec = src\Zinc.Core\Zinc.Core.nuspec
+		src\Zinc.Transforms\Zinc.Transforms.nuspecx = src\Zinc.Transforms\Zinc.Transforms.nuspecx
+		src\Zinc.WebServices.ElasticSearch\Zinc.WebServices.ElasticSearch.nuspec = src\Zinc.WebServices.ElasticSearch\Zinc.WebServices.ElasticSearch.nuspec
+		src\Zinc.WebServices\Zinc.WebServices.nuspec = src\Zinc.WebServices\Zinc.WebServices.nuspec
+		src\Zinc.WebServices.RestClient\Zinc.WebServices.RestClient.nuspec = src\Zinc.WebServices.RestClient\Zinc.WebServices.RestClient.nuspec
+		src\Zinc.WebServices.SoapClient\Zinc.WebServices.SoapClient.nuspec = src\Zinc.WebServices.SoapClient\Zinc.WebServices.SoapClient.nuspec
+		src\Zinc.WebServices.Swashbuckle\Zinc.WebServices.Swashbuckle.nuspec = src\Zinc.WebServices.Swashbuckle\Zinc.WebServices.Swashbuckle.nuspec
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zinc.WebServices.Description", "src\Zinc.WebServices.Description\Zinc.WebServices.Description.csproj", "{81FADDA3-7F09-4F76-8C80-105C1618172C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zinc.Transforms", "src\Zinc.Transforms\Zinc.Transforms.csproj", "{3C73C964-278F-4BC1-876D-F8467F5522FC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zinc.Core", "src\Zinc.Core\Zinc.Core.csproj", "{7C7BE3E1-54F6-489D-B14F-71A0A5ECC5FD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zn.Sample.Client", "sample\Zn.Sample.Client\Zn.Sample.Client.csproj", "{3ACD80F6-9A42-42C5-9DDD-065995B23614}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zinc.WebServices.RestClient", "src\Zinc.WebServices.RestClient\Zinc.WebServices.RestClient.csproj", "{1FC59BB3-BB5E-4E26-9B02-401498A38140}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{3F3DA924-94DA-46DF-8464-4A8138C622B7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zinc.WebServices.SoapClient", "src\Zinc.WebServices.SoapClient\Zinc.WebServices.SoapClient.csproj", "{C228479C-0A08-4A65-9352-3403F3E81C88}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zinc.WebServices.Swashbuckle", "src\Zinc.WebServices.Swashbuckle\Zinc.WebServices.Swashbuckle.csproj", "{A75AB2A1-3CB8-4B33-A807-351EBBD49F6F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{0A268014-0E7F-40BC-B39C-1FCD0C6A4D49}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zinc.WebServices.SvcUtil", "src\Zinc.WebServices.SvcUtil\Zinc.WebServices.SvcUtil.csproj", "{E9656DD1-60E4-432F-9DF4-A187EC9C4455}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zinc.WebServices.ProxyGenerator", "src\Zinc.WebServices.ProxyGenerator\Zinc.WebServices.ProxyGenerator.csproj", "{F294F2D3-4F5D-4EE6-87BC-4C90863B7A44}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zinc.WebServices.ElasticSearch", "src\Zinc.WebServices.ElasticSearch\Zinc.WebServices.ElasticSearch.csproj", "{B5932D01-8198-400D-9505-2298562D535D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "deps", "deps", "{8BCD0A85-3CA4-41E5-A7C5-628AEC8D7BDA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dependencies", "src\Dependencies\Dependencies.csproj", "{3B214302-5DE9-493D-9FF1-0E1697222324}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zn.Sample.Client", "sample\Zn.Sample.Client\Zn.Sample.Client.csproj", "{3ACD80F6-9A42-42C5-9DDD-065995B23614}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{BC8DEB0D-55FA-46EC-B4AA-EAC7C22FE220}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zinc.WebServices.RestClient.Test", "tests\Zinc.WebServices.RestClient\Zinc.WebServices.RestClient.Test.csproj", "{C50433E7-A31F-4B67-9F19-BF6BAFA620E2}"
 EndProject
@@ -23,16 +60,54 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4C5DD63C-138C-44AF-98B5-BE22AEFB0150}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C5DD63C-138C-44AF-98B5-BE22AEFB0150}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C5DD63C-138C-44AF-98B5-BE22AEFB0150}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C5DD63C-138C-44AF-98B5-BE22AEFB0150}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A613594-84D9-4B0C-8064-67C41CA08760}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A613594-84D9-4B0C-8064-67C41CA08760}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A613594-84D9-4B0C-8064-67C41CA08760}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A613594-84D9-4B0C-8064-67C41CA08760}.Release|Any CPU.Build.0 = Release|Any CPU
+		{81FADDA3-7F09-4F76-8C80-105C1618172C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81FADDA3-7F09-4F76-8C80-105C1618172C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81FADDA3-7F09-4F76-8C80-105C1618172C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81FADDA3-7F09-4F76-8C80-105C1618172C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C73C964-278F-4BC1-876D-F8467F5522FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C73C964-278F-4BC1-876D-F8467F5522FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7C7BE3E1-54F6-489D-B14F-71A0A5ECC5FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7C7BE3E1-54F6-489D-B14F-71A0A5ECC5FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7C7BE3E1-54F6-489D-B14F-71A0A5ECC5FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7C7BE3E1-54F6-489D-B14F-71A0A5ECC5FD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3ACD80F6-9A42-42C5-9DDD-065995B23614}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3ACD80F6-9A42-42C5-9DDD-065995B23614}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1FC59BB3-BB5E-4E26-9B02-401498A38140}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1FC59BB3-BB5E-4E26-9B02-401498A38140}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1FC59BB3-BB5E-4E26-9B02-401498A38140}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1FC59BB3-BB5E-4E26-9B02-401498A38140}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C228479C-0A08-4A65-9352-3403F3E81C88}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C228479C-0A08-4A65-9352-3403F3E81C88}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C228479C-0A08-4A65-9352-3403F3E81C88}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C228479C-0A08-4A65-9352-3403F3E81C88}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A75AB2A1-3CB8-4B33-A807-351EBBD49F6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A75AB2A1-3CB8-4B33-A807-351EBBD49F6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A75AB2A1-3CB8-4B33-A807-351EBBD49F6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A75AB2A1-3CB8-4B33-A807-351EBBD49F6F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E9656DD1-60E4-432F-9DF4-A187EC9C4455}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E9656DD1-60E4-432F-9DF4-A187EC9C4455}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E9656DD1-60E4-432F-9DF4-A187EC9C4455}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E9656DD1-60E4-432F-9DF4-A187EC9C4455}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F294F2D3-4F5D-4EE6-87BC-4C90863B7A44}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F294F2D3-4F5D-4EE6-87BC-4C90863B7A44}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F294F2D3-4F5D-4EE6-87BC-4C90863B7A44}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F294F2D3-4F5D-4EE6-87BC-4C90863B7A44}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B5932D01-8198-400D-9505-2298562D535D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5932D01-8198-400D-9505-2298562D535D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5932D01-8198-400D-9505-2298562D535D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5932D01-8198-400D-9505-2298562D535D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B214302-5DE9-493D-9FF1-0E1697222324}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B214302-5DE9-493D-9FF1-0E1697222324}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3ACD80F6-9A42-42C5-9DDD-065995B23614}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3ACD80F6-9A42-42C5-9DDD-065995B23614}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3ACD80F6-9A42-42C5-9DDD-065995B23614}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3ACD80F6-9A42-42C5-9DDD-065995B23614}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C50433E7-A31F-4B67-9F19-BF6BAFA620E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C50433E7-A31F-4B67-9F19-BF6BAFA620E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C50433E7-A31F-4B67-9F19-BF6BAFA620E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -42,9 +117,19 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{4C5DD63C-138C-44AF-98B5-BE22AEFB0150} = {BAB42627-05C8-42ED-8293-33EBA52C0F5C}
+		{8A613594-84D9-4B0C-8064-67C41CA08760} = {E7D0D594-4D33-4F71-AD97-21223E1DB256}
+		{81FADDA3-7F09-4F76-8C80-105C1618172C} = {BAB42627-05C8-42ED-8293-33EBA52C0F5C}
+		{3C73C964-278F-4BC1-876D-F8467F5522FC} = {BAB42627-05C8-42ED-8293-33EBA52C0F5C}
 		{7C7BE3E1-54F6-489D-B14F-71A0A5ECC5FD} = {BAB42627-05C8-42ED-8293-33EBA52C0F5C}
-		{3ACD80F6-9A42-42C5-9DDD-065995B23614} = {E7D0D594-4D33-4F71-AD97-21223E1DB256}
 		{1FC59BB3-BB5E-4E26-9B02-401498A38140} = {BAB42627-05C8-42ED-8293-33EBA52C0F5C}
-		{C50433E7-A31F-4B67-9F19-BF6BAFA620E2} = {3F3DA924-94DA-46DF-8464-4A8138C622B7}
+		{C228479C-0A08-4A65-9352-3403F3E81C88} = {BAB42627-05C8-42ED-8293-33EBA52C0F5C}
+		{A75AB2A1-3CB8-4B33-A807-351EBBD49F6F} = {BAB42627-05C8-42ED-8293-33EBA52C0F5C}
+		{E9656DD1-60E4-432F-9DF4-A187EC9C4455} = {0A268014-0E7F-40BC-B39C-1FCD0C6A4D49}
+		{F294F2D3-4F5D-4EE6-87BC-4C90863B7A44} = {0A268014-0E7F-40BC-B39C-1FCD0C6A4D49}
+		{B5932D01-8198-400D-9505-2298562D535D} = {BAB42627-05C8-42ED-8293-33EBA52C0F5C}
+		{3B214302-5DE9-493D-9FF1-0E1697222324} = {8BCD0A85-3CA4-41E5-A7C5-628AEC8D7BDA}
+		{3ACD80F6-9A42-42C5-9DDD-065995B23614} = {E7D0D594-4D33-4F71-AD97-21223E1DB256}
+		{C50433E7-A31F-4B67-9F19-BF6BAFA620E2} = {BC8DEB0D-55FA-46EC-B4AA-EAC7C22FE220}
 	EndGlobalSection
 EndGlobal

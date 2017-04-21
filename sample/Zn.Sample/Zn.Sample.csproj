@@ -231,6 +231,10 @@
       <Project>{b5932d01-8198-400d-9505-2298562d535d}</Project>
       <Name>Zinc.WebServices.ElasticSearch</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\src\Zinc.WebServices.RestClient\Zinc.WebServices.RestClient.csproj">
+      <Project>{1fc59bb3-bb5e-4e26-9b02-401498a38140}</Project>
+      <Name>Zinc.WebServices.RestClient</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\src\Zinc.WebServices.Swashbuckle\Zinc.WebServices.Swashbuckle.csproj">
       <Project>{a75ab2a1-3cb8-4b33-a807-351ebbd49f6f}</Project>
       <Name>Zinc.WebServices.Swashbuckle</Name>
@@ -238,6 +242,10 @@
     <ProjectReference Include="..\..\src\Zinc.WebServices\Zinc.WebServices.csproj">
       <Project>{4c5dd63c-138c-44af-98b5-be22aefb0150}</Project>
       <Name>Zinc.WebServices</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Zn.Sample.Client\Zn.Sample.Client.csproj">
+      <Project>{3acd80f6-9a42-42c5-9ddd-065995b23614}</Project>
+      <Name>Zn.Sample.Client</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

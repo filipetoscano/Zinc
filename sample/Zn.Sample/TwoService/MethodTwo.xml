@@ -6,6 +6,7 @@
     <summary>First method of service two.</summary>
 
     <request>
+        <int name="InValue" />
         <date name="InDate">
             <summary>Input date</summary>
         </date>
@@ -27,6 +28,7 @@
     </request>
 
     <response>
+        <int name="OutValue" />
         <string name="RandomString">
             <summary>A random string value.</summary>
         </string>

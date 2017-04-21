@@ -8,10 +8,28 @@ namespace Zn.Sample.TwoService
         /// <summary />
         public async Task<MethodTwoResponse> InnerRun( MethodTwoRequest request )
         {
-            await Task.Delay( 100 );
+            /*
+             * 
+             */
+            Zn.Sample.OneClient svc = new OneClient();
 
+            var resp1 = await svc.MethodOneAsync( new OneSvc.MethodOneRequest()
+            {
+                Value = request.InValue,
+            } );
+
+            var resp2 = await svc.MethodOneAsync( new OneSvc.MethodOneRequest()
+            {
+                Value = request.InValue + 5,
+            } );
+
+
+            /*
+             * 
+             */
             return new MethodTwoResponse()
             {
+                OutValue = resp1.Value + resp2.Value,
                 RandomString = "not",
                 DataString = "data",
                 RandomDate = DateTime.Now,
