@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Zn.Sample.TwoService
@@ -48,6 +49,7 @@ namespace Zn.Sample.TwoService
                 DataString = "data",
                 RandomDate = beer.Pong,
                 RandomDateTime = DateTime.Now,
+                BinaryValue = Encoding.UTF8.GetBytes( "hello world" ),
                 ActivityId = this.Context.ActivityId,
                 AccessToken = this.Context.AccessToken,
                 ExecutionId = this.Context.ExecutionId,

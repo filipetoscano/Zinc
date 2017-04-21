@@ -400,6 +400,7 @@
 
         <xsd:attribute ref="mock:data" use="optional" />
         <xsd:attribute ref="v:rule" use="optional" />
+        <xsd:attribute name="secret" type="xsd:boolean" use="optional" default="false" />
     </xsd:complexType>
 
 
@@ -467,6 +468,8 @@
                     <xsd:element ref="v:length" minOccurs="0" />
                     <xsd:element ref="v:regex" minOccurs="0" />
                 </xsd:sequence>
+
+                <xsd:attribute name="secret" type="xsd:boolean" use="optional" default="false" />
             </xsd:extension>
         </xsd:complexContent>
     </xsd:complexType>

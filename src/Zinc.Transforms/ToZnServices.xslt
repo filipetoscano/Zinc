@@ -661,6 +661,10 @@ using Newtonsoft.Json;
         <xsl:value-of select=" $service-ns " />
         <xsl:text>" )]</xsl:text>
         <xsl:value-of select=" $NewLine " />
+        <xsl:if test=" zn:request/*[ @secret = 'true' ] ">
+            <xsl:text>    [HasSecret]</xsl:text>
+            <xsl:value-of select=" $NewLine " />
+        </xsl:if>
         <xsl:text>    public class </xsl:text>
         <xsl:value-of select=" $FileName " />
         <xsl:text>Request</xsl:text>
@@ -732,6 +736,10 @@ using Newtonsoft.Json;
         <xsl:value-of select=" $service-ns " />
         <xsl:text>" )]</xsl:text>
         <xsl:value-of select=" $NewLine " />
+        <xsl:if test=" zn:response/*[ @secret = 'true' ] ">
+            <xsl:text>    [HasSecret]</xsl:text>
+            <xsl:value-of select=" $NewLine " />
+        </xsl:if>
         <xsl:text>    public class </xsl:text>
         <xsl:value-of select=" $FileName " />
         <xsl:text>Response</xsl:text>
@@ -823,6 +831,10 @@ using Newtonsoft.Json;
         <xsl:value-of select=" $NewLine " />
         <xsl:apply-templates select=" . " mode="type-attr" />
         <xsl:apply-templates select=" . " mode="mock-attr" />
+        <xsl:if test=" @secret = 'true' ">
+            <xsl:text>        [Secret]</xsl:text>
+            <xsl:value-of select=" $NewLine " />
+        </xsl:if>
         <xsl:apply-templates select=" @v:* | v:* " mode="valn-attr" />
         <xsl:text>        public </xsl:text>
         <xsl:apply-templates select=" . " mode="type" />
@@ -934,6 +946,10 @@ using Newtonsoft.Json;
         <xsl:value-of select=" $ns " />
         <xsl:text>" )]</xsl:text>
         <xsl:value-of select=" $NewLine " />
+        <xsl:if test=" ./*[ @secret = 'true' ] ">
+            <xsl:text>    [HasSecret]</xsl:text>
+            <xsl:value-of select=" $NewLine " />
+        </xsl:if>
         <xsl:text>    public class </xsl:text>
         <xsl:value-of select=" @type " />
         <xsl:value-of select=" $NewLine " />

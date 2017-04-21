@@ -73,6 +73,7 @@
     <Compile Include="Rest\WebApiConfig.cs" />
     <Compile Include="Rest\ZincApiConfig.cs" />
     <Compile Include="Rest\ZnHeaders.cs" />
+    <Compile Include="Secrets.cs" />
     <Compile Include="SecretAttribute.cs" />
     <Compile Include="ServiceModel\DebugMessageInspector.cs" />
     <Compile Include="ServiceModel\ExecutionMessageInspector.cs" />
@@ -86,6 +87,7 @@
     <Compile Include="ServiceModel\WcfExecutionHeader.cs" />
     <Compile Include="Soap.cs" />
     <Compile Include="Web\WebServiceDescription.cs" />
+    <Compile Include="ZincAggregateException.cs" />
     <Compile Include="Zn.cs" />
     <Reference Include="Dapper, Version=1.50.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Dapper.1.50.2\lib\net451\Dapper.dll</HintPath>

@@ -44,6 +44,7 @@
         <dateTime name="RandomDateTime">
             <summary>A random date and time value.</summary>
         </dateTime>
+        <binary name="BinaryValue" secret="true" />
 
         <!-- Echo -->
         <guid name="ActivityId" />

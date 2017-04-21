@@ -190,6 +190,7 @@ namespace Zinc.WebServices.ElasticSearch
                 object request = null;
                 object response = null;
                 ActorException error = null;
+                TimeSpan? timeSpan = null;
 
                 switch ( logEvent.Message )
                 {
@@ -198,6 +199,8 @@ namespace Zinc.WebServices.ElasticSearch
                         request = logEvent.Parameters[ 1 ];
                         response = logEvent.Parameters[ 2 ];
                         error = (ActorException) logEvent.Parameters[ 3 ];
+
+                        timeSpan = context.MomentEnd - context.MomentStart;
                         break;
 
 
@@ -236,6 +239,9 @@ namespace Zinc.WebServices.ElasticSearch
                     { "executionId", context.ExecutionId },
                     { "method", context.Method },
                 };
+
+                if ( timeSpan.HasValue == true )
+                    document.Add( "duration", timeSpan.Value.TotalMilliseconds );
 
                 if ( request != null )
                     document.Add( "request", ToJson( request ) );

@@ -73,8 +73,10 @@ namespace Zinc.WebServices
 
             /*
              * Normalize WCF dates, so that they are ALL DateTimeKind = Utc
+             * Once normalized, secrefy the message.
              */
             WalkFix( request );
+            var jrequest = Secrets.Strip<Rq>( request );
 
 
             /*
@@ -82,7 +84,7 @@ namespace Zinc.WebServices
              */
             if ( config.Type == MethodLoggingType.PrePost )
             {
-                await journal.PreAsync( context, request );
+                await journal.PreAsync( context, jrequest );
             }
 
 
@@ -103,7 +105,7 @@ namespace Zinc.WebServices
                 if ( config.Type == MethodLoggingType.PrePost )
                     await journal.PostAsync( context, null, vex );
                 else
-                    await journal.FullAsync( context, request, null, vex );
+                    await journal.FullAsync( context, jrequest, null, vex );
 
                 throw vex;
             }
@@ -118,7 +120,7 @@ namespace Zinc.WebServices
                 if ( config.Type == MethodLoggingType.PrePost )
                     await journal.PostAsync( context, null, vex );
                 else
-                    await journal.FullAsync( context, request, null, vex );
+                    await journal.FullAsync( context, jrequest, null, vex );
 
                 throw vex;
             }
@@ -146,9 +148,53 @@ namespace Zinc.WebServices
                 if ( config.Type == MethodLoggingType.PrePost )
                     await journal.PostAsync( context, null, ex );
                 else
-                    await journal.FullAsync( context, request, null, ex );
+                    await journal.FullAsync( context, jrequest, null, ex );
 
                 throw;
+            }
+            catch ( AggregateException ex )
+            {
+                if ( ex.InnerExceptions.Count == 1 && ex.InnerExceptions[ 0 ] is ActorException )
+                {
+                    var aex = (ActorException) ex.InnerExceptions[ 0 ];
+
+                    context.MomentEnd = DateTime.UtcNow;
+
+                    if ( config.Type == MethodLoggingType.PrePost )
+                        await journal.PostAsync( context, null, aex );
+                    else
+                        await journal.FullAsync( context, jrequest, null, aex );
+
+                    // Yes, this will re-write exception stack :-(
+                    throw aex;
+                }
+                else if ( ex.InnerExceptions.All( x => x is ActorException ) == true )
+                {
+                    ActorAggregateException agg = new ActorAggregateException( ex.InnerExceptions.Select( x => x as ActorException ) );
+                    var uex = new ZincAggregateException( ex.InnerExceptions[ 0 ] as ActorException, agg );
+
+                    context.MomentEnd = DateTime.UtcNow;
+
+                    if ( config.Type == MethodLoggingType.PrePost )
+                        await journal.PostAsync( context, null, uex );
+                    else
+                        await journal.FullAsync( context, jrequest, null, uex );
+
+                    throw uex;
+                }
+                else
+                {
+                    var uex = new ZincException( ER.MethodInvoker_UnhandledException, ex, typeof( T ).FullName, ex.Message );
+
+                    context.MomentEnd = DateTime.UtcNow;
+
+                    if ( config.Type == MethodLoggingType.PrePost )
+                        await journal.PostAsync( context, null, uex );
+                    else
+                        await journal.FullAsync( context, jrequest, null, uex );
+
+                    throw uex;
+                }
             }
             catch ( Exception ex )
             {
@@ -159,7 +205,7 @@ namespace Zinc.WebServices
                 if ( config.Type == MethodLoggingType.PrePost )
                     await journal.PostAsync( context, null, uex );
                 else
-                    await journal.FullAsync( context, request, null, uex );
+                    await journal.FullAsync( context, jrequest, null, uex );
 
                 throw uex;
             }
@@ -176,6 +222,7 @@ namespace Zinc.WebServices
              * 
              */
             WalkFix( response );
+            var jresponse = Secrets.Strip<Rp>( response );
 
 
             /*
@@ -191,9 +238,9 @@ namespace Zinc.WebServices
                 context.MomentEnd = DateTime.UtcNow;
 
                 if ( config.Type == MethodLoggingType.PrePost )
-                    await journal.PostAsync( context, response, vex );
+                    await journal.PostAsync( context, jresponse, vex );
                 else
-                    await journal.FullAsync( context, request, response, vex );
+                    await journal.FullAsync( context, jrequest, jresponse, vex );
 
                 throw vex;
             }
@@ -206,9 +253,9 @@ namespace Zinc.WebServices
                 context.MomentEnd = DateTime.UtcNow;
 
                 if ( config.Type == MethodLoggingType.PrePost )
-                    await journal.PostAsync( context, response, vex );
+                    await journal.PostAsync( context, jresponse, vex );
                 else
-                    await journal.FullAsync( context, request, response, vex );
+                    await journal.FullAsync( context, jrequest, jresponse, vex );
 
                 throw vex;
             }
@@ -220,9 +267,9 @@ namespace Zinc.WebServices
             context.MomentEnd = DateTime.UtcNow;
 
             if ( config.Type == MethodLoggingType.PrePost )
-                await journal.PostAsync( context, response, null );
+                await journal.PostAsync( context, jresponse, null );
             else
-                await journal.FullAsync( context, request, response, null );
+                await journal.FullAsync( context, jrequest, jresponse, null );
 
             return response;
         }
