@@ -27,9 +27,9 @@ namespace Zn.Sample
         /// <summary>
         /// Fake method.
         /// </summary>
-        public async Task<OneSvc.MethodOneResponse> MethodFakeAsync( OneSvc.MethodOneRequest request, CancellationToken cancellationToken )
+        public Task<OneSvc.MethodOneResponse> MethodFakeAsync( OneSvc.MethodOneRequest request, CancellationToken cancellationToken )
         {
-            return await InvokeAsync<OneSvc.MethodOneRequest, OneSvc.MethodOneResponse>( "MethodFake", request, cancellationToken ).ConfigureAwait( false );
+            return InvokeAsync<OneSvc.MethodOneRequest, OneSvc.MethodOneResponse>( "MethodFake", request, cancellationToken );
         }
     }
 }

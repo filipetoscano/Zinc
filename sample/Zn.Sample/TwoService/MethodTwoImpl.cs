@@ -11,14 +11,22 @@ namespace Zn.Sample.TwoService
             /*
              * 
              */
-            Zn.Sample.OneClient svc = new OneClient();
+            var ssvc = new SampleSvcClient();
+            var beer = await ssvc.PingAsync();
 
-            var resp1 = await svc.MethodOneAsync( new OneSvc.MethodOneRequest()
+
+            /*
+             * 
+             */
+            var svc = new OneClient();
+            svc.ActivityId = this.Context.ActivityId;
+
+            var t1 = svc.MethodOneAsync( new OneSvc.MethodOneRequest()
             {
                 Value = request.InValue,
             } );
 
-            var resp2 = await svc.MethodOneAsync( new OneSvc.MethodOneRequest()
+            var t2 = svc.MethodOneAsync( new OneSvc.MethodOneRequest()
             {
                 Value = request.InValue + 5,
             } );
@@ -27,12 +35,18 @@ namespace Zn.Sample.TwoService
             /*
              * 
              */
+            Task.WaitAll( t1, t2 );
+
+
+            /*
+             * 
+             */
             return new MethodTwoResponse()
             {
-                OutValue = resp1.Value + resp2.Value,
+                OutValue = t1.Result.Value + t2.Result.Value,
                 RandomString = "not",
                 DataString = "data",
-                RandomDate = DateTime.Now,
+                RandomDate = beer.Pong,
                 RandomDateTime = DateTime.Now,
                 ActivityId = this.Context.ActivityId,
                 AccessToken = this.Context.AccessToken,
