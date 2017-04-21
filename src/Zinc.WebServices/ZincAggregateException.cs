@@ -1,10 +1,13 @@
 ﻿using Platinum;
 using System;
+using System.Runtime.Serialization;
+using System.Security.Permissions;
 using System.Text;
 
 namespace Zinc.WebServices
 {
     /// <summary />
+    [Serializable]
     public class ZincAggregateException : ActorException
     {
         private ActorException _leading;
@@ -66,6 +69,38 @@ namespace Zinc.WebServices
 
                 return sb.ToString();
             }
+        }
+
+
+        /// <summary />
+        protected ZincAggregateException( SerializationInfo info, StreamingContext context )
+            : base( info, context )
+        {
+            #region Validations
+
+            if ( info == null )
+                throw new ArgumentNullException( nameof( info ) );
+
+            #endregion
+
+            _leading = (ActorException) info.GetValue( "Leading", typeof( ActorException ) );
+        }
+
+
+        /// <summary />
+        [SecurityPermission( SecurityAction.Demand, SerializationFormatter = true )]
+        public override void GetObjectData( SerializationInfo info, StreamingContext context )
+        {
+            #region Validations
+
+            if ( info == null )
+                throw new ArgumentNullException( nameof( info ) );
+
+            #endregion
+
+            info.AddValue( "Leading", _leading );
+
+            base.GetObjectData( info, context );
         }
     }
 }
