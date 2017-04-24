@@ -92,7 +92,7 @@ namespace Zinc.WebServices
         /// Creates an instance of <see cref="ActorFault"/> from an unhandled exception.
         /// </summary>
         /// <param name="exception">Unhandled exception.</param>
-        /// <param name="detailed">Whether to include detailed information.</param>
+        /// <param name="detailed">Whether to include detailed information (namely, stack trace).</param>
         /// <returns>Instance of <see cref="ActorFault"/>.</returns>
         public static ActorFault FromUnhandled( Exception exception, bool detailed )
         {
@@ -120,6 +120,7 @@ namespace Zinc.WebServices
         /// Creates an instance of <see cref="ActorFault"/> from an actor exception.
         /// </summary>
         /// <param name="exception">Unhandled exception.</param>
+        /// <param name="detailed">Whether to include detailed information (namely, stack trace).</param>
         /// <returns>Instance of <see cref="ActorFault"/>.</returns>
         public static ActorFault From( ActorException exception, bool detailed )
         {
