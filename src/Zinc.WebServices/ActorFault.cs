@@ -92,8 +92,9 @@ namespace Zinc.WebServices
         /// Creates an instance of <see cref="ActorFault"/> from an unhandled exception.
         /// </summary>
         /// <param name="exception">Unhandled exception.</param>
+        /// <param name="detailed">Whether to include detailed information.</param>
         /// <returns>Instance of <see cref="ActorFault"/>.</returns>
-        public static ActorFault FromUnhandled( Exception exception )
+        public static ActorFault FromUnhandled( Exception exception, bool detailed )
         {
             #region Validations
 
@@ -106,7 +107,10 @@ namespace Zinc.WebServices
             fault.Actor = App.Name;
             fault.Code = 990;
             fault.Message = "Unhandled exception.";
-            fault.InnerFaults = Walk( exception );
+            fault.InnerFaults = Walk( exception, detailed );
+
+            if ( detailed == true )
+                fault.StackTrace = exception.StackTrace;
 
             return fault;
         }
@@ -117,7 +121,7 @@ namespace Zinc.WebServices
         /// </summary>
         /// <param name="exception">Unhandled exception.</param>
         /// <returns>Instance of <see cref="ActorFault"/>.</returns>
-        public static ActorFault From( ActorException exception )
+        public static ActorFault From( ActorException exception, bool detailed )
         {
             #region Validations
 
@@ -131,14 +135,16 @@ namespace Zinc.WebServices
             fault.Code = exception.Code;
             fault.Message = exception.Description;
             fault.ExceptionType = exception.GetType().FullName;
-            fault.StackTrace = exception.StackTrace;
-            fault.InnerFaults = Walk( exception.InnerException );
+            fault.InnerFaults = Walk( exception.InnerException, detailed );
+
+            if ( detailed == true )
+                fault.StackTrace = exception.StackTrace;
 
             return fault;
         }
 
 
-        private static ActorFault[] Walk( Exception exception )
+        private static ActorFault[] Walk( Exception exception, bool detailed )
         {
             if ( exception == null )
                 return null;
@@ -154,7 +160,7 @@ namespace Zinc.WebServices
 
                 foreach ( Exception iex in aex.InnerExceptions )
                 {
-                    l.AddRange( Walk( iex ) );
+                    l.AddRange( Walk( iex, detailed ) );
                 }
 
                 return l.ToArray();
@@ -171,7 +177,7 @@ namespace Zinc.WebServices
 
                 foreach ( ActorException iex in aex )
                 {
-                    l.AddRange( Walk( iex ) );
+                    l.AddRange( Walk( iex, detailed ) );
                 }
 
                 return l.ToArray();
@@ -190,8 +196,10 @@ namespace Zinc.WebServices
                 f.Code = aex.Code;
                 f.Message = aex.Description;
                 f.ExceptionType = aex.GetType().FullName;
-                f.StackTrace = aex.StackTrace;
-                f.InnerFaults = Walk( aex.InnerException );
+                f.InnerFaults = Walk( aex.InnerException, detailed );
+
+                if ( detailed == true )
+                    f.StackTrace = aex.StackTrace;
 
                 return new ActorFault[] { f };
             }
@@ -207,8 +215,10 @@ namespace Zinc.WebServices
                 f.Code = 991;
                 f.Message = exception.Message;
                 f.ExceptionType = exception.GetType().FullName;
-                f.StackTrace = exception.StackTrace;
-                f.InnerFaults = Walk( exception.InnerException );
+                f.InnerFaults = Walk( exception.InnerException, detailed );
+
+                if ( detailed == true )
+                    f.StackTrace = exception.StackTrace;
 
                 return new ActorFault[] { f };
             }

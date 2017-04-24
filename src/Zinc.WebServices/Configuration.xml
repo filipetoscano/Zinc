@@ -17,6 +17,10 @@
         <element name="rest" type="ZincRestConfiguration">
             <bool name="enabled" optional="true" default="true" />
 
+            <element name="errors" type="ZincRestErrors">
+                <bool name="detailed" optional="true" default="false" />
+            </element>
+
             <!-- named name="handlers" -->
 
             <repeater name="extensions">

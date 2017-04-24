@@ -39,15 +39,16 @@ namespace Zinc.WebServices.Rest
             #endregion
 
             ActorFault fault;
+            bool detailed = ZincConfiguration.Current.Rest.Errors.Detailed;
 
             if ( context.Exception is ActorException )
             {
                 ActorException aex = (ActorException) context.Exception;
-                fault = ActorFault.From( aex );
+                fault = ActorFault.From( aex, detailed );
             }
             else
             {
-                fault = ActorFault.FromUnhandled( context.Exception );
+                fault = ActorFault.FromUnhandled( context.Exception, detailed );
             }
 
             context.Result = new ExceptionResponse( fault );

@@ -176,7 +176,7 @@ namespace Zinc.WebServices.Journaling
             if ( error == null )
                 return null;
 
-            var fault = ActorFault.From( error );
+            var fault = ActorFault.From( error, true );
             return ToXml( fault );
         }
     }

@@ -18,7 +18,7 @@ namespace Zinc.WebServices
         /// </returns>
         public static FaultException<ActorFault> ToException( ActorException exception )
         {
-            ActorFault detail = ActorFault.From( exception );
+            ActorFault detail = ActorFault.From( exception, true );
 
             string faultCode = "Server";
 
@@ -40,7 +40,7 @@ namespace Zinc.WebServices
         /// </returns>
         public static FaultException<ActorFault> ToUnhandledException( Exception exception )
         {
-            ActorFault detail = ActorFault.FromUnhandled( exception );
+            ActorFault detail = ActorFault.FromUnhandled( exception, true );
 
             string faultCode = "Server";
 

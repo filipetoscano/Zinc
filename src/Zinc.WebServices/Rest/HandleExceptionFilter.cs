@@ -27,17 +27,18 @@ namespace Zinc.WebServices.Rest
             #endregion
 
             var request = context.ActionContext.Request;
+            bool detailed = ZincConfiguration.Current.Rest.Errors.Detailed;
 
             ActorFault fault;
             
             if ( context.Exception is ActorException )
             {
                 ActorException aex = (ActorException) context.Exception;
-                fault = ActorFault.From( aex );
+                fault = ActorFault.From( aex, detailed );
             }
             else
             {
-                fault = ActorFault.FromUnhandled( context.Exception );
+                fault = ActorFault.FromUnhandled( context.Exception, detailed );
             }
 
             context.Response = request.CreateResponse<ActorFault>( HttpStatusCode.InternalServerError, fault );

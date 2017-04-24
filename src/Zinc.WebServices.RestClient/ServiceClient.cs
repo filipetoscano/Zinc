@@ -14,7 +14,13 @@ namespace Zinc.WebServices.RestClient
     /// <summary />
     public abstract class ServiceClient
     {
-        private static HttpClient _httpClient = new HttpClient();
+        private static HttpClient _httpClient = new HttpClient( new HttpClientHandler()
+        {
+            //UseCookies = false,
+            //UseDefaultCredentials = false,
+            Proxy = new WebProxy( "http://localhost:8888", false ),
+            UseProxy = true,
+        } );
 
 
         /// <summary />
@@ -79,10 +85,10 @@ namespace Zinc.WebServices.RestClient
         /// <summary>
         /// Gets the URL for the current service.
         /// </summary>
-        private string ServiceUrl
+        public string ServiceUrl
         {
             get;
-            set;
+            private set;
         }
 
 
@@ -128,6 +134,7 @@ namespace Zinc.WebServices.RestClient
                 throw new ServiceException( ER.InvokeSync_Request_Create, ex, this.Application, service, url );
             }
 
+            webRequest.Proxy = null;
             webRequest.ContentType = "application/json";
             webRequest.Method = "POST";
             webRequest.ServicePoint.Expect100Continue = false;
@@ -174,13 +181,22 @@ namespace Zinc.WebServices.RestClient
                 webResponse = (HttpWebResponse) ex.Response;
 
                 if ( webResponse.StatusCode == HttpStatusCode.Forbidden )
+                {
+                    webResponse.Dispose();
                     throw new ServiceException( ER.Invoke_Forbidden, this.Application, service );
+                }
 
                 if ( webResponse.StatusCode == HttpStatusCode.NotFound )
+                {
+                    webResponse.Dispose();
                     throw new ServiceException( ER.Invoke_MethodNotFound, this.Application, service );
+                }
 
                 if ( webResponse.StatusCode != HttpStatusCode.InternalServerError )
+                {
+                    webResponse.Dispose();
                     throw new ServiceException( ER.Invoke_NeitherOkNorError, ex, this.Application, service, webResponse.StatusCode );
+                }
 
                 isError = true;
             }
@@ -194,7 +210,10 @@ namespace Zinc.WebServices.RestClient
              * 
              */
             if ( webResponse.ContentType.StartsWith( "application/json" ) == false )
+            {
+                webResponse.Dispose();
                 throw new ServiceException( ER.Invoke_NotJson, this.Application, service, webResponse.ContentType );
+            }
 
 
             /*
@@ -208,6 +227,7 @@ namespace Zinc.WebServices.RestClient
             }
             catch ( Exception ex )
             {
+                webResponse.Dispose();
                 throw new ServiceException( ER.InvokeSync_Response_GetStream, ex, this.Application, service );
             }
 
@@ -220,7 +240,7 @@ namespace Zinc.WebServices.RestClient
 
             sr.Close();
             resp.Close();
-            webResponse.Close();
+            webResponse.Dispose();
 
 
             /*
@@ -288,6 +308,10 @@ namespace Zinc.WebServices.RestClient
                 service = this.Service + "/" + method;
             }
 
+
+            /*
+             * 
+             */
             var content = new StringContent( JsonConvert.SerializeObject( request ) );
             content.Headers.ContentType.MediaType = "application/json";
             content.Headers.Add( "Zn-ActivityId", this.ActivityId.ToString() );
@@ -312,7 +336,7 @@ namespace Zinc.WebServices.RestClient
 
             try
             {
-                resp = await _httpClient.SendAsync( reqm, HttpCompletionOption.ResponseContentRead, cancellationToken ).ConfigureAwait( false );
+                resp = await _httpClient.SendAsync( reqm, HttpCompletionOption.ResponseHeadersRead, cancellationToken ).ConfigureAwait( false );
             }
             catch ( HttpRequestException ex )
             {
@@ -336,37 +360,44 @@ namespace Zinc.WebServices.RestClient
             /*
              * 
              */
-            var data = await resp.Content.ReadAsByteArrayAsync().ConfigureAwait( false );
-            var status = resp.StatusCode;
+            byte[] data;
 
-            if ( status == HttpStatusCode.Forbidden )
-                throw new ServiceException( ER.Invoke_Forbidden, this.Application, service );
-
-            if ( status == HttpStatusCode.NotFound )
-                throw new ServiceException( ER.Invoke_MethodNotFound, this.Application, service );
-
-            if ( status == HttpStatusCode.InternalServerError )
+            using ( resp )
             {
-                if ( resp.Content.Headers.ContentType.MediaType != "application/json" )
-                    throw new ServiceException( ER.Invoke_NotJson, this.Application, service, resp.Content.Headers.ContentType.MediaType );
+                var status = resp.StatusCode;
 
-                var err = Encoding.UTF8.GetString( data );
-                ServiceFault fault;
+                if ( status == HttpStatusCode.Forbidden )
+                    throw new ServiceException( ER.Invoke_Forbidden, this.Application, service );
 
-                try
+                if ( status == HttpStatusCode.NotFound )
+                    throw new ServiceException( ER.Invoke_MethodNotFound, this.Application, service );
+
+                if ( status == HttpStatusCode.InternalServerError )
                 {
-                    fault = JsonConvert.DeserializeObject<ServiceFault>( err );
-                }
-                catch ( JsonSerializationException ex )
-                {
-                    throw new ServiceException( ER.Invoke_Fault_Deserialize, ex, service );
+                    if ( resp.Content.Headers.ContentType.MediaType != "application/json" )
+                        throw new ServiceException( ER.Invoke_NotJson, this.Application, service, resp.Content.Headers.ContentType.MediaType );
+
+                    byte[] errData = resp.Content.ReadAsByteArrayAsync().Result;
+                    var err = Encoding.UTF8.GetString( errData );
+                    ServiceFault fault;
+
+                    try
+                    {
+                        fault = JsonConvert.DeserializeObject<ServiceFault>( err );
+                    }
+                    catch ( JsonSerializationException ex )
+                    {
+                        throw new ServiceException( ER.Invoke_Fault_Deserialize, ex, service );
+                    }
+
+                    throw fault.AsException();
                 }
 
-                throw fault.AsException();
+                if ( status != HttpStatusCode.OK )
+                    throw new ServiceException( ER.Invoke_NeitherOkNorError, this.Application, service, status );
+
+                data = resp.Content.ReadAsByteArrayAsync().Result;
             }
-
-            if ( status != HttpStatusCode.OK )
-                throw new ServiceException( ER.Invoke_NeitherOkNorError, this.Application, service, status );
 
 
             /*
