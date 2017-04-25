@@ -7,12 +7,10 @@
 
     <request>
         <int name="InValue" />
-        <date name="InDate">
-            <summary>Input date</summary>
-        </date>
-        <dateTime name="InDateTime">
-            <summary>Input date and time</summary>
-        </dateTime>
+
+        <date name="InDate" />
+        <time name="InTime" />
+        <dateTime name="InDateTime" />
 
         <enumeration name="InEnum" type="TestEnum">
             <summary>Input enumerate.</summary>
@@ -29,22 +27,11 @@
 
     <response>
         <int name="OutValue" />
-        <string name="RandomString">
-            <summary>A random string value.</summary>
-        </string>
-        <string name="DataString" mock:data="matrix/name">
-            <summary>A name from the Matrix.</summary>
-        </string>
-        <int name="RandomInteger">
-            <summary>A random integer value.</summary>
-        </int>
-        <date name="RandomDate">
-            <summary>A random date value.</summary>
-        </date>
-        <dateTime name="RandomDateTime">
-            <summary>A random date and time value.</summary>
-        </dateTime>
         <binary name="BinaryValue" secret="true" />
+
+        <date name="OutDate" />
+        <time name="OutTime" />
+        <dateTime name="OutDateTime" />
 
         <!-- Echo -->
         <guid name="ActivityId" />

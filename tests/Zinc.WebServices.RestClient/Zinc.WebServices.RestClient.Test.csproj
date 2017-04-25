@@ -54,6 +54,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="DateTimeTests.cs" />
     <Compile Include="BadConfigTests.cs" />
     <Compile Include="SyncTests.cs" />
     <Compile Include="AsyncTests.cs" />

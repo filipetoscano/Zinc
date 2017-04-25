@@ -172,15 +172,15 @@ namespace Zn.Sample
             /// <summary />
             public int InValue { get; set; }
 
-            /// <summary>
-            /// Input date
-            /// </summary>
+            /// <summary />
             [JsonConverter( typeof( Zinc.Json.DateConverter ) )]
             public DateTime InDate { get; set; }
 
-            /// <summary>
-            /// Input date and time
-            /// </summary>
+            /// <summary />
+            [JsonConverter( typeof( Zinc.Json.TimeConverter ) )]
+            public DateTime InTime { get; set; }
+
+            /// <summary />
             public DateTime InDateTime { get; set; }
 
             /// <summary>
@@ -195,34 +195,19 @@ namespace Zn.Sample
             /// <summary />
             public int OutValue { get; set; }
 
-            /// <summary>
-            /// A random string value.
-            /// </summary>
-            public string RandomString { get; set; }
-
-            /// <summary>
-            /// A name from the Matrix.
-            /// </summary>
-            public string DataString { get; set; }
-
-            /// <summary>
-            /// A random integer value.
-            /// </summary>
-            public int RandomInteger { get; set; }
-
-            /// <summary>
-            /// A random date value.
-            /// </summary>
-            [JsonConverter( typeof( Zinc.Json.DateConverter ) )]
-            public DateTime RandomDate { get; set; }
-
-            /// <summary>
-            /// A random date and time value.
-            /// </summary>
-            public DateTime RandomDateTime { get; set; }
-
             /// <summary />
             public byte[] BinaryValue { get; set; }
+
+            /// <summary />
+            [JsonConverter( typeof( Zinc.Json.DateConverter ) )]
+            public DateTime OutDate { get; set; }
+
+            /// <summary />
+            [JsonConverter( typeof( Zinc.Json.TimeConverter ) )]
+            public DateTime OutTime { get; set; }
+
+            /// <summary />
+            public DateTime OutDateTime { get; set; }
 
             /// <summary />
             public System.Guid ActivityId { get; set; }
