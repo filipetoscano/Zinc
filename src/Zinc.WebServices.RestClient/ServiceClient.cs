@@ -16,10 +16,8 @@ namespace Zinc.WebServices.RestClient
     {
         private static HttpClient _httpClient = new HttpClient( new HttpClientHandler()
         {
-            //UseCookies = false,
-            //UseDefaultCredentials = false,
-            Proxy = new WebProxy( "http://localhost:8888", false ),
-            UseProxy = true,
+            UseCookies = false,
+            UseDefaultCredentials = false,
         } );
 
 
@@ -134,8 +132,7 @@ namespace Zinc.WebServices.RestClient
                 throw new ServiceException( ER.InvokeSync_Request_Create, ex, this.Application, service, url );
             }
 
-            webRequest.Proxy = null;
-            webRequest.ContentType = "application/json";
+            webRequest.ContentType = "application/json; charset=utf-8";
             webRequest.Method = "POST";
             webRequest.ServicePoint.Expect100Continue = false;
 
