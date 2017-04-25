@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="help">
     <PropertyGroup>
-        <version>1.4.2.0</version>
+        <version>1.4.3.0</version>
 
         <nugetSource>http://localhost:5000/</nugetSource>
         <nugetPushKey></nugetPushKey>
