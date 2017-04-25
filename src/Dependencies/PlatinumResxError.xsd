@@ -24,6 +24,7 @@
 
                 <xsd:choice minOccurs="0" maxOccurs="unbounded">
                     <xsd:element name="error" type="p:entry" />
+                    <xsd:element name="event" type="p:entry" />
                 </xsd:choice>
             </xsd:sequence>
         </xsd:complexType>

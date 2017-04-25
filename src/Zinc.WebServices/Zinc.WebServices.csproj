@@ -97,16 +97,16 @@
       <HintPath>..\..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Platinum.Core, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Platinum.Core.1.1.0\lib\net46\Platinum.Core.dll</HintPath>
+    <Reference Include="Platinum.Core, Version=1.4.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Platinum.Core.1.4.4\lib\net45\Platinum.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Platinum.Data, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Platinum.Data.1.1.0\lib\net46\Platinum.Data.dll</HintPath>
+    <Reference Include="Platinum.Data, Version=1.4.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Platinum.Data.1.4.4\lib\net46\Platinum.Data.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Platinum.Validation, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Platinum.Validation.1.0.1\lib\net46\Platinum.Validation.dll</HintPath>
+    <Reference Include="Platinum.Validation, Version=1.4.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Platinum.Validation.1.4.4\lib\net46\Platinum.Validation.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
