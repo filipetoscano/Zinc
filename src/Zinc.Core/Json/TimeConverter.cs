@@ -31,7 +31,7 @@ namespace Zinc.Json
         /// <returns>The object value.</returns>
         public override object ReadJson( JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer )
         {
-            return DateTime.ParseExact( (string) reader.Value, "hh:mm:ss", CultureInfo.InvariantCulture );
+            return DateTime.ParseExact( (string) reader.Value, "HH:mm:ss", CultureInfo.InvariantCulture );
         }
 
 
@@ -44,7 +44,7 @@ namespace Zinc.Json
         public override void WriteJson( JsonWriter writer, object value, JsonSerializer serializer )
         {
             DateTime d = (DateTime) value;
-            writer.WriteValue( d.ToString( "hh:mm:ss", CultureInfo.InvariantCulture ) );
+            writer.WriteValue( d.ToString( "HH:mm:ss", CultureInfo.InvariantCulture ) );
         }
     }
 }
