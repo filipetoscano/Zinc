@@ -22,8 +22,8 @@ namespace Zn.Sample.Cli
 
             try
             {
-                // Console.WriteLine( "SYNC:" );
-                // MainSync( v, n );
+                Console.WriteLine( "SYNC:" );
+                MainSync( v, n );
 
                 Console.WriteLine( "ASYNC" );
                 MainAsync( v, n ).GetAwaiter().GetResult();
