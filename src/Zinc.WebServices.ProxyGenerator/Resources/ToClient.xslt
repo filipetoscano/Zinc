@@ -341,27 +341,47 @@ namespace </xsl:text>
 
         <xsl:if test=" @spec ">
             <xsl:choose>
+                <!-- date[ @optional='true' ] -->
                 <xsl:when test=" @spec = 'date' and @type = 'DateTime?' ">
                     <xsl:value-of select=" $indent " />
                     <xsl:text>[JsonConverter( typeof( Zinc.Json.NullableDateConverter ) )]</xsl:text>
                     <xsl:value-of select=" $new-line " />
+
+                    <xsl:value-of select=" $indent " />
+                    <xsl:text>[XmlElement( DataType = "date" )]</xsl:text>
+                    <xsl:value-of select=" $new-line " />
                 </xsl:when>
 
+                <!-- date -->
                 <xsl:when test=" @spec = 'date' ">
                     <xsl:value-of select=" $indent " />
                     <xsl:text>[JsonConverter( typeof( Zinc.Json.DateConverter ) )]</xsl:text>
                     <xsl:value-of select=" $new-line " />
+
+                    <xsl:value-of select=" $indent " />
+                    <xsl:text>[XmlElement( DataType = "date" )]</xsl:text>
+                    <xsl:value-of select=" $new-line " />
                 </xsl:when>
 
+                <!-- time[ @optional='true' ] -->
                 <xsl:when test=" @spec = 'time' and @type = 'DateTime?' ">
                     <xsl:value-of select=" $indent " />
                     <xsl:text>[JsonConverter( typeof( Zinc.Json.NullableTimeConverter ) )]</xsl:text>
                     <xsl:value-of select=" $new-line " />
+
+                    <xsl:value-of select=" $indent " />
+                    <xsl:text>[XmlElement( DataType = "time" )]</xsl:text>
+                    <xsl:value-of select=" $new-line " />
                 </xsl:when>
 
+                <!-- time -->
                 <xsl:when test=" @spec = 'time' ">
                     <xsl:value-of select=" $indent " />
                     <xsl:text>[JsonConverter( typeof( Zinc.Json.TimeConverter ) )]</xsl:text>
+                    <xsl:value-of select=" $new-line " />
+
+                    <xsl:value-of select=" $indent " />
+                    <xsl:text>[XmlElement( DataType = "time" )]</xsl:text>
                     <xsl:value-of select=" $new-line " />
                 </xsl:when>
             </xsl:choose>
