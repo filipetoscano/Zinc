@@ -42,7 +42,7 @@ namespace Zinc.WebServices
                 if ( conv.ConverterType == typeof( TimeConverter ) || conv.ConverterType == typeof( NullableTimeConverter ) )
                 {
                     propSchema.format = "time";
-                    propSchema.example = DateTime.UtcNow.ToString( "hh:mm:ss", CultureInfo.InvariantCulture );
+                    propSchema.example = DateTime.UtcNow.ToString( "HH:mm:ss", CultureInfo.InvariantCulture );
                 }
             }
         }
