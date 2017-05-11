@@ -93,6 +93,10 @@
         <description>No execution context was found: section 'zinc.webServices/rest/handlers' must contain 'execution' handler.</description>
     </error>
 
+    <error id="Rest_Request_Invalid" actor="~.Rest.Client" code="2005">
+        <description>Failed to deserialize request.</description>
+    </error>
+
 
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     ~

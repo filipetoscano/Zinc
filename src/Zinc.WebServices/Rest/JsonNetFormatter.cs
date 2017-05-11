@@ -82,7 +82,14 @@ namespace Zinc.WebServices.Rest
                  {
                      using ( JsonTextReader jsonTextReader = new JsonTextReader( streamReader ) )
                      {
-                         return serializer.Deserialize( jsonTextReader, type );
+                         try
+                         {
+                             return serializer.Deserialize( jsonTextReader, type );
+                         }
+                         catch ( JsonSerializationException ex )
+                         {
+                             throw new ZincException( ER.Rest_Request_Invalid, ex );
+                         }
                      }
                  }
              } );
