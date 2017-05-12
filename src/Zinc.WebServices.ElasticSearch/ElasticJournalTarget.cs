@@ -255,6 +255,9 @@ namespace Zinc.WebServices.ElasticSearch
                     document.Add( "actor", error.Actor );
                     document.Add( "code", error.Code );
                     document.Add( "exception", error.ToString() );
+
+                    foreach ( string key in error.Data.Keys )
+                        document.Add( SafeKey( "exd_", key ), error.Data[ key ].ToString() );
                 }
                 else
                 {
@@ -278,6 +281,20 @@ namespace Zinc.WebServices.ElasticSearch
                 return null;
 
             return payload;
+        }
+
+
+        /// <summary />
+        private static string SafeKey( string prefix, string key )
+        {
+            #region Validations
+
+            if ( key == null )
+                throw new ArgumentNullException( nameof( key ) );
+
+            #endregion
+
+            return prefix + key.Replace( ".", "_" );
         }
 
 
