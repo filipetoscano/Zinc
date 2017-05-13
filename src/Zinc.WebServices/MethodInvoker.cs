@@ -100,7 +100,7 @@ namespace Zinc.WebServices
             catch ( Exception ex )
             {
                 var vex = new ZincException( ER.MethodInvoker_RequestValidate, ex, request.GetType().FullName );
-                context.MomentEnd = DateTime.UtcNow;
+                context.MomentEnd = PreciseDateTime.UtcNow;
 
                 if ( config.Type == MethodLoggingType.PrePost )
                     await journal.PostAsync( context, null, vex );
@@ -115,7 +115,7 @@ namespace Zinc.WebServices
                 ActorAggregateException agex = new ActorAggregateException( vr.Errors );
 
                 var vex = new ZincException( ER.MethodInvoker_RequestInvalid, agex, request.GetType().FullName );
-                context.MomentEnd = DateTime.UtcNow;
+                context.MomentEnd = PreciseDateTime.UtcNow;
 
                 if ( config.Type == MethodLoggingType.PrePost )
                     await journal.PostAsync( context, null, vex );
@@ -143,7 +143,7 @@ namespace Zinc.WebServices
             }
             catch ( ActorException ex )
             {
-                context.MomentEnd = DateTime.UtcNow;
+                context.MomentEnd = PreciseDateTime.UtcNow;
 
                 if ( config.Type == MethodLoggingType.PrePost )
                     await journal.PostAsync( context, null, ex );
@@ -158,7 +158,7 @@ namespace Zinc.WebServices
                 {
                     var aex = (ActorException) ex.InnerExceptions[ 0 ];
 
-                    context.MomentEnd = DateTime.UtcNow;
+                    context.MomentEnd = PreciseDateTime.UtcNow;
 
                     if ( config.Type == MethodLoggingType.PrePost )
                         await journal.PostAsync( context, null, aex );
@@ -173,7 +173,7 @@ namespace Zinc.WebServices
                     ActorAggregateException agg = new ActorAggregateException( ex.InnerExceptions.Select( x => x as ActorException ) );
                     var uex = new ZincAggregateException( ex.InnerExceptions[ 0 ] as ActorException, agg );
 
-                    context.MomentEnd = DateTime.UtcNow;
+                    context.MomentEnd = PreciseDateTime.UtcNow;
 
                     if ( config.Type == MethodLoggingType.PrePost )
                         await journal.PostAsync( context, null, uex );
@@ -186,7 +186,7 @@ namespace Zinc.WebServices
                 {
                     var uex = new ZincException( ER.MethodInvoker_UnhandledException, ex, typeof( T ).FullName, ex.Message );
 
-                    context.MomentEnd = DateTime.UtcNow;
+                    context.MomentEnd = PreciseDateTime.UtcNow;
 
                     if ( config.Type == MethodLoggingType.PrePost )
                         await journal.PostAsync( context, null, uex );
@@ -200,7 +200,7 @@ namespace Zinc.WebServices
             {
                 var uex = new ZincException( ER.MethodInvoker_UnhandledException, ex, typeof( T ).FullName, ex.Message );
 
-                context.MomentEnd = DateTime.UtcNow;
+                context.MomentEnd = PreciseDateTime.UtcNow;
 
                 if ( config.Type == MethodLoggingType.PrePost )
                     await journal.PostAsync( context, null, uex );
@@ -235,7 +235,7 @@ namespace Zinc.WebServices
             catch ( Exception ex )
             {
                 var vex = new ZincException( ER.MethodInvoker_ResponseValidate, ex, request.GetType().FullName );
-                context.MomentEnd = DateTime.UtcNow;
+                context.MomentEnd = PreciseDateTime.UtcNow;
 
                 if ( config.Type == MethodLoggingType.PrePost )
                     await journal.PostAsync( context, jresponse, vex );
@@ -250,7 +250,7 @@ namespace Zinc.WebServices
                 ActorAggregateException agex = new ActorAggregateException( vr.Errors );
                 var vex = new ZincException( ER.MethodInvoker_ResponseInvalid, agex, request.GetType().FullName );
 
-                context.MomentEnd = DateTime.UtcNow;
+                context.MomentEnd = PreciseDateTime.UtcNow;
 
                 if ( config.Type == MethodLoggingType.PrePost )
                     await journal.PostAsync( context, jresponse, vex );
@@ -264,7 +264,7 @@ namespace Zinc.WebServices
             /*
              * Post-log
              */
-            context.MomentEnd = DateTime.UtcNow;
+            context.MomentEnd = PreciseDateTime.UtcNow;
 
             if ( config.Type == MethodLoggingType.PrePost )
                 await journal.PostAsync( context, jresponse, null );

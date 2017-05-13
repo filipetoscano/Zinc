@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Platinum;
+using System;
 using System.ServiceModel;
 using System.ServiceModel.Channels;
 using System.ServiceModel.Dispatcher;
@@ -20,7 +21,7 @@ namespace Zinc.WebServices.ServiceModel
             ctx.AccessToken = null;
             ctx.ExecutionId = Guid.NewGuid();
             ctx.Action = request.Headers.Action;
-            ctx.MomentStart = DateTime.UtcNow;
+            ctx.MomentStart = PreciseDateTime.UtcNow;
 
 
             /*

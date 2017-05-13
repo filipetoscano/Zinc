@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Platinum;
+using System;
 using System.Globalization;
 using System.Linq;
 using System.Net.Http;
@@ -40,7 +41,7 @@ namespace Zinc.WebServices.Rest
             ctx.ActivityId = Guid.Empty;
             ctx.Method = request.Method;
             ctx.RequestUri = request.RequestUri;
-            ctx.MomentStart = DateTime.UtcNow;
+            ctx.MomentStart = PreciseDateTime.UtcNow;
 
 
             /*
