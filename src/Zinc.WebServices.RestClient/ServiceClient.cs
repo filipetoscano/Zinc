@@ -20,6 +20,11 @@ namespace Zinc.WebServices.RestClient
             UseDefaultCredentials = false,
         } );
 
+        private static Lazy<int> ConnectionLeaseTimeout = new Lazy<int>( () =>
+        {
+            return AppConfiguration.Get<int>( "Zinc.RestClient.ConnectionLeaseTimeout[ms]", 10 * 1000 );
+        } );
+
 
         /// <summary />
         public ServiceClient( string application, short version = 1 )
@@ -304,6 +309,30 @@ namespace Zinc.WebServices.RestClient
                 url = this.BaseUrl + "/" + method;
                 service = this.Service + "/" + method;
             }
+
+
+            /*
+             * Using HttpClient is hard, since (unlike it's older brother, HttpWebRequest)
+             * it's optimized for performance... at the risk of screwing things up, badly :-)
+             *
+             * For starters, HttpClient implements IDisposable. But if you use instances
+             * of HttpClient inside a using block you *will* end up with a bunch of TIME_WAIT
+             * connections. Under sustained load (or high burst), you WILL saturate the
+             * server.
+             * 
+             * If you create lots of HttpClient (say, in a tight loop), then you end up with
+             * a bunch of connections stuck at ESTABLISHED.
+             * 
+             * Only option left, is using a static HttpClient. This will manage its opened
+             * connections, re-use them in future calls. But, once established, it holds the
+             * connection (by default) indefinately. So if the DNS of the remote server
+             * changes, then you're still calling the previous IP address.
+             * 
+             * So, final adjustment: forcefully terminate the connection every X ms. Once
+             * closed, the new connection will perform a (new) DNS lookup.
+             */
+            var sp = ServicePointManager.FindServicePoint( new Uri( this.ServiceUrl ) );
+            sp.ConnectionLeaseTimeout = ServiceClient.ConnectionLeaseTimeout.Value;
 
 
             /*
