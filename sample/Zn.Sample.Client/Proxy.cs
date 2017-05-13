@@ -174,10 +174,12 @@ namespace Zn.Sample
 
             /// <summary />
             [JsonConverter( typeof( Zinc.Json.DateConverter ) )]
+            [XmlElement( DataType = "date" )]
             public DateTime InDate { get; set; }
 
             /// <summary />
             [JsonConverter( typeof( Zinc.Json.TimeConverter ) )]
+            [XmlElement( DataType = "time" )]
             public DateTime InTime { get; set; }
 
             /// <summary />
@@ -200,10 +202,12 @@ namespace Zn.Sample
 
             /// <summary />
             [JsonConverter( typeof( Zinc.Json.DateConverter ) )]
+            [XmlElement( DataType = "date" )]
             public DateTime OutDate { get; set; }
 
             /// <summary />
             [JsonConverter( typeof( Zinc.Json.TimeConverter ) )]
+            [XmlElement( DataType = "time" )]
             public DateTime OutTime { get; set; }
 
             /// <summary />
