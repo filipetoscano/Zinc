@@ -31,12 +31,28 @@ namespace Zinc.Json
         /// <returns>The object value.</returns>
         public override object ReadJson( JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer )
         {
-            string v = (string) reader.Value;
+            string v;
+
+            try
+            {
+                v = (string) reader.Value;
+            }
+            catch ( InvalidCastException )
+            {
+                throw new JsonSerializationException( $"Expected string when parsing xs:date, got '{ reader.ValueType.FullName }'. Path '{ reader.Path }'." );
+            }
 
             if ( v == null )
                 return null;
-            else
+
+            try
+            {
                 return DateTime.ParseExact( v, "yyyy-MM-dd", CultureInfo.InvariantCulture );
+            }
+            catch ( Exception )
+            {
+                throw new JsonSerializationException( $"Value '{ v }' is not a valid xs:date. Path '{ reader.Path }'." );
+            }
         }
 
 
