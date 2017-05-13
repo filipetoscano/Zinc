@@ -84,7 +84,7 @@ namespace </xsl:text>
 
         <xsl:text>        {</xsl:text>
         <xsl:value-of select=" $new-line " />
-        
+
         <xsl:text>        }</xsl:text>
         <xsl:value-of select=" $new-line " />
 
@@ -339,6 +339,7 @@ namespace </xsl:text>
             <xsl:with-param name="indent" select=" $indent " />
         </xsl:call-template>
 
+        <!-- Specialized types -->
         <xsl:if test=" @spec ">
             <xsl:choose>
                 <!-- date[ @optional='true' ] -->
@@ -386,6 +387,21 @@ namespace </xsl:text>
                 </xsl:when>
             </xsl:choose>
         </xsl:if>
+
+
+        <!-- Custom types -->
+        <xsl:if test=" @type = 'Platinum.Duration?' ">
+            <xsl:value-of select=" $indent " />
+            <xsl:text>[JsonConverter( typeof( Zinc.Json.NullableDurationConverter ) )]</xsl:text>
+            <xsl:value-of select=" $new-line " />
+        </xsl:if>
+
+        <xsl:if test=" @type = 'Platinum.Duration' ">
+            <xsl:value-of select=" $indent " />
+            <xsl:text>[JsonConverter( typeof( Zinc.Json.DurationConverter ) )]</xsl:text>
+            <xsl:value-of select=" $new-line " />
+        </xsl:if>
+
 
         <xsl:value-of select=" $indent "/>
         <xsl:text>public </xsl:text>

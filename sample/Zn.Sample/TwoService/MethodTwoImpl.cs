@@ -56,6 +56,7 @@ namespace Zn.Sample.TwoService
                 OutDate = request.InDate,
                 OutTime = request.InTime,
                 OutDateTime = request.InDateTime,
+                OutDuration = request.InDuration,
                 BinaryValue = Encoding.UTF8.GetBytes( "hello world" ),
                 ActivityId = this.Context.ActivityId,
                 AccessToken = this.Context.AccessToken,

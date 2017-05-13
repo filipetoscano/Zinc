@@ -266,6 +266,11 @@
                         <xsd:documentation>Time value. Mapped to 'DateTime'.</xsd:documentation>
                     </xsd:annotation>
                 </xsd:element>
+                <xsd:element name="duration" type="zn:simpleProperty">
+                    <xsd:annotation>
+                        <xsd:documentation>Duration value. Mapped to 'Duration' (from Platinum).</xsd:documentation>
+                    </xsd:annotation>
+                </xsd:element>
 
                 <!-- Other -->
                 <xsd:element name="guid" type="zn:simpleProperty">

@@ -11,6 +11,7 @@
         <date name="InDate" />
         <time name="InTime" />
         <dateTime name="InDateTime" />
+        <duration name="InDuration" optional="true" />
 
         <enumeration name="InEnum" type="TestEnum">
             <summary>Input enumerate.</summary>
@@ -32,6 +33,7 @@
         <date name="OutDate" />
         <time name="OutTime" />
         <dateTime name="OutDateTime" />
+        <duration name="OutDuration" optional="true" />
 
         <!-- Echo -->
         <guid name="ActivityId" />

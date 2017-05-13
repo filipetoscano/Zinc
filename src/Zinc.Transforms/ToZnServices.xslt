@@ -1054,6 +1054,11 @@ using Newtonsoft.Json;
         <xsl:text>DateTime</xsl:text>
         <xsl:call-template name="type-native" />
     </xsl:template>
+    
+    <xsl:template match=" zn:duration " mode="type">
+        <xsl:text>Duration</xsl:text>
+        <xsl:call-template name="type-native" />
+    </xsl:template>
 
     <xsl:template match=" zn:guid " mode="type">
         <xsl:text>Guid</xsl:text>
@@ -1109,6 +1114,16 @@ using Newtonsoft.Json;
         <xsl:text>        [JsonConverter( typeof( Zinc.Json.NullableDateConverter ) )]</xsl:text>
         <xsl:value-of select=" $NewLine " />
         <xsl:text>        [XmlArrayItem( DataType = "date" )]</xsl:text>
+        <xsl:value-of select=" $NewLine " />
+    </xsl:template>
+
+    <xsl:template match=" zn:duration " mode="type-attr">
+        <xsl:text>        [JsonConverter( typeof( Zinc.Json.DurationConverter ) )]</xsl:text>
+        <xsl:value-of select=" $NewLine " />
+    </xsl:template>
+
+    <xsl:template match=" zn:duration[ @optional = 'true' ] " mode="type-attr">
+        <xsl:text>        [JsonConverter( typeof( Zinc.Json.NullableDurationConverter ) )]</xsl:text>
         <xsl:value-of select=" $NewLine " />
     </xsl:template>
 

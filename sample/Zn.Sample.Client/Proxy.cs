@@ -185,6 +185,10 @@ namespace Zn.Sample
             /// <summary />
             public DateTime InDateTime { get; set; }
 
+            /// <summary />
+            [JsonConverter( typeof( Zinc.Json.NullableDurationConverter ) )]
+            public Platinum.Duration? InDuration { get; set; }
+
             /// <summary>
             /// Input enumerate.
             /// </summary>
@@ -212,6 +216,10 @@ namespace Zn.Sample
 
             /// <summary />
             public DateTime OutDateTime { get; set; }
+
+            /// <summary />
+            [JsonConverter( typeof( Zinc.Json.NullableDurationConverter ) )]
+            public Platinum.Duration? OutDuration { get; set; }
 
             /// <summary />
             public System.Guid ActivityId { get; set; }

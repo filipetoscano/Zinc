@@ -431,6 +431,9 @@ namespace Zinc.WebServices.ProxyGenerator
             if ( name.StartsWith( "System." ) == true )
                 return name;
 
+            if ( name.StartsWith( "Platinum." ) == true )
+                return name;
+
             name = name.Substring( name.LastIndexOf( '.' ) + 1 );
 
             return name;
