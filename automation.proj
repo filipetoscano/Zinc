@@ -30,17 +30,29 @@
 
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     ~ 
+    ~ _version
+    ~ 
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <Target Name="_version">
+        <PropertyGroup>
+            <versionInfo>[assembly: System.Reflection.AssemblyVersion( "$(version)" )]</versionInfo>
+        </PropertyGroup>
+
+        <WriteLinesToFile Overwrite="true" File="src\GlobalVersion.cs" Lines="$(versionInfo)" />
+    </Target>
+
+
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    ~ 
     ~ build/
     ~ Compile and produce the nuget packages.
     ~ 
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-    <Target Name="build">
+    <Target Name="build" DependsOnTargets="_version">
         <PropertyGroup>
-            <versionInfo>[assembly: System.Reflection.AssemblyVersion( "$(version)" )]</versionInfo>
             <nugetArgs> -OutputDirectory ..\..\build -IncludeReferencedProjects -Prop Configuration=Release </nugetArgs>
         </PropertyGroup>
 
-        <WriteLinesToFile Overwrite="true" File="src\GlobalVersion.cs" Lines="$(versionInfo)" />
         <MakeDir Directories="build" />
 
         <!-- Deps -->
@@ -89,9 +101,16 @@
     ~ Compile and produce the Visual Studio plugin.
     ~ 
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-    <Target Name="build-vs">
+    <Target Name="build-vs" DependsOnTargets="_version">
         <!-- Deps -->
         <Exec Command=" nuget restore Zinc.VisualStudio.sln " />
+
+        <!-- Specific versioning -->
+        <XmlPoke Namespaces="&lt;Namespace Prefix='vs' Uri='http://schemas.microsoft.com/developer/vsx-schema/2011' /&gt;"
+                 Query=" /vs:PackageManifest/vs:Metadata/vs:Identity/@Version "
+                 XmlInputPath="src\Zinc.VisualStudio.Plugin\source.extension.vsixmanifest"
+                 Value="$(Version)" />
+        <Exec Command=" bin\xmltidy.exe src\Zinc.VisualStudio.Plugin\source.extension.vsixmanifest " />
 
         <!-- Compile -->
         <MSBuild Projects="Zinc.VisualStudio.sln" Properties="Configuration=Release" />

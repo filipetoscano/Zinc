@@ -14,6 +14,3 @@ using System.Resources;
 // Additional information
 [assembly: AssemblyDelaySign( false )]
 [assembly: NeutralResourcesLanguage( "en-US" )]
-
-// Version information
-[assembly: AssemblyVersion( "1.0.0.0" )]
