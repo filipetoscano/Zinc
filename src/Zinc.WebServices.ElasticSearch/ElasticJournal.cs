@@ -30,20 +30,7 @@ namespace Zinc.WebServices.ElasticSearch
             /*
              * 
              */
-            LogLevel level = LogLevel.Debug;
-
-            if ( error != null )
-            {
-                if ( error.Actor.EndsWith( ".Client" ) == true )
-                    level = LogLevel.Info;
-                else
-                    level = LogLevel.Error;
-            }
-
-
-            /*
-             * 
-             */
+            LogLevel level = LogLevelFor( error );
             logger.Log( level, "Zn.FullAsync", context, request, response, error );
 
             return Task.CompletedTask;
@@ -64,15 +51,7 @@ namespace Zinc.WebServices.ElasticSearch
             /*
              * 
              */
-            LogLevel level = LogLevel.Debug;
-
-            if ( error != null )
-                level = LogLevel.Error;
-
-
-            /*
-             * 
-             */
+            LogLevel level = LogLevelFor( error );
             logger.Log( level, "Zn.PostAsync", context, response, error );
 
             return Task.CompletedTask;
@@ -97,14 +76,48 @@ namespace Zinc.WebServices.ElasticSearch
              * 
              */
             LogLevel level = LogLevel.Debug;
-
-
-            /*
-             * 
-             */
             logger.Log( level, "Zn.PreAsync", context, request );
 
             return Task.CompletedTask;
+        }
+
+
+        /// <summary>
+        /// Determines the log level for the current message, based on the value of
+        /// the error parameter.
+        /// </summary>
+        /// <param name="error">
+        /// Error which occurred during processing, or null if none.
+        /// </param>
+        /// <returns>
+        /// Log level that the message should be journaled in.
+        /// </returns>
+        private static LogLevel LogLevelFor( ActorException error )
+        {
+            if ( error == null )
+                return LogLevel.Debug;
+
+            LogLevel level;
+
+            if ( error.Actor.EndsWith( ".Client" ) == true )
+                level = LogLevel.Warn;
+            else
+                level = LogLevel.Error;
+
+            if ( error.Data.Contains( "Pt.Level" ) == true )
+            {
+                try
+                {
+                    string value = (string) error.Data[ "Pt.Level" ];
+                    level = LogLevel.FromString( value );
+                }
+                catch ( Exception )
+                {
+                    // Snuff it!
+                }
+            }
+
+            return level;
         }
     }
 }

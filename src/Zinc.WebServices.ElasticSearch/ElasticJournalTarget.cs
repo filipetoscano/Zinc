@@ -257,7 +257,12 @@ namespace Zinc.WebServices.ElasticSearch
                     document.Add( "exception", error.ToString() );
 
                     foreach ( string key in error.Data.Keys )
+                    {
+                        if ( key.StartsWith( "Pt." ) == true )
+                            continue;
+
                         document.Add( SafeKey( "exd_", key ), error.Data[ key ].ToString() );
+                    }
                 }
                 else
                 {
