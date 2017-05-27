@@ -14,6 +14,10 @@
     ~
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <xsd:element name="errors">
+        <xsd:annotation>
+            <xsd:documentation>List of entries (errors/events) which are raised by the current component.</xsd:documentation>
+        </xsd:annotation>
+
         <xsd:complexType>
             <xsd:sequence>
                 <xsd:element name="actor">
@@ -23,11 +27,29 @@
                 </xsd:element>
 
                 <xsd:choice minOccurs="0" maxOccurs="unbounded">
-                    <xsd:element name="error" type="p:entry" />
-                    <xsd:element name="event" type="p:entry" />
+                    <xsd:element name="error" type="p:entry">
+                        <xsd:annotation>
+                            <xsd:documentation>Error which is raised.</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+
+                    <xsd:element name="event" type="p:entry">
+                        <xsd:annotation>
+                            <xsd:documentation>Event which occurs and is documented.</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
                 </xsd:choice>
             </xsd:sequence>
         </xsd:complexType>
+
+        <xsd:unique name="uqId">
+            <xsd:annotation>
+                <xsd:documentation>Entry identifiers must be unique.</xsd:documentation>
+            </xsd:annotation>
+            
+            <xsd:selector xpath=" p:error | p:event " />
+            <xsd:field xpath=" @id " />
+        </xsd:unique>
     </xsd:element>
 
 
@@ -43,11 +65,42 @@
             </xsd:element>
         </xsd:sequence>
 
-        <xsd:attribute name="id" type="xsd:string" use="required" />
-        <xsd:attribute name="actor" type="xsd:string" use="required" />
-        <xsd:attribute name="code" type="xsd:string" use="required" />
+        <xsd:attribute name="id" type="xsd:string" use="required">
+            <xsd:annotation>
+                <xsd:documentation>Unique identifier of entry.</xsd:documentation>
+            </xsd:annotation>
+        </xsd:attribute>
+
+        <xsd:attribute name="actor" type="xsd:string" use="required">
+            <xsd:annotation>
+                <xsd:documentation>Actor which is raising the entry.</xsd:documentation>
+            </xsd:annotation>
+        </xsd:attribute>
+
+        <xsd:attribute name="code" type="xsd:string" use="required">
+            <xsd:annotation>
+                <xsd:documentation>Entry code. Should also be unique per file :-)</xsd:documentation>
+            </xsd:annotation>
+        </xsd:attribute>
+
+        <xsd:attribute name="level" type="p:logLevel" use="optional">
+            <xsd:annotation>
+                <xsd:documentation>When publishing this entry, overrides the default log-level with the present value.</xsd:documentation>
+            </xsd:annotation>
+        </xsd:attribute>
     </xsd:complexType>
-    
+
+
+    <xsd:simpleType name="logLevel">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="Debug" />
+            <xsd:enumeration value="Info" />
+            <xsd:enumeration value="Warn" />
+            <xsd:enumeration value="Error" />
+            <xsd:enumeration value="Fatal" />
+        </xsd:restriction>
+    </xsd:simpleType>
+
 
     <xsd:simpleType name="argName">
         <xsd:restriction base="xsd:string">

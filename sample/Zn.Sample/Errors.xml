@@ -13,7 +13,7 @@
         <arg name="Arg1" />
     </error>
 
-    <error id="One_Error2" actor="~" code="10001">
+    <error id="One_Error2" actor="~" code="10001" level="Fatal">
         <description>Error #2 with '{0}' and '{1}'.</description>
         <arg name="Arg1" />
         <arg name="Arg2" />
