@@ -1,4 +1,5 @@
-﻿using Swashbuckle.Application;
+﻿using Platinum;
+using Swashbuckle.Application;
 
 namespace Zinc.WebServices
 {
@@ -16,6 +17,24 @@ namespace Zinc.WebServices
             config.UseFullTypeNameInSchemaIds();
             config.DescribeAllEnumsAsStrings();
             config.SchemaFilter<ZincSchemaFilter>();
+
+
+            /*
+             * Custom types
+             */
+            config.MapType<Duration>( () => new Swashbuckle.Swagger.Schema()
+            {
+                type = "string",
+                format = "duration",
+                example = "PT1H",
+            } );
+
+            config.MapType<Duration?>( () => new Swashbuckle.Swagger.Schema()
+            {
+                type = "string",
+                format = "duration",
+                example = "PT1H",
+            } );
         }
     }
 }

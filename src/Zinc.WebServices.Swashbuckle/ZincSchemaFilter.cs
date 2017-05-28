@@ -24,6 +24,10 @@ namespace Zinc.WebServices
 
             #endregion
 
+
+            /*
+             * Date/Time
+             */
             var properties = type.GetProperties()
                 .Where( prop => prop.PropertyType == typeof( DateTime )
                      && prop.GetCustomAttribute<JsonConverterAttribute>() != null );
